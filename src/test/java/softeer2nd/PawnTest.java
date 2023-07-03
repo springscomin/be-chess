@@ -9,26 +9,31 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Pawn 테스트")
 public class PawnTest {
+
     @Test
     @DisplayName("흰색 폰 생성 테스트")
     void createWhitePawnTest() {
-        Pawn pawn = new Pawn("white");
-        assertThat(pawn.getColor()).isEqualTo("white");
+        verifyPawn(Pawn.WHITE);
     }
 
     @Test
     @DisplayName("검은색 폰 생성 테스트")
     void createBlackPawnTest() {
-        Pawn pawn = new Pawn("black");
-        assertThat(pawn.getColor()).isEqualTo("black");
+        verifyPawn(Pawn.BLACK);
     }
 
     @Test
-    @DisplayName("폰 생성 실패 - 검은색 또는 흰색이 아닌 다른 색이 입력된 경우")
+    @DisplayName("검은색 또는 흰색이 아닌 다른 색이 입력된 경우 폰 생성 실패")
     void createPawnTestFail() {
         String color = "red";
 
         assertThatThrownBy(() -> new Pawn(color))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Pawn.COLOR_ERROR_MESSAGE);
+    }
+
+    private static void verifyPawn(final String color) {
+        Pawn pawn = new Pawn(color);
+        assertThat(pawn.getColor()).isEqualTo(color);
     }
 }
