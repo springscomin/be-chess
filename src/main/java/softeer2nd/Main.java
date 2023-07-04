@@ -1,7 +1,9 @@
 package softeer2nd;
 
+import softeer2nd.chess.ChessApp;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        new ChessApp().run();
     }
 }
