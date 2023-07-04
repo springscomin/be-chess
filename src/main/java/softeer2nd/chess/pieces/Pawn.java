@@ -1,10 +1,14 @@
-package softeer2nd;
+package softeer2nd.chess.pieces;
 
 public class Pawn {
     public static final String WHITE = "white";
     public static final String BLACK = "black";
     public static final String COLOR_ERROR_MESSAGE = "검은색 또는 흰색만 입력할 수 있습니다";
     private final String color;
+
+    public Pawn() {
+        this.color = WHITE;
+    }
 
     public Pawn(final String color) {
         validateColor(color);
