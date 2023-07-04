@@ -1,6 +1,9 @@
-package softeer2nd;
+package softeer2nd.chess;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.Board;
+import softeer2nd.chess.pieces.Pawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,5 +21,5 @@ public class BoardTest {
         board.add(black);
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
-    }
+    }i
 }
