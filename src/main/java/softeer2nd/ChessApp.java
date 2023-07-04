@@ -1,4 +1,6 @@
-package softeer2nd.chess;
+package softeer2nd;
+
+import softeer2nd.chess.ChessController;
 
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class ChessApp {
 
         while (true) {
             String input = getConsoleInput();
-            if (START.equals(input) && isStarted) printConsoleOutput("이미 시작했습니다.");
+            if (START.equals(input) && isStarted) printConsoleOutput("이미 시작 되었습니다.");
             else if (START.equals(input)) initSetting();
             else if (END.equals(input)) exitSystem();
             else printConsoleOutput("???");
