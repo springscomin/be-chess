@@ -11,6 +11,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class PawnTest {
 
     @Test
+    @DisplayName("폰 기본 생성자 테스트")
+    void createDefaultTest() {
+        Pawn pawn = new Pawn();
+        assertThat(pawn.getColor()).isEqualTo(Pawn.WHITE);
+    }
+
+    @Test
     @DisplayName("흰색 폰 생성 테스트")
     void createWhitePawnTest() {
         verifyPawn(Pawn.WHITE);
