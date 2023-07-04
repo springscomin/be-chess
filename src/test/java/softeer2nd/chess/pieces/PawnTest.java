@@ -14,18 +14,19 @@ public class PawnTest {
     void createDefaultTest() {
         Pawn pawn = new Pawn();
         assertThat(pawn.getColor()).isEqualTo(Pawn.WHITE);
+        assertThat(pawn.getRepresentation()).isEqualTo(Pawn.WHITE_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흰색 폰 생성 테스트")
     void createWhitePawnTest() {
-        verifyPawn(Pawn.WHITE);
+        verifyPawn(Pawn.WHITE, Pawn.WHITE_REPRESENTATION);
     }
 
     @Test
     @DisplayName("검은색 폰 생성 테스트")
     void createBlackPawnTest() {
-        verifyPawn(Pawn.BLACK);
+        verifyPawn(Pawn.BLACK, Pawn.BLACK_REPRESENTATION);
     }
 
     @Test
@@ -33,13 +34,14 @@ public class PawnTest {
     void createPawnTestFail() {
         String color = "red";
 
-        assertThatThrownBy(() -> new Pawn(color))
+        assertThatThrownBy(() -> new Pawn(color, '?'))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Pawn.COLOR_ERROR_MESSAGE);
     }
 
-    private static void verifyPawn(final String color) {
-        Pawn pawn = new Pawn(color);
+    private static void verifyPawn(final String color, final char representation) {
+        Pawn pawn = new Pawn(color, representation);
         assertThat(pawn.getColor()).isEqualTo(color);
+        assertThat(pawn.getRepresentation()).isEqualTo(representation);
     }
 }
