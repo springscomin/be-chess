@@ -21,5 +21,5 @@ public class BoardTest {
         board.add(black);
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
-    }i
+    }
 }
