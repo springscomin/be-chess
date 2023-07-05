@@ -34,7 +34,18 @@ public class Board {
         return makeLineRepresentation(blackPawns);
     }
 
-    public String print() {
+    public int pieceCount() {
+        int pieceCount = 0;
+        for (List<Piece> pieces : boards) {
+            for (Piece piece : pieces) {
+                if (Objects.isNull(piece)) {
+                    pieceCount++;
+                }
+            }
+        }
+        return pieceCount;
+    }
+
     public String showBoard() {
         StringBuilder stringBuilder = new StringBuilder();
 
