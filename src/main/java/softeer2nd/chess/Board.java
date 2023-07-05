@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static softeer2nd.utils.StringUtils.NEWLINE;
+
 public class Board {
-    public static final char LINE_BREAK = '\n';
     public static final char EMPTY_REPRESENTATION = '.';
 
     public static final int BLACK_PAWN_INIT_LINE = 1;
@@ -38,7 +39,7 @@ public class Board {
 
         for (List<Pawn> line : boards) {
             String lineRepresentation = makeLineRepresentation(line);
-            stringBuilder.append(lineRepresentation).append(LINE_BREAK);
+            stringBuilder.append(lineRepresentation).append(NEWLINE);
         }
 
         return stringBuilder.toString();
