@@ -1,5 +1,6 @@
 package softeer2nd.chess.pieces;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,4 +35,22 @@ public class PieceTest {
         assertEquals(representation, piece.getRepresentation());
     }
 
+    @Test
+    @DisplayName("흰색 기물의 색상 테스트")
+    void isWhiteTest() {
+        Piece whitePawn = Piece.createWhitePawn();
+
+        Assertions.assertTrue(whitePawn.isWhite());
+        Assertions.assertFalse(whitePawn.isBlack());
+    }
+
+
+    @Test
+    @DisplayName("검은색 기물의 색상 테스트")
+    void isBlackTest() {
+        Piece blackPawn = Piece.createWhitePawn();
+
+        Assertions.assertTrue(whitePawn.isBlack());
+        Assertions.assertFalse(blackPawn.isTrue());
+    }
 }
