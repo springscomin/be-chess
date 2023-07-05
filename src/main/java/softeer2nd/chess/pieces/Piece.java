@@ -43,50 +43,58 @@ public class Piece {
     }
 
     public static Piece createWhitePawn() {
-        return new Piece(WHITE, PAWN);
+        return createWhitePiece(PAWN);
     }
 
     public static Piece createBlackPawn() {
-        return new Piece(BLACK, PAWN);
+        return createBlackPiece(PAWN);
     }
 
     public static Piece createWhiteKnight() {
-        return new Piece(WHITE, KNIGHT);
+        return createWhitePiece(KNIGHT);
     }
 
     public static Piece createBlackKnight() {
-        return new Piece(BLACK, KNIGHT);
+        return createBlackPiece(KNIGHT);
     }
 
     public static Piece createWhiteRook() {
-        return new Piece(WHITE, ROOK);
+        return createWhitePiece(ROOK);
     }
 
     public static Piece createBlackRook() {
-        return new Piece(BLACK, ROOK);
+        return createBlackPiece(ROOK);
     }
 
     public static Piece createWhiteBishop() {
-        return new Piece(WHITE, BISHOP);
+        return createWhitePiece(BISHOP);
     }
 
     public static Piece createBlackBishop() {
-        return new Piece(BLACK, BISHOP);
+        return createBlackPiece(BISHOP);
     }
 
     public static Piece createWhiteQueen() {
-        return new Piece(WHITE, QUEEN);
+        return createWhitePiece(QUEEN);
     }
 
     public static Piece createBlackQueen() {
-        return new Piece(BLACK, QUEEN);
+        return createBlackPiece(QUEEN);
     }
 
     public static Piece createWhiteKing() {
-        return new Piece(WHITE, KING);
+        return createWhitePiece(KING);
     }
 
     public static Piece createBlackKing() {
-        return new Piece(BLACK, KING);
+        return createBlackPiece(KING);
+    }
+
+    private static Piece createWhitePiece(PieceType pieceType) {
+        return new Piece(WHITE, pieceType);
+    }
+
+    private static Piece createBlackPiece(PieceType pieceType) {
+        return new Piece(BLACK, pieceType);
     }
 }
