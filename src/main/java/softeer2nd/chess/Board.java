@@ -32,9 +32,8 @@ public class Board {
         int pieceCount = 0;
         for (List<Piece> pieces : boards) {
             for (Piece piece : pieces) {
-                if (piece != null) {
-                    pieceCount++;
-                }
+                if (piece.isBlank()) continue;
+                pieceCount++;
             }
         }
         return pieceCount;
@@ -70,9 +69,12 @@ public class Board {
     private void initializeEmptyBoard() {
         boards = new ArrayList<>();
         for (int row = 0; row < BOARD_LENGTH; row++) {
-            ArrayList<Piece> pawns = new ArrayList<>();
-            for (int col = 0; col < BOARD_LENGTH; col++) pawns.add(null);
-            boards.add(pawns);
+            ArrayList<Piece> blankPieces = new ArrayList<>();
+            for (int col = 0; col < BOARD_LENGTH; col++) {
+                Piece blankPiece = Piece.createBlank();
+                blankPieces.add(blankPiece);
+            }
+            boards.add(blankPieces);
         }
     }
 
