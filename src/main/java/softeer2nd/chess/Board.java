@@ -11,8 +11,10 @@ import static softeer2nd.utils.StringUtils.NEWLINE;
 public class Board {
     public static final char EMPTY_REPRESENTATION = '.';
 
+    public static final int BLACK_OFFICER_PIECES_INIT_LINE = 0;
     public static final int BLACK_PAWN_INIT_LINE = 1;
     public static final int WHITE_PAWN_INIT_LINE = 6;
+    public static final int WHITE_OFFICER_PIECES_INIT_LINE = 7;
 
     public static final int BOARD_LENGTH = 8;
 
@@ -21,17 +23,9 @@ public class Board {
     public void initialize() {
         initializeEmptyBoard();
         addWhitePawns();
+        addWhiteOfficerPieces();
         addBlackPawns();
-    }
-
-    public String getWhitePawnsResult() {
-        List<Piece> whitePawns = boards.get(WHITE_PAWN_INIT_LINE);
-        return makeLineRepresentation(whitePawns);
-    }
-
-    public String getBlackPawnsResult() {
-        List<Piece> blackPawns = boards.get(BLACK_PAWN_INIT_LINE);
-        return makeLineRepresentation(blackPawns);
+        addBlackOfficerPieces();
     }
 
     public int pieceCount() {
@@ -90,5 +84,29 @@ public class Board {
     private void addBlackPawns() {
         List<Piece> blackPawns = boards.get(BLACK_PAWN_INIT_LINE);
         blackPawns.replaceAll(piece -> Piece.createBlackPawn());
+    }
+
+    private void addWhiteOfficerPieces() {
+        List<Piece> pieces = boards.get(WHITE_OFFICER_PIECES_INIT_LINE);
+        pieces.set(0, Piece.createWhiteRook());
+        pieces.set(1, Piece.createWhiteKnight());
+        pieces.set(2, Piece.createWhiteBishop());
+        pieces.set(3, Piece.createWhiteQueen());
+        pieces.set(4, Piece.createWhiteKing());
+        pieces.set(5, Piece.createWhiteBishop());
+        pieces.set(6, Piece.createWhiteKnight());
+        pieces.set(7, Piece.createWhiteRook());
+    }
+
+    private void addBlackOfficerPieces() {
+        List<Piece> pieces = boards.get(BLACK_OFFICER_PIECES_INIT_LINE);
+        pieces.set(0, Piece.createBlackRook());
+        pieces.set(1, Piece.createBlackKnight());
+        pieces.set(2, Piece.createBlackBishop());
+        pieces.set(3, Piece.createBlackQueen());
+        pieces.set(4, Piece.createBlackKing());
+        pieces.set(5, Piece.createBlackBishop());
+        pieces.set(6, Piece.createBlackKnight());
+        pieces.set(7, Piece.createBlackRook());
     }
 }
