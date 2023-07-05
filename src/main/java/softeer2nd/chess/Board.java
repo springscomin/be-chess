@@ -38,7 +38,7 @@ public class Board {
         int pieceCount = 0;
         for (List<Piece> pieces : boards) {
             for (Piece piece : pieces) {
-                if (Objects.isNull(piece)) {
+                if (piece != null) {
                     pieceCount++;
                 }
             }
