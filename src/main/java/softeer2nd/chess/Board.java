@@ -20,8 +20,8 @@ public class Board {
 
     public void initialize() {
         initializeEmptyBoard();
-        addWhitePawn();
-        addBlackPawn();
+        addWhitePawns();
+        addBlackPawns();
     }
 
     public String getWhitePawnsResult() {
@@ -35,6 +35,7 @@ public class Board {
     }
 
     public String print() {
+    public String showBoard() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (List<Piece> line : boards) {
@@ -70,12 +71,12 @@ public class Board {
         }
     }
 
-    private void addWhitePawn() {
+    private void addWhitePawns() {
         List<Piece> whitePawns = boards.get(WHITE_PAWN_INIT_LINE);
         whitePawns.replaceAll(piece -> Piece.createWhitePawn());
     }
 
-    private void addBlackPawn() {
+    private void addBlackPawns() {
         List<Piece> blackPawns = boards.get(BLACK_PAWN_INIT_LINE);
         blackPawns.replaceAll(piece -> Piece.createBlackPawn());
     }

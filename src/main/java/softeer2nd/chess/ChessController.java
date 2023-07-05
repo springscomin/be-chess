@@ -8,6 +8,6 @@ public class ChessController {
     }
 
     public String getBoard() {
-        return board.print();
+        return board.showBoard();
     }
 }
