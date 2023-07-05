@@ -11,26 +11,26 @@ public class PieceTest {
 
     @Test
     public void create_piece() {
-        verifyPiece(Piece.createWhitePawn(), Piece.WHITE, Piece.WHITE_PAWN_REPRESENTATION);
-        verifyPiece(Piece.createBlackPawn(), Piece.BLACK, Piece.BLACK_PAWN_REPRESENTATION);
+        verifyPiece(Piece.createWhitePawn(), PieceColor.WHITE, Piece.WHITE_PAWN_REPRESENTATION);
+        verifyPiece(Piece.createBlackPawn(), PieceColor.BLACK, Piece.BLACK_PAWN_REPRESENTATION);
 
-        verifyPiece(Piece.createWhiteKnight(), Piece.WHITE, Piece.WHITE_KNIGHT_REPRESENTATION);
-        verifyPiece(Piece.createBlackKnight(), Piece.BLACK, Piece.BLACK_KNIGHT_REPRESENTATION);
+        verifyPiece(Piece.createWhiteKnight(), PieceColor.WHITE, Piece.WHITE_KNIGHT_REPRESENTATION);
+        verifyPiece(Piece.createBlackKnight(), PieceColor.BLACK, Piece.BLACK_KNIGHT_REPRESENTATION);
 
-        verifyPiece(Piece.createWhiteRook(), Piece.WHITE, Piece.WHITE_ROOK_REPRESENTATION);
-        verifyPiece(Piece.createBlackRook(), Piece.BLACK, Piece.BLACK_ROOK_REPRESENTATION);
+        verifyPiece(Piece.createWhiteRook(), PieceColor.WHITE, Piece.WHITE_ROOK_REPRESENTATION);
+        verifyPiece(Piece.createBlackRook(), PieceColor.BLACK, Piece.BLACK_ROOK_REPRESENTATION);
 
-        verifyPiece(Piece.createWhiteBishop(), Piece.WHITE, Piece.WHITE_BISHOP_REPRESENTATION);
-        verifyPiece(Piece.createBlackBishop(), Piece.BLACK, Piece.BLACK_BISHOP_REPRESENTATION);
+        verifyPiece(Piece.createWhiteBishop(), PieceColor.WHITE, Piece.WHITE_BISHOP_REPRESENTATION);
+        verifyPiece(Piece.createBlackBishop(), PieceColor.BLACK, Piece.BLACK_BISHOP_REPRESENTATION);
 
-        verifyPiece(Piece.createWhiteQueen(), Piece.WHITE, Piece.WHITE_QUEEN_REPRESENTATION);
-        verifyPiece(Piece.createBlackQueen(), Piece.BLACK, Piece.BLACK_QUEEN_REPRESENTATION);
+        verifyPiece(Piece.createWhiteQueen(), PieceColor.WHITE, Piece.WHITE_QUEEN_REPRESENTATION);
+        verifyPiece(Piece.createBlackQueen(), PieceColor.BLACK, Piece.BLACK_QUEEN_REPRESENTATION);
 
-        verifyPiece(Piece.createWhiteKing(), Piece.WHITE, Piece.WHITE_KING_REPRESENTATION);
-        verifyPiece(Piece.createBlackKing(), Piece.BLACK, Piece.BLACK_KING_REPRESENTATION);
+        verifyPiece(Piece.createWhiteKing(), PieceColor.WHITE, Piece.WHITE_KING_REPRESENTATION);
+        verifyPiece(Piece.createBlackKing(), PieceColor.BLACK, Piece.BLACK_KING_REPRESENTATION);
     }
 
-    private void verifyPiece(final Piece piece, final String color, final char representation) {
+    private void verifyPiece(final Piece piece, final PieceColor color, final char representation) {
         assertEquals(color, piece.getColor());
         assertEquals(representation, piece.getRepresentation());
     }

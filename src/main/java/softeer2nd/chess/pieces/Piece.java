@@ -1,8 +1,9 @@
 package softeer2nd.chess.pieces;
 
+import static softeer2nd.chess.pieces.PieceColor.BLACK;
+import static softeer2nd.chess.pieces.PieceColor.WHITE;
+
 public class Piece {
-    public static final String WHITE = "white";
-    public static final String BLACK = "black";
     public static final String COLOR_ERROR_MESSAGE = "검은색 또는 흰색만 입력할 수 있습니다";
 
     public static final char WHITE_PAWN_REPRESENTATION = 'p';
@@ -19,12 +20,11 @@ public class Piece {
     public static final char BLACK_QUEEN_REPRESENTATION = 'Q';
     public static final char BLACK_KING_REPRESENTATION = 'K';
 
-    private final String color;
+    private final PieceColor color;
     private final PieceType name;
     private final char representation;
 
-    private Piece(String color, PieceType name, char representation) {
-        validateColor(color);
+    private Piece(PieceColor color, PieceType name, char representation) {
         this.color = color;
         this.name = name;
         this.representation = representation;
@@ -34,7 +34,7 @@ public class Piece {
         return name;
     }
 
-    public String getColor() {
+    public PieceColor getColor() {
         return color;
     }
 
@@ -42,18 +42,13 @@ public class Piece {
         return representation;
     }
 
-    private void validateColor(String color) {
-        if (color.equals(WHITE) || color.equals(BLACK)) return;
-        throw new IllegalArgumentException(COLOR_ERROR_MESSAGE);
-    }
-
 
     public boolean isWhite() {
-        return WHITE.equals(color);
+        return color.equals(WHITE);
     }
 
     public boolean isBlack() {
-        return BLACK.equals(color);
+        return color.equals(BLACK);
     }
 
     public static Piece createWhitePawn() {
