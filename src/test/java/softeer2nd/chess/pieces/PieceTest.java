@@ -48,9 +48,9 @@ public class PieceTest {
     @Test
     @DisplayName("검은색 기물의 색상 테스트")
     void isBlackTest() {
-        Piece blackPawn = Piece.createWhitePawn();
+        Piece blackPawn = Piece.createBlackPawn();
 
-        Assertions.assertTrue(whitePawn.isBlack());
-        Assertions.assertFalse(blackPawn.isTrue());
+        Assertions.assertTrue(blackPawn.isBlack());
+        Assertions.assertFalse(blackPawn.isWhite());
     }
 }
