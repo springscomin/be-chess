@@ -47,6 +47,15 @@ public class Piece {
         throw new IllegalArgumentException(COLOR_ERROR_MESSAGE);
     }
 
+
+    public boolean isWhite() {
+        return WHITE.equals(color);
+    }
+
+    public boolean isBlack() {
+        return BLACK.equals(color);
+    }
+
     public static Piece createWhitePawn() {
         return new Piece(WHITE, PieceType.PAWN, Piece.WHITE_PAWN_REPRESENTATION);
     }
