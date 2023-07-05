@@ -72,11 +72,11 @@ public class Board {
 
     private void addWhitePawn() {
         List<Piece> whitePawns = boards.get(WHITE_PAWN_INIT_LINE);
-        whitePawns.replaceAll(piece -> new Piece(Piece.WHITE, Piece.WHITE_REPRESENTATION));
+        whitePawns.replaceAll(piece -> Piece.createWhitePawn());
     }
 
     private void addBlackPawn() {
         List<Piece> blackPawns = boards.get(BLACK_PAWN_INIT_LINE);
-        blackPawns.replaceAll(piece -> new Piece(Piece.BLACK, Piece.BLACK_REPRESENTATION));
+        blackPawns.replaceAll(piece -> Piece.createBlackPawn());
     }
 }
