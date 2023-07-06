@@ -50,7 +50,7 @@ public class Board {
     public void initializeEmptyBoard() {
         boards = new ArrayList<>();
         for (int row = 0; row < BOARD_LENGTH; row++) {
-            Rank emptyRank = Rank.createEmptyRank();
+            Rank emptyRank = Rank.createBlankRank();
             boards.add(emptyRank);
         }
     }

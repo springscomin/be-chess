@@ -8,7 +8,7 @@ import java.util.List;
 public class Rank {
     private final List<Piece> pieces;
 
-    public Rank(List<Piece> pieces) {
+    private Rank(List<Piece> pieces) {
         this.pieces = pieces;
     }
 
@@ -58,7 +58,7 @@ public class Rank {
         return stringBuilder.toString();
     }
 
-    public static Rank createEmptyRank() {
+    public static Rank createBlankRank() {
         List<Piece> blankPieces = new ArrayList<>();
         for (int num = 0; num < Board.BOARD_LENGTH; num++) {
             blankPieces.add(Piece.createBlank());
