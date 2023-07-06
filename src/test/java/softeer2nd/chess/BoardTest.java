@@ -4,14 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
-import softeer2nd.chess.pieces.PieceColor;
-import softeer2nd.chess.pieces.PieceType;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static softeer2nd.chess.pieces.PieceType.*;
+import static softeer2nd.chess.pieces.Piece.Type.*;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
 public class BoardTest {
@@ -42,8 +39,8 @@ public class BoardTest {
     public void countPieceByColorAndTypeTest() {
         board.initialize();
 
-        int numOfBlackPawn = board.countPieceByColorAndType(PieceColor.BLACK, PieceType.PAWN);
-        int numOfWhiteKing = board.countPieceByColorAndType(PieceColor.WHITE, PieceType.KING);
+        int numOfBlackPawn = board.countPieceByColorAndType(Piece.Color.BLACK, Piece.Type.PAWN);
+        int numOfWhiteKing = board.countPieceByColorAndType(Piece.Color.WHITE, Piece.Type.KING);
 
         assertEquals(8, numOfBlackPawn);
         assertEquals(1, numOfWhiteKing);
@@ -87,8 +84,8 @@ public class BoardTest {
         board.addNewPiece(Piece.createWhiteRook(), "e1");
         board.addNewPiece(Piece.createWhiteKing(), "f1");
 
-        assertEquals(15.0, board.calculatePoint(PieceColor.BLACK), 0.01);
-        assertEquals(7.0, board.calculatePoint(PieceColor.WHITE), 0.01);
+        assertEquals(15.0, board.calculatePoint(Piece.Color.BLACK), 0.01);
+        assertEquals(7.0, board.calculatePoint(Piece.Color.WHITE), 0.01);
 
         System.out.println(board.showBoard());
     }
@@ -102,8 +99,8 @@ public class BoardTest {
         board.addNewPiece(Piece.createBlackQueen(), "e6");
         board.addNewPiece(Piece.createBlackRook(), "c8");
 
-        List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(PieceColor.BLACK);
-        List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(PieceColor.BLACK);
+        List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(Piece.Color.BLACK);
+        List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(Piece.Color.BLACK);
 
         assertEquals(PAWN.getDefaultPoint(), ascendingBlackPieces.get(0).getDefaultPoint(), 0.01);
         assertEquals(QUEEN.getDefaultPoint(), descendingBlackPieces.get(0).getDefaultPoint(), 0.01);

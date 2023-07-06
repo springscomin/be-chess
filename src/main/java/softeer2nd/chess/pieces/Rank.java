@@ -20,7 +20,7 @@ public class Rank {
         return pieces.get(index);
     }
 
-    public List<Piece> findByColor(PieceColor color) {
+    public List<Piece> findByColor(Piece.Color color) {
         List<Piece> findPieces = new ArrayList<>();
         for (Piece piece : pieces) {
             if (piece.matchesColor(color)) {
@@ -39,7 +39,7 @@ public class Rank {
         return pieceCount;
     }
 
-    public int countPieceByColorAndType(PieceColor color, PieceType type) {
+    public int countPieceByColorAndType(Piece.Color color, Piece.Type type) {
         int count = 0;
         for (Piece piece : pieces) {
             if (piece.matchesColorAndType(color, type)) {

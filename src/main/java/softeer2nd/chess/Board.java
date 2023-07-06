@@ -1,8 +1,6 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.pieces.Piece;
-import softeer2nd.chess.pieces.PieceColor;
-import softeer2nd.chess.pieces.PieceType;
 import softeer2nd.chess.pieces.Rank;
 import softeer2nd.utils.CoordinateConverter;
 
@@ -75,7 +73,7 @@ public class Board {
         boards.set(BLACK_OFFICER_PIECES_INIT_RANK, blackOfficers);
     }
 
-    public int countPieceByColorAndType(PieceColor color, PieceType type) {
+    public int countPieceByColorAndType(Piece.Color color, Piece.Type type) {
         int count = 0;
         for (Rank rank : boards) {
             count += rank.countPieceByColorAndType(color, type);
@@ -105,7 +103,7 @@ public class Board {
         rank.update(fileIndex, piece);
     }
 
-    public double calculatePoint(PieceColor color) {
+    public double calculatePoint(Piece.Color color) {
         double point = 0;
         for (int col = 0; col < BOARD_LENGTH; col++) {
             point += calculateVerticalPoint(col, color);
@@ -113,7 +111,7 @@ public class Board {
         return point;
     }
 
-    private double calculateVerticalPoint(int fileIndex, PieceColor color) {
+    private double calculateVerticalPoint(int fileIndex, Piece.Color color) {
         double point = 0;
         int numOfPawn = 0;
         for (Rank rank : boards) {
@@ -130,22 +128,22 @@ public class Board {
         return point;
     }
 
-    public List<Piece> getSortedAscendingPieces(PieceColor pieceColor) {
-        List<Piece> sortedPieces = findPiecesByColor(pieceColor);
+    public List<Piece> getSortedAscendingPieces(Piece.Color color) {
+        List<Piece> sortedPieces = findPiecesByColor(color);
         sortedPieces.sort((piece1, piece2) -> (int) (piece1.getDefaultPoint() - piece2.getDefaultPoint()));
         return sortedPieces;
     }
 
-    public List<Piece> getSortedDescendingPieces(PieceColor pieceColor) {
-        List<Piece> sortedPieces = findPiecesByColor(pieceColor);
+    public List<Piece> getSortedDescendingPieces(Piece.Color color) {
+        List<Piece> sortedPieces = findPiecesByColor(color);
         sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
         return sortedPieces;
     }
 
-    private List<Piece> findPiecesByColor(PieceColor pieceColor) {
+    private List<Piece> findPiecesByColor(Piece.Color color) {
         List<Piece> findPieces = new ArrayList<>();
         for (Rank rank : boards) {
-            findPieces.addAll(rank.findByColor(pieceColor));
+            findPieces.addAll(rank.findByColor(color));
         }
         return findPieces;
     }

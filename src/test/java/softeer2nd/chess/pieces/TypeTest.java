@@ -4,15 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PieceTypeTest {
+public class TypeTest {
     @Test
     public void getRepresentationPerPiece() throws Exception {
-        assertEquals('p', PieceType.PAWN.getWhiteRepresentation());
-        assertEquals('P', PieceType.PAWN.getBlackRepresentation());
+        assertEquals('p', Piece.Type.PAWN.getWhiteRepresentation());
+        assertEquals('P', Piece.Type.PAWN.getBlackRepresentation());
     }
 
     @Test
     public void getBlankRepresentationTest() {
-        assertEquals('.', PieceType.NO_PIECE.getDefaultRepresentation());
+        assertEquals('.', Piece.Type.NO_PIECE.getDefaultRepresentation());
     }
 }
