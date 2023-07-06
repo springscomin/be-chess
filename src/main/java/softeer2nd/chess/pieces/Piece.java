@@ -23,6 +23,14 @@ public class Piece {
         return false;
     }
 
+    public boolean matchesColor(PieceColor pieceColor) {
+        return color.equals(pieceColor);
+    }
+
+    public double getDefaultPoint() {
+        return type.getDefaultPoint();
+    }
+
     public char getRepresentation() {
         if (isBlank()) {
             return type.getDefaultRepresentation();
@@ -31,6 +39,10 @@ public class Piece {
             return type.getWhiteRepresentation();
         }
         return type.getBlackRepresentation();
+    }
+
+    public boolean isPawn() {
+        return type.equals(PAWN);
     }
 
     public boolean isBlank() {
