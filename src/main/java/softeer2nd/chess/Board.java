@@ -115,13 +115,22 @@ public class Board {
         double point = 0;
         int numOfPawn = 0;
         for (Rank rank : boards) {
-            Piece piece = rank.findByIndex(fileIndex);
-            if (!piece.matchesColor(color)) continue;
-            if (piece.isPawn()) {
+            point += rank.getPiecePointAtIndex(fileIndex, color);
+            if (rank.isPiecePawn(fileIndex, color)) {
                 numOfPawn++;
             }
-            point += piece.getDefaultPoint();
         }
+        return point - calPenaltyPoint(numOfPawn);
+    }
+
+    private double calPenaltyPoint(int numOfPawn) {
+        if (numOfPawn >= 2) {
+            return numOfPawn * 0.5;
+        }
+        return 0;
+    }
+
+    private static double getPoint(double point, int numOfPawn) {
         if (numOfPawn >= 2) {
             point -= numOfPawn * 0.5;
         }

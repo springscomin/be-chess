@@ -107,4 +107,20 @@ public class Rank {
         blackOfficers.add(Piece.createBlackRook());
         return new Rank(blackOfficers);
     }
+
+    public double getPiecePointAtIndex(int fileIndex, Piece.Color color) {
+        Piece piece = pieces.get(fileIndex);
+        if (piece.matchesColor(color)) {
+            return piece.getDefaultPoint();
+        }
+        return 0;
+    }
+
+    public boolean isPiecePawn(int fileIndex, Piece.Color color) {
+        Piece piece = pieces.get(fileIndex);
+        if (!piece.matchesColor(color)) {
+            return false;
+        }
+        return piece.isPawn();
+    }
 }
