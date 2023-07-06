@@ -69,7 +69,7 @@ public class Board {
         return representation;
     }
 
-    private void initializeEmptyBoard() {
+    public void initializeEmptyBoard() {
         boards = new ArrayList<>();
         for (int row = 0; row < BOARD_LENGTH; row++) {
             ArrayList<Piece> blankPieces = new ArrayList<>();
@@ -137,5 +137,14 @@ public class Board {
 
     private Piece findPieceByIndex(int row, int col) {
         return boards.get(row).get(col);
+    }
+
+    public void addNewPiece(Piece piece, String coord) {
+        List<Integer> index = CoordinateConverter.convertChessNotationToIndex(coord);
+        int row = index.get(0);
+        int col = index.get(1);
+
+        List<Piece> rank = boards.get(row);
+        rank.set(col, piece);
     }
 }
