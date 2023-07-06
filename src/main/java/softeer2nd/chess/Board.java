@@ -150,17 +150,32 @@ public class Board {
 
     public double calculatePoint(PieceColor color) {
         double point = 0;
+        for (int col = 0; col < BOARD_LENGTH; col++) {
+            point += calculateVerticalPoint(col, color);
+        }
+        return point;
+    }
+
+    private double calculateVerticalPoint(int col, PieceColor color) {
+        double point = 0;
+        int numOfPawn = 0;
+
         for (List<Piece> rank : boards) {
-            int numOfPawns = 0;
-            for (Piece piece : rank) {
-                if (piece.matchesColor(color)) {
-                    point += piece.getDefaultPoint();
-                    if (piece.isPawn()) numOfPawns++;
-                }
+            Piece piece = rank.get(col);
+
+            if (!piece.matchesColor(color)) {
+                continue;
             }
-            if (numOfPawns > 1) {
-                point -= numOfPawns * 0.5;
+
+            point += piece.getDefaultPoint();
+
+            if (piece.isPawn()) {
+                numOfPawn++;
             }
+        }
+
+        if (numOfPawn > 1) {
+            point -= numOfPawn * 0.5;
         }
         return point;
     }
