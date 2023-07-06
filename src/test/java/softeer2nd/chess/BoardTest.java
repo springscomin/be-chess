@@ -7,7 +7,11 @@ import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.PieceColor;
 import softeer2nd.chess.pieces.PieceType;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static softeer2nd.chess.pieces.PieceType.*;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
 public class BoardTest {
@@ -87,5 +91,21 @@ public class BoardTest {
         assertEquals(7.0, board.calculatePoint(PieceColor.WHITE), 0.01);
 
         System.out.println(board.showBoard());
+    }
+
+    @DisplayName("검은색 기물들을 제대로 정렬하는지 확인")
+    @Test
+    public void getSortedPiecesTest() {
+        board.initializeEmptyBoard();
+
+        board.addNewPiece(Piece.createBlackPawn(), "b6");
+        board.addNewPiece(Piece.createBlackQueen(), "e6");
+        board.addNewPiece(Piece.createBlackRook(), "c8");
+
+        List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(PieceColor.BLACK);
+        List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(PieceColor.BLACK);
+
+        assertEquals(PAWN.getDefaultPoint(), ascendingBlackPieces.get(0).getDefaultPoint(), 0.01);
+        assertEquals(QUEEN.getDefaultPoint(), descendingBlackPieces.get(0).getDefaultPoint(), 0.01);
     }
 }
