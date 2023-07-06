@@ -147,4 +147,21 @@ public class Board {
         List<Piece> rank = boards.get(row);
         rank.set(col, piece);
     }
+
+    public double calculatePoint(PieceColor color) {
+        int point = 0;
+        for (List<Piece> rank : boards) {
+            int numOfPawns = 0;
+            for (Piece piece : rank) {
+                if (piece.matchesColor(color)) {
+                    point += piece.getDefaultPoint();
+                    if (piece.isPawn()) numOfPawns++;
+                }
+            }
+            if (numOfPawns > 1) {
+                point -= numOfPawns * 0.5;
+            }
+        }
+        return point;
+    }
 }
