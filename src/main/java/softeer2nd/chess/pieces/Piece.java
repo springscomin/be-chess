@@ -27,6 +27,14 @@ public class Piece {
         return Objects.hash(color, type);
     }
 
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "color=" + color +
+                ", type=" + type +
+                '}';
+    }
+
     public Color getColor() {
         return color;
     }
@@ -128,6 +136,7 @@ public class Piece {
     private static Piece createBlackPiece(Type type) {
         return new Piece(BLACK, type);
     }
+
 
     public enum Color {
         WHITE, BLACK, NO_COLOR;
