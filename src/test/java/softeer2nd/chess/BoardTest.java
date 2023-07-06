@@ -1,6 +1,5 @@
 package softeer2nd.chess;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +21,7 @@ public class BoardTest {
     @Test
     public void create() throws Exception {
         board.initialize();
+
         assertEquals(32, board.pieceCount());
         String blankRank = appendNewLine("........");
         assertEquals(
@@ -54,5 +54,18 @@ public class BoardTest {
         assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
         assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
         assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+    }
+
+    @DisplayName("임의의 위치에 기물 추가 기능 테스트")
+    @Test
+    public void addNewPieceTest() {
+        board.initializeEmptyBoard();
+
+        Piece blackKing = Piece.createBlackKing();
+        String coord = "d5";
+
+        board.addNewPiece(blackKing, coord);
+
+        assertEquals(blackKing, board.findPiece(coord));
     }
 }
