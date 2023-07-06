@@ -5,9 +5,7 @@ import softeer2nd.chess.pieces.PieceColor;
 import softeer2nd.chess.pieces.PieceType;
 import softeer2nd.utils.CoordinateConverter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static softeer2nd.utils.StringUtils.NEWLINE;
 
@@ -178,5 +176,29 @@ public class Board {
             point -= numOfPawn * 0.5;
         }
         return point;
+    }
+
+    public List<Piece> getSortedAscendingPieces(PieceColor pieceColor) {
+        List<Piece> sortedPieces = getPieces(pieceColor);
+        sortedPieces.sort((piece1, piece2) -> (int) (piece1.getDefaultPoint() - piece2.getDefaultPoint()));
+        return sortedPieces;
+    }
+
+    public List<Piece> getSortedDescendingPieces(PieceColor pieceColor) {
+        List<Piece> sortedPieces = getPieces(pieceColor);
+        sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
+        return sortedPieces;
+    }
+
+    private List<Piece> getPieces(PieceColor pieceColor) {
+        List<Piece> Pieces = new ArrayList<>();
+        for (List<Piece> rank : boards) {
+            for (Piece piece : rank) {
+                if (piece.matchesColor(pieceColor)) {
+                    Pieces.add(piece);
+                }
+            }
+        }
+        return Pieces;
     }
 }
