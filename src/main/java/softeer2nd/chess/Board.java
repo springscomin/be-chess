@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.PieceColor;
 import softeer2nd.chess.pieces.PieceType;
+import softeer2nd.utils.CoordinateConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,5 +125,17 @@ public class Board {
             }
         }
         return count;
+    }
+
+    public Piece findPiece(String coordinate) {
+        List<Integer> index = CoordinateConverter.convertChessNotationToIndex(coordinate);
+        int row = index.get(0);
+        int col = index.get(1);
+
+        return findPieceByIndex(row, col);
+    }
+
+    private Piece findPieceByIndex(int row, int col) {
+        return boards.get(row).get(col);
     }
 }
