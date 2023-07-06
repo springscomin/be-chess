@@ -1,7 +1,10 @@
 package softeer2nd.chess;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.pieces.PieceColor;
+import softeer2nd.chess.pieces.PieceType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.utils.StringUtils.appendNewLine;
@@ -26,5 +29,17 @@ public class BoardTest {
                         + appendNewLine("pppppppp")
                         + appendNewLine("rnbqkbnr"),
                 board.showBoard());
+    }
+
+    @DisplayName("특정 타입, 색상의 기물 개수 확인 테스트")
+    @Test
+    public void countPieceByColorAndTypeTest() {
+        board.initialize();
+
+        int numOfBlackPawn = board.countPieceByColorAndType(PieceColor.BLACK, PieceType.PAWN);
+        int numOfWhiteKing = board.countPieceByColorAndType(PieceColor.WHITE, PieceType.KING);
+
+        assertEquals(8, numOfBlackPawn);
+        assertEquals(1, numOfWhiteKing);
     }
 }
