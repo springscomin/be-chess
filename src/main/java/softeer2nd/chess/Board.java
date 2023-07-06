@@ -149,7 +149,7 @@ public class Board {
     }
 
     public double calculatePoint(PieceColor color) {
-        int point = 0;
+        double point = 0;
         for (List<Piece> rank : boards) {
             int numOfPawns = 0;
             for (Piece piece : rank) {
