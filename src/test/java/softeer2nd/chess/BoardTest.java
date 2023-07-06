@@ -3,14 +3,19 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import softeer2nd.chess.pieces.Piece;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static softeer2nd.chess.pieces.Piece.Type.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static softeer2nd.chess.pieces.Piece.Type.PAWN;
+import static softeer2nd.chess.pieces.Piece.Type.QUEEN;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
+@DisplayName("Board 테스트")
 public class BoardTest {
     private Board board;
 
@@ -19,6 +24,7 @@ public class BoardTest {
         board = new Board();
     }
 
+    @DisplayName("보드판 초기화(기물 배치) 테스트")
     @Test
     public void create() throws Exception {
         board.initialize();
@@ -34,27 +40,26 @@ public class BoardTest {
                 board.showBoard());
     }
 
-    @DisplayName("특정 타입, 색상의 기물 개수 확인 테스트")
-    @Test
-    public void countPieceByColorAndTypeTest() {
+    @DisplayName("특정 타입, 색상의 기물 개수 구하는 기능 테스트")
+    @ParameterizedTest(name = "{0},{1} 기물 -> 총 {2}개")
+    @CsvSource(value = {"BLACK,PAWN,8", "WHITE,KING,1", "BLACK,QUEEN,1", "WHITE,KNIGHT,2"})
+    public void countPieceByColorAndTypeTest(Piece.Color color, Piece.Type type, int count) {
         board.initialize();
 
-        int numOfBlackPawn = board.countPieceByColorAndType(Piece.Color.BLACK, Piece.Type.PAWN);
-        int numOfWhiteKing = board.countPieceByColorAndType(Piece.Color.WHITE, Piece.Type.KING);
+        int numOfPiece = board.countPieceByColorAndType(color, type);
 
-        assertEquals(8, numOfBlackPawn);
-        assertEquals(1, numOfWhiteKing);
+        assertEquals(count, numOfPiece);
     }
 
-    @DisplayName("특정 위치에 있는 기물 찾기 테스트")
-    @Test
-    public void findPieceTest() {
+    @DisplayName("특정 위치에 있는 기물 조회 기능 테스트")
+    @ParameterizedTest(name = "\"{0}\" => {1}, {2}")
+    @CsvSource(value = {"a8,BLACK,ROOK", "h8,BLACK,ROOK", "a1,WHITE,ROOK", "h1,WHITE,ROOK"})
+    public void findPieceTest(String coordinate, Piece.Color expectedColor, Piece.Type expectedType) {
         board.initialize();
 
-        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
-        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+        Piece piece = board.findPiece(coordinate);
+
+        assertTrue(piece.matchesColorAndType(expectedColor, expectedType));
     }
 
     @DisplayName("임의의 위치에 기물 추가 기능 테스트")
@@ -70,6 +75,7 @@ public class BoardTest {
         assertEquals(blackKing, board.findPiece(coord));
     }
 
+    @DisplayName("기물 점수 계산 기능 테스트")
     @Test
     public void calculatePoint() throws Exception {
         board.initializeEmptyBoard();
@@ -90,7 +96,7 @@ public class BoardTest {
         System.out.println(board.showBoard());
     }
 
-    @DisplayName("검은색 기물들을 제대로 정렬하는지 확인")
+    @DisplayName("기물 정렬 기능 테스트")
     @Test
     public void getSortedPiecesTest() {
         board.initializeEmptyBoard();
