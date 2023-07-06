@@ -88,25 +88,19 @@ public class Board {
     }
 
     public Piece findPiece(String coordinate) {
-        List<Integer> index = CoordinateConverter.convertChessNotationToIndex(coordinate);
-        int rank = index.get(0);
-        int file = index.get(1);
-
-        return findPieceByIndex(rank, file);
+        Position position = CoordinateConverter.convertNotationToPosition(coordinate);
+        return findPieceByPosition(position);
     }
 
-    private Piece findPieceByIndex(int rankIndex, int fileIndex) {
-        Rank rank = boards.get(rankIndex);
-        return rank.findByIndex(fileIndex);
+    private Piece findPieceByPosition(Position position) {
+        Rank rank = boards.get(position.getRankIndex());
+        return rank.findByIndex(position.getFileIndex());
     }
 
-    public void addNewPiece(Piece piece, String coord) {
-        List<Integer> index = CoordinateConverter.convertChessNotationToIndex(coord);
-        int rankIndex = index.get(0);
-        int fileIndex = index.get(1);
-
-        Rank rank = boards.get(rankIndex);
-        rank.update(fileIndex, piece);
+    public void addNewPiece(Piece piece, String coordinate) {
+        Position position = CoordinateConverter.convertNotationToPosition(coordinate);
+        Rank rank = boards.get(position.getRankIndex());
+        rank.update(position.getFileIndex(), piece);
     }
 
     public double calculatePoint(Color color) {
