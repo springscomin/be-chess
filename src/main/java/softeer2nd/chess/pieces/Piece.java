@@ -14,13 +14,25 @@ public class Piece {
         this.type = type;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color && type == piece.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
+    }
+
     public Color getColor() {
         return color;
     }
 
     public boolean matchesColorAndType(Color color, Type type) {
-        if (this.color.equals(color) && this.type.equals(type)) return true;
-        return false;
+        return this.color.equals(color) && this.type.equals(type);
     }
 
     public boolean matchesColor(Color color) {
@@ -55,19 +67,6 @@ public class Piece {
 
     public boolean isBlack() {
         return color.equals(BLACK);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Piece piece = (Piece) o;
-        return color == piece.color && type == piece.type;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(color, type);
     }
 
     public static Piece createBlank() {
