@@ -1,8 +1,10 @@
 package softeer2nd.chess;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.PieceColor;
 import softeer2nd.chess.pieces.PieceType;
 
@@ -41,5 +43,16 @@ public class BoardTest {
 
         assertEquals(8, numOfBlackPawn);
         assertEquals(1, numOfWhiteKing);
+    }
+
+    @DisplayName("특정 위치의 있는 기물 찾기 테스트")
+    @Test
+    public void findPieceTest() {
+        board.initialize();
+
+        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
 }
