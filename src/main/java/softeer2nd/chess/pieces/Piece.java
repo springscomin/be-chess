@@ -16,6 +16,11 @@ public class Piece {
         return color;
     }
 
+    public boolean matchesColorAndType(PieceColor pieceColor, PieceType pieceType) {
+        if (color.equals(pieceColor) && type.equals(pieceType)) return true;
+        return false;
+    }
+
     public char getRepresentation() {
         if (isBlank()) {
             return type.getDefaultRepresentation();

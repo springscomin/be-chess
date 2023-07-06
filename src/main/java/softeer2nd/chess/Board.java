@@ -1,6 +1,8 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.PieceColor;
+import softeer2nd.chess.pieces.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,5 +112,17 @@ public class Board {
         pieces.set(5, Piece.createBlackBishop());
         pieces.set(6, Piece.createBlackKnight());
         pieces.set(7, Piece.createBlackRook());
+    }
+
+    public int countPieceByColorAndType(PieceColor color, PieceType type) {
+        int count = 0;
+        for (List<Piece> rank : boards) {
+            for (Piece piece : rank) {
+                if (piece.matchesColorAndType(color, type)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
