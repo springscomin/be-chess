@@ -45,7 +45,7 @@ public class BoardTest {
         assertEquals(1, numOfWhiteKing);
     }
 
-    @DisplayName("특정 위치의 있는 기물 찾기 테스트")
+    @DisplayName("특정 위치에 있는 기물 찾기 테스트")
     @Test
     public void findPieceTest() {
         board.initialize();
@@ -67,5 +67,25 @@ public class BoardTest {
         board.addNewPiece(blackKing, coord);
 
         assertEquals(blackKing, board.findPiece(coord));
+    }
+
+    @Test
+    public void calculatePoint() throws Exception {
+        board.initializeEmptyBoard();
+
+        board.addNewPiece(Piece.createBlackPawn(), "b6");
+        board.addNewPiece(Piece.createBlackQueen(), "e6");
+        board.addNewPiece(Piece.createBlackKing(), "b8");
+        board.addNewPiece(Piece.createBlackRook(), "c8");
+
+        board.addNewPiece(Piece.createWhitePawn(), "f2");
+        board.addNewPiece(Piece.createWhitePawn(), "g2");
+        board.addNewPiece(Piece.createWhiteRook(), "e1");
+        board.addNewPiece(Piece.createWhiteKing(), "f1");
+
+        assertEquals(15.0, board.calculatePoint(PieceColor.BLACK), 0.01);
+        assertEquals(7.0, board.calculatePoint(PieceColor.WHITE), 0.01);
+
+        System.out.println(board.showBoard());
     }
 }
