@@ -1,47 +1,73 @@
 package softeer2nd.chess.pieces;
 
-import static softeer2nd.chess.pieces.PieceColor.BLACK;
-import static softeer2nd.chess.pieces.PieceColor.WHITE;
+import java.util.Objects;
+
+import static softeer2nd.chess.pieces.Piece.Color.*;
+import static softeer2nd.chess.pieces.Piece.Type.*;
 
 public class Piece {
-    public static final String COLOR_ERROR_MESSAGE = "검은색 또는 흰색만 입력할 수 있습니다";
+    private final Color color;
+    private final Type type;
 
-    public static final char WHITE_PAWN_REPRESENTATION = 'p';
-    public static final char WHITE_KNIGHT_REPRESENTATION = 'n';
-    public static final char WHITE_ROOK_REPRESENTATION = 'r';
-    public static final char WHITE_BISHOP_REPRESENTATION = 'b';
-    public static final char WHITE_QUEEN_REPRESENTATION = 'q';
-    public static final char WHITE_KING_REPRESENTATION = 'k';
-
-    public static final char BLACK_PAWN_REPRESENTATION = 'P';
-    public static final char BLACK_KNIGHT_REPRESENTATION = 'N';
-    public static final char BLACK_ROOK_REPRESENTATION = 'R';
-    public static final char BLACK_BISHOP_REPRESENTATION = 'B';
-    public static final char BLACK_QUEEN_REPRESENTATION = 'Q';
-    public static final char BLACK_KING_REPRESENTATION = 'K';
-
-    private final PieceColor color;
-    private final PieceType name;
-    private final char representation;
-
-    private Piece(PieceColor color, PieceType name, char representation) {
+    private Piece(Color color, Type type) {
         this.color = color;
-        this.name = name;
-        this.representation = representation;
+        this.type = type;
     }
 
-    public PieceType getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color && type == piece.type;
     }
 
-    public PieceColor getColor() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "color=" + color +
+                ", type=" + type +
+                '}';
+    }
+
+    public Color getColor() {
         return color;
     }
 
-    public char getRepresentation() {
-        return representation;
+    public boolean matchesColorAndType(Color color, Type type) {
+        return this.color.equals(color) && this.type.equals(type);
     }
 
+    public boolean matchesColor(Color color) {
+        return this.color.equals(color);
+    }
+
+    public double getDefaultPoint() {
+        return type.getDefaultPoint();
+    }
+
+    public char getRepresentation() {
+        if (isBlank()) {
+            return type.getDefaultRepresentation();
+        }
+        if (isWhite()) {
+            return type.getWhiteRepresentation();
+        }
+        return type.getBlackRepresentation();
+    }
+
+    public boolean isPawn() {
+        return type.equals(PAWN);
+    }
+
+    public boolean isBlank() {
+        return type.equals(NO_PIECE);
+    }
 
     public boolean isWhite() {
         return color.equals(WHITE);
@@ -51,52 +77,103 @@ public class Piece {
         return color.equals(BLACK);
     }
 
+    public static Piece createBlank() {
+        return new Piece(NO_COLOR, NO_PIECE);
+    }
+
     public static Piece createWhitePawn() {
-        return new Piece(WHITE, PieceType.PAWN, Piece.WHITE_PAWN_REPRESENTATION);
+        return createWhitePiece(PAWN);
     }
 
     public static Piece createBlackPawn() {
-        return new Piece(BLACK, PieceType.PAWN, Piece.BLACK_PAWN_REPRESENTATION);
+        return createBlackPiece(PAWN);
     }
 
     public static Piece createWhiteKnight() {
-        return new Piece(WHITE, PieceType.KNIGHT, WHITE_KNIGHT_REPRESENTATION);
+        return createWhitePiece(KNIGHT);
     }
 
-
     public static Piece createBlackKnight() {
-        return new Piece(BLACK, PieceType.KNIGHT, BLACK_KNIGHT_REPRESENTATION);
+        return createBlackPiece(KNIGHT);
     }
 
     public static Piece createWhiteRook() {
-        return new Piece(WHITE, PieceType.ROOK, WHITE_ROOK_REPRESENTATION);
+        return createWhitePiece(ROOK);
     }
 
     public static Piece createBlackRook() {
-        return new Piece(BLACK, PieceType.ROOK, BLACK_ROOK_REPRESENTATION);
+        return createBlackPiece(ROOK);
     }
 
     public static Piece createWhiteBishop() {
-        return new Piece(WHITE, PieceType.BISHOP, WHITE_BISHOP_REPRESENTATION);
+        return createWhitePiece(BISHOP);
     }
 
     public static Piece createBlackBishop() {
-        return new Piece(BLACK, PieceType.BISHOP, BLACK_BISHOP_REPRESENTATION);
+        return createBlackPiece(BISHOP);
     }
 
     public static Piece createWhiteQueen() {
-        return new Piece(WHITE, PieceType.QUEEN, WHITE_QUEEN_REPRESENTATION);
+        return createWhitePiece(QUEEN);
     }
 
     public static Piece createBlackQueen() {
-        return new Piece(BLACK, PieceType.QUEEN, BLACK_QUEEN_REPRESENTATION);
+        return createBlackPiece(QUEEN);
     }
 
     public static Piece createWhiteKing() {
-        return new Piece(WHITE, PieceType.KING, WHITE_KING_REPRESENTATION);
+        return createWhitePiece(KING);
     }
 
     public static Piece createBlackKing() {
-        return new Piece(BLACK, PieceType.KING, BLACK_KING_REPRESENTATION);
+        return createBlackPiece(KING);
+    }
+
+    private static Piece createWhitePiece(Type type) {
+        return new Piece(WHITE, type);
+    }
+
+    private static Piece createBlackPiece(Type type) {
+        return new Piece(BLACK, type);
+    }
+
+
+    public enum Color {
+        WHITE, BLACK, NO_COLOR;
+    }
+
+    public enum Type {
+        PAWN('p', 1.0),
+        ROOK('r', 5.0),
+        KNIGHT('n', 2.5),
+        BISHOP('b', 3.0),
+        QUEEN('q', 9.0),
+        KING('k', 0.0),
+        NO_PIECE('.', 0.0);
+
+        private final char representation;
+
+        private final double defaultPoint;
+
+        Type(char representation, double defaultPoint) {
+            this.representation = representation;
+            this.defaultPoint = defaultPoint;
+        }
+
+        public double getDefaultPoint() {
+            return defaultPoint;
+        }
+
+        public char getDefaultRepresentation() {
+            return representation;
+        }
+
+        public char getWhiteRepresentation() {
+            return representation;
+        }
+
+        public char getBlackRepresentation() {
+            return Character.toUpperCase(representation);
+        }
     }
 }
