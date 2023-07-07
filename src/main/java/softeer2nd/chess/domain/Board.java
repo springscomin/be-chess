@@ -1,9 +1,9 @@
-package softeer2nd.chess;
+package softeer2nd.chess.domain;
 
-import softeer2nd.chess.pieces.Piece;
-import softeer2nd.chess.pieces.Piece.Color;
-import softeer2nd.chess.pieces.Piece.Type;
-import softeer2nd.chess.pieces.Rank;
+import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.Piece.Color;
+import softeer2nd.chess.domain.pieces.Piece.Type;
+import softeer2nd.chess.domain.pieces.Rank;
 
 import java.util.ArrayList;
 import java.util.List;

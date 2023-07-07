@@ -1,11 +1,11 @@
-package softeer2nd.chess.pieces;
+package softeer2nd.chess.domain.pieces;
 
-import softeer2nd.chess.Position;
+import softeer2nd.chess.domain.Position;
 
 import java.util.Objects;
 
-import static softeer2nd.chess.pieces.Piece.Color.*;
-import static softeer2nd.chess.pieces.Piece.Type.*;
+import static softeer2nd.chess.domain.pieces.Piece.Color.*;
+import static softeer2nd.chess.domain.pieces.Piece.Type.*;
 
 public class Piece {
     private final Color color;

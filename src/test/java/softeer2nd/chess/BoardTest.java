@@ -5,14 +5,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.domain.Board;
+import softeer2nd.chess.domain.Position;
+import softeer2nd.chess.domain.pieces.Piece;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static softeer2nd.chess.pieces.Piece.Type.PAWN;
-import static softeer2nd.chess.pieces.Piece.Type.QUEEN;
+import static softeer2nd.chess.domain.pieces.Piece.Type.PAWN;
+import static softeer2nd.chess.domain.pieces.Piece.Type.QUEEN;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
 @DisplayName("Board 테스트")

@@ -1,8 +1,8 @@
-package softeer2nd.chess;
+package softeer2nd.chess.domain;
 
 import java.util.Objects;
 
-import static softeer2nd.chess.Board.BOARD_LENGTH;
+import static softeer2nd.chess.domain.Board.BOARD_LENGTH;
 
 public class Position {
     private final int rankIndex;
