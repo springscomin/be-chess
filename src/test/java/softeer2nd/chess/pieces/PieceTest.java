@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import softeer2nd.chess.Position;
 
 import java.util.stream.Stream;
 
@@ -22,19 +23,20 @@ public class PieceTest {
     }
 
     static Stream<Arguments> createPieceParameters() {
+        Position position = new Position("a1");
         return Stream.of(
-                arguments(Piece.createWhitePawn(), Piece.Color.WHITE, Piece.Type.PAWN.getWhiteRepresentation()),
-                arguments(Piece.createBlackPawn(), Piece.Color.BLACK, Piece.Type.PAWN.getBlackRepresentation()),
-                arguments(Piece.createWhiteRook(), Piece.Color.WHITE, Piece.Type.ROOK.getWhiteRepresentation()),
-                arguments(Piece.createBlackRook(), Piece.Color.BLACK, Piece.Type.ROOK.getBlackRepresentation()),
-                arguments(Piece.createWhiteBishop(), Piece.Color.WHITE, Piece.Type.BISHOP.getWhiteRepresentation()),
-                arguments(Piece.createBlackBishop(), Piece.Color.BLACK, Piece.Type.BISHOP.getBlackRepresentation()),
-                arguments(Piece.createWhiteKnight(), Piece.Color.WHITE, Piece.Type.KNIGHT.getWhiteRepresentation()),
-                arguments(Piece.createBlackKnight(), Piece.Color.BLACK, Piece.Type.KNIGHT.getBlackRepresentation()),
-                arguments(Piece.createWhiteQueen(), Piece.Color.WHITE, Piece.Type.QUEEN.getWhiteRepresentation()),
-                arguments(Piece.createBlackQueen(), Piece.Color.BLACK, Piece.Type.QUEEN.getBlackRepresentation()),
-                arguments(Piece.createWhiteKing(), Piece.Color.WHITE, Piece.Type.KING.getWhiteRepresentation()),
-                arguments(Piece.createBlackKing(), Piece.Color.BLACK, Piece.Type.KING.getBlackRepresentation())
+                arguments(Piece.createWhitePawn(position), Piece.Color.WHITE, Piece.Type.PAWN.getWhiteRepresentation()),
+                arguments(Piece.createBlackPawn(position), Piece.Color.BLACK, Piece.Type.PAWN.getBlackRepresentation()),
+                arguments(Piece.createWhiteRook(position), Piece.Color.WHITE, Piece.Type.ROOK.getWhiteRepresentation()),
+                arguments(Piece.createBlackRook(position), Piece.Color.BLACK, Piece.Type.ROOK.getBlackRepresentation()),
+                arguments(Piece.createWhiteBishop(position), Piece.Color.WHITE, Piece.Type.BISHOP.getWhiteRepresentation()),
+                arguments(Piece.createBlackBishop(position), Piece.Color.BLACK, Piece.Type.BISHOP.getBlackRepresentation()),
+                arguments(Piece.createWhiteKnight(position), Piece.Color.WHITE, Piece.Type.KNIGHT.getWhiteRepresentation()),
+                arguments(Piece.createBlackKnight(position), Piece.Color.BLACK, Piece.Type.KNIGHT.getBlackRepresentation()),
+                arguments(Piece.createWhiteQueen(position), Piece.Color.WHITE, Piece.Type.QUEEN.getWhiteRepresentation()),
+                arguments(Piece.createBlackQueen(position), Piece.Color.BLACK, Piece.Type.QUEEN.getBlackRepresentation()),
+                arguments(Piece.createWhiteKing(position), Piece.Color.WHITE, Piece.Type.KING.getWhiteRepresentation()),
+                arguments(Piece.createBlackKing(position), Piece.Color.BLACK, Piece.Type.KING.getBlackRepresentation())
         );
     }
 }

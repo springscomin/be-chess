@@ -4,9 +4,9 @@ import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Piece.Color;
 import softeer2nd.chess.pieces.Piece.Type;
 import softeer2nd.chess.pieces.Rank;
-import softeer2nd.utils.CoordinateConverter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static softeer2nd.utils.StringUtils.NEWLINE;
 
@@ -49,29 +49,29 @@ public class Board {
 
     public void initializeEmptyBoard() {
         boards = new ArrayList<>();
-        for (int row = 0; row < BOARD_LENGTH; row++) {
-            Rank emptyRank = Rank.createBlankRank();
+        for (int rankIndex = 0; rankIndex < BOARD_LENGTH; rankIndex++) {
+            Rank emptyRank = Rank.createBlankRank(rankIndex);
             boards.add(emptyRank);
         }
     }
 
     private void addWhitePawns() {
-        Rank whitePawns = Rank.CreateWhitePawnRank();
+        Rank whitePawns = Rank.CreateWhitePawnRank(Board.WHITE_PAWN_INIT_LINE);
         boards.set(WHITE_PAWN_INIT_LINE, whitePawns);
     }
 
     private void addBlackPawns() {
-        Rank blackPawns = Rank.CreateBlackPawnRank();
+        Rank blackPawns = Rank.CreateBlackPawnRank(Board.BLACK_PAWN_INIT_LINE);
         boards.set(BLACK_PAWN_INIT_LINE, blackPawns);
     }
 
     private void addWhiteOfficerPieces() {
-        Rank whiteOfficers = Rank.createWhiteOfficersRank();
+        Rank whiteOfficers = Rank.createWhiteOfficersRank(Board.WHITE_OFFICER_PIECES_INIT_LINE);
         boards.set(WHITE_OFFICER_PIECES_INIT_LINE, whiteOfficers);
     }
 
     private void addBlackOfficerPieces() {
-        Rank blackOfficers = Rank.createBlackOfficersRank();
+        Rank blackOfficers = Rank.createBlackOfficersRank(Board.BLACK_OFFICER_PIECES_INIT_RANK);
         boards.set(BLACK_OFFICER_PIECES_INIT_RANK, blackOfficers);
     }
 
@@ -88,7 +88,7 @@ public class Board {
     }
 
     public Piece findPiece(String coordinate) {
-        Position position = CoordinateConverter.convertNotationToPosition(coordinate);
+        Position position = new Position(coordinate);
         return findPieceByPosition(position);
     }
 
@@ -97,8 +97,8 @@ public class Board {
         return rank.findByIndex(position.getFileIndex());
     }
 
-    public void addNewPiece(Piece piece, String coordinate) {
-        Position position = CoordinateConverter.convertNotationToPosition(coordinate);
+    public void addNewPiece(Piece piece) {
+        Position position = piece.getPosition();
         Rank rank = boards.get(position.getRankIndex());
         rank.update(position.getFileIndex(), piece);
     }
@@ -155,5 +155,9 @@ public class Board {
             findPieces.addAll(rank.findByColor(color));
         }
         return findPieces;
+    }
+
+    public void move(String sourcePosition, String targetPosition) {
+
     }
 }

@@ -1,6 +1,7 @@
 package softeer2nd.chess.pieces;
 
 import softeer2nd.chess.Board;
+import softeer2nd.chess.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,53 +59,53 @@ public class Rank {
         return stringBuilder.toString();
     }
 
-    public static Rank createBlankRank() {
+    public static Rank createBlankRank(int rankIndex) {
         List<Piece> blankPieces = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            blankPieces.add(Piece.createBlank());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            blankPieces.add(Piece.createBlank(new Position(rankIndex, fileIndex)));
         }
         return new Rank(blankPieces);
     }
 
-    public static Rank CreateWhitePawnRank() {
+    public static Rank CreateWhitePawnRank(int rankIndex) {
         List<Piece> whitePawns = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            whitePawns.add(Piece.createWhitePawn());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            whitePawns.add(Piece.createWhitePawn(new Position(rankIndex, fileIndex)));
         }
         return new Rank(whitePawns);
     }
 
-    public static Rank CreateBlackPawnRank() {
+    public static Rank CreateBlackPawnRank(int rankIndex) {
         List<Piece> blackPawns = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            blackPawns.add(Piece.createBlackPawn());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            blackPawns.add(Piece.createBlackPawn(new Position(rankIndex, fileIndex)));
         }
         return new Rank(blackPawns);
     }
 
-    public static Rank createWhiteOfficersRank() {
+    public static Rank createWhiteOfficersRank(int rankIndex) {
         List<Piece> whiteOfficers = new ArrayList<>();
-        whiteOfficers.add(Piece.createWhiteRook());
-        whiteOfficers.add(Piece.createWhiteKnight());
-        whiteOfficers.add(Piece.createWhiteBishop());
-        whiteOfficers.add(Piece.createWhiteQueen());
-        whiteOfficers.add(Piece.createWhiteKing());
-        whiteOfficers.add(Piece.createWhiteBishop());
-        whiteOfficers.add(Piece.createWhiteKnight());
-        whiteOfficers.add(Piece.createWhiteRook());
+        whiteOfficers.add(Piece.createWhiteRook(new Position(rankIndex, 0)));
+        whiteOfficers.add(Piece.createWhiteKnight(new Position(rankIndex, 1)));
+        whiteOfficers.add(Piece.createWhiteBishop(new Position(rankIndex, 2)));
+        whiteOfficers.add(Piece.createWhiteQueen(new Position(rankIndex, 3)));
+        whiteOfficers.add(Piece.createWhiteKing(new Position(rankIndex, 4)));
+        whiteOfficers.add(Piece.createWhiteBishop(new Position(rankIndex, 5)));
+        whiteOfficers.add(Piece.createWhiteKnight(new Position(rankIndex, 6)));
+        whiteOfficers.add(Piece.createWhiteRook(new Position(rankIndex, 7)));
         return new Rank(whiteOfficers);
     }
 
-    public static Rank createBlackOfficersRank() {
+    public static Rank createBlackOfficersRank(int rankIndex) {
         List<Piece> blackOfficers = new ArrayList<>();
-        blackOfficers.add(Piece.createBlackRook());
-        blackOfficers.add(Piece.createBlackKnight());
-        blackOfficers.add(Piece.createBlackBishop());
-        blackOfficers.add(Piece.createBlackQueen());
-        blackOfficers.add(Piece.createBlackKing());
-        blackOfficers.add(Piece.createBlackBishop());
-        blackOfficers.add(Piece.createBlackKnight());
-        blackOfficers.add(Piece.createBlackRook());
+        blackOfficers.add(Piece.createBlackRook(new Position(rankIndex, 0)));
+        blackOfficers.add(Piece.createBlackKnight(new Position(rankIndex, 1)));
+        blackOfficers.add(Piece.createBlackBishop(new Position(rankIndex, 2)));
+        blackOfficers.add(Piece.createBlackQueen(new Position(rankIndex, 3)));
+        blackOfficers.add(Piece.createBlackKing(new Position(rankIndex, 4)));
+        blackOfficers.add(Piece.createBlackBishop(new Position(rankIndex, 5)));
+        blackOfficers.add(Piece.createBlackKnight(new Position(rankIndex, 6)));
+        blackOfficers.add(Piece.createBlackRook(new Position(rankIndex, 7)));
         return new Rank(blackOfficers);
     }
 

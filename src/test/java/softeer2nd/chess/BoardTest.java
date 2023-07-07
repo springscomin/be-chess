@@ -67,12 +67,13 @@ public class BoardTest {
     public void addNewPieceTest() {
         board.initializeEmptyBoard();
 
-        Piece blackKing = Piece.createBlackKing();
-        String coord = "d5";
+        String pos = "d5";
 
-        board.addNewPiece(blackKing, coord);
+        Piece blackKing = Piece.createBlackKing(new Position(pos));
 
-        assertEquals(blackKing, board.findPiece(coord));
+        board.addNewPiece(blackKing);
+
+        assertEquals(blackKing, board.findPiece(pos));
     }
 
     @DisplayName("기물 점수 계산 기능 테스트")
@@ -80,20 +81,21 @@ public class BoardTest {
     public void calculatePoint() throws Exception {
         board.initializeEmptyBoard();
 
-        board.addNewPiece(Piece.createBlackPawn(), "b6");
-        board.addNewPiece(Piece.createBlackQueen(), "e6");
-        board.addNewPiece(Piece.createBlackKing(), "b8");
-        board.addNewPiece(Piece.createBlackRook(), "c8");
+        board.addNewPiece(Piece.createBlackPawn(new Position("b6")));
+        board.addNewPiece(Piece.createBlackQueen(new Position("e6")));
+        board.addNewPiece(Piece.createBlackKing(new Position("b8")));
+        board.addNewPiece(Piece.createBlackRook(new Position("c8")));
 
-        board.addNewPiece(Piece.createWhitePawn(), "f2");
-        board.addNewPiece(Piece.createWhitePawn(), "g2");
-        board.addNewPiece(Piece.createWhiteRook(), "e1");
-        board.addNewPiece(Piece.createWhiteKing(), "f1");
+        board.addNewPiece(Piece.createWhitePawn(new Position("f2")));
+        board.addNewPiece(Piece.createWhitePawn(new Position("g2")));
+        board.addNewPiece(Piece.createWhiteRook(new Position("e1")));
+        board.addNewPiece(Piece.createWhiteKing(new Position("f1")));
+
+        System.out.println(board.showBoard());
 
         assertEquals(15.0, board.calculatePoint(Piece.Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Piece.Color.WHITE), 0.01);
 
-        System.out.println(board.showBoard());
     }
 
     @DisplayName("기물 정렬 기능 테스트")
@@ -101,14 +103,29 @@ public class BoardTest {
     public void getSortedPiecesTest() {
         board.initializeEmptyBoard();
 
-        board.addNewPiece(Piece.createBlackPawn(), "b6");
-        board.addNewPiece(Piece.createBlackQueen(), "e6");
-        board.addNewPiece(Piece.createBlackRook(), "c8");
+        board.addNewPiece(Piece.createBlackPawn(new Position("b6")));
+        board.addNewPiece(Piece.createBlackQueen(new Position("e6")));
+        board.addNewPiece(Piece.createBlackRook(new Position("c8")));
 
         List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(Piece.Color.BLACK);
         List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(Piece.Color.BLACK);
 
         assertEquals(PAWN.getDefaultPoint(), ascendingBlackPieces.get(0).getDefaultPoint(), 0.01);
         assertEquals(QUEEN.getDefaultPoint(), descendingBlackPieces.get(0).getDefaultPoint(), 0.01);
+    }
+
+    @DisplayName("기물 이동 기능 테스트")
+    @Test
+    public void moveTest() {
+        board.initializeEmptyBoard();
+
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+        board.addNewPiece(Piece.createBlackQueen(new Position(targetPosition)));
+
+        board.move(sourcePosition, targetPosition);
+
+        assertEquals(Piece.createBlank(new Position(sourcePosition)), board.findPiece(sourcePosition));
+        assertEquals(Piece.createBlackQueen(new Position(targetPosition)), board.findPiece(targetPosition));
     }
 }
