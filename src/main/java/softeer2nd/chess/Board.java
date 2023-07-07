@@ -97,7 +97,7 @@ public class Board {
         return rank.findByIndex(position.getFileIndex());
     }
 
-    public void addNewPiece(Piece piece) {
+    public void addPiece(Piece piece) {
         Position position = piece.getPosition();
         Rank rank = boards.get(position.getRankIndex());
         rank.update(position.getFileIndex(), piece);
@@ -158,6 +158,17 @@ public class Board {
     }
 
     public void move(String sourcePosition, String targetPosition) {
+        Piece piece = findPiece(sourcePosition);
+        removePiece(piece);
 
+        Position destination = new Position(targetPosition);
+        Piece movedPiece = Piece.createMovedPiece(piece, destination);
+        addPiece(movedPiece);
+    }
+
+    private void removePiece(Piece piece) {
+        Position position = piece.getPosition();
+        Rank rank = boards.get(position.getRankIndex());
+        rank.remove(position);
     }
 }

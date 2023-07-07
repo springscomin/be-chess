@@ -18,6 +18,12 @@ public class Piece {
         this.type = type;
     }
 
+    public static Piece createMovedPiece(Piece piece, Position destination) {
+        Color color = piece.color;
+        Type type = piece.type;
+        return new Piece(destination, color, type);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

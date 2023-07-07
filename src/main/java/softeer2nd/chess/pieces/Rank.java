@@ -124,4 +124,9 @@ public class Rank {
         }
         return piece.isPawn();
     }
+
+    public void remove(Position position) {
+        Piece blankPiece = Piece.createBlank(position);
+        pieces.set(position.getFileIndex(), blankPiece);
+    }
 }

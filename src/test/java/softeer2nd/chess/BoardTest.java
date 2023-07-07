@@ -71,7 +71,7 @@ public class BoardTest {
 
         Piece blackKing = Piece.createBlackKing(new Position(pos));
 
-        board.addNewPiece(blackKing);
+        board.addPiece(blackKing);
 
         assertEquals(blackKing, board.findPiece(pos));
     }
@@ -81,15 +81,15 @@ public class BoardTest {
     public void calculatePoint() throws Exception {
         board.initializeEmptyBoard();
 
-        board.addNewPiece(Piece.createBlackPawn(new Position("b6")));
-        board.addNewPiece(Piece.createBlackQueen(new Position("e6")));
-        board.addNewPiece(Piece.createBlackKing(new Position("b8")));
-        board.addNewPiece(Piece.createBlackRook(new Position("c8")));
+        board.addPiece(Piece.createBlackPawn(new Position("b6")));
+        board.addPiece(Piece.createBlackQueen(new Position("e6")));
+        board.addPiece(Piece.createBlackKing(new Position("b8")));
+        board.addPiece(Piece.createBlackRook(new Position("c8")));
 
-        board.addNewPiece(Piece.createWhitePawn(new Position("f2")));
-        board.addNewPiece(Piece.createWhitePawn(new Position("g2")));
-        board.addNewPiece(Piece.createWhiteRook(new Position("e1")));
-        board.addNewPiece(Piece.createWhiteKing(new Position("f1")));
+        board.addPiece(Piece.createWhitePawn(new Position("f2")));
+        board.addPiece(Piece.createWhitePawn(new Position("g2")));
+        board.addPiece(Piece.createWhiteRook(new Position("e1")));
+        board.addPiece(Piece.createWhiteKing(new Position("f1")));
 
         System.out.println(board.showBoard());
 
@@ -103,9 +103,9 @@ public class BoardTest {
     public void getSortedPiecesTest() {
         board.initializeEmptyBoard();
 
-        board.addNewPiece(Piece.createBlackPawn(new Position("b6")));
-        board.addNewPiece(Piece.createBlackQueen(new Position("e6")));
-        board.addNewPiece(Piece.createBlackRook(new Position("c8")));
+        board.addPiece(Piece.createBlackPawn(new Position("b6")));
+        board.addPiece(Piece.createBlackQueen(new Position("e6")));
+        board.addPiece(Piece.createBlackRook(new Position("c8")));
 
         List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(Piece.Color.BLACK);
         List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(Piece.Color.BLACK);
@@ -121,7 +121,7 @@ public class BoardTest {
 
         String sourcePosition = "b2";
         String targetPosition = "b3";
-        board.addNewPiece(Piece.createBlackQueen(new Position(sourcePosition)));
+        board.addPiece(Piece.createBlackQueen(new Position(sourcePosition)));
 
         board.move(sourcePosition, targetPosition);
 
