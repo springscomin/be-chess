@@ -121,7 +121,7 @@ public class BoardTest {
 
         String sourcePosition = "b2";
         String targetPosition = "b3";
-        board.addNewPiece(Piece.createBlackQueen(new Position(targetPosition)));
+        board.addNewPiece(Piece.createBlackQueen(new Position(sourcePosition)));
 
         board.move(sourcePosition, targetPosition);
 
