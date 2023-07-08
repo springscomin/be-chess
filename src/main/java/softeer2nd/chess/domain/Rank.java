@@ -3,6 +3,7 @@ package softeer2nd.chess.domain;
 import softeer2nd.chess.domain.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Rank {
@@ -16,7 +17,11 @@ public class Rank {
         pieces.set(index, piece);
     }
 
-    public Piece get(int index) {
+    public List<Piece> getPieces() {
+        return Collections.unmodifiableList(pieces);
+    }
+
+    public Piece getPiece(int index) {
         return pieces.get(index);
     }
 
@@ -47,15 +52,6 @@ public class Rank {
             }
         }
         return count;
-    }
-
-    public String getLineRepresentation() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Piece piece : pieces) {
-            char representation = piece.getRepresentation();
-            stringBuilder.append(representation);
-        }
-        return stringBuilder.toString();
     }
 
     public static Rank createBlankRank(int rankIndex) {

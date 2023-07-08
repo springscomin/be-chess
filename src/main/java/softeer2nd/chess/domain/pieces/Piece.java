@@ -50,6 +50,10 @@ public class Piece {
         return color;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public Position getPosition() {
         return position;
     }
@@ -64,16 +68,6 @@ public class Piece {
 
     public double getDefaultPoint() {
         return type.getDefaultPoint();
-    }
-
-    public char getRepresentation() {
-        if (isBlank()) {
-            return type.getDefaultRepresentation();
-        }
-        if (isWhite()) {
-            return type.getWhiteRepresentation();
-        }
-        return type.getBlackRepresentation();
     }
 
     public boolean isPawn() {
@@ -158,37 +152,22 @@ public class Piece {
     }
 
     public enum Type {
-        PAWN('p', 1.0),
-        ROOK('r', 5.0),
-        KNIGHT('n', 2.5),
-        BISHOP('b', 3.0),
-        QUEEN('q', 9.0),
-        KING('k', 0.0),
-        NO_PIECE('.', 0.0);
-
-        private final char representation;
+        PAWN(1.0),
+        ROOK(5.0),
+        KNIGHT(2.5),
+        BISHOP(3.0),
+        QUEEN(9.0),
+        KING(0.0),
+        NO_PIECE(0.0);
 
         private final double defaultPoint;
 
-        Type(char representation, double defaultPoint) {
-            this.representation = representation;
+        Type(double defaultPoint) {
             this.defaultPoint = defaultPoint;
         }
 
         public double getDefaultPoint() {
             return defaultPoint;
-        }
-
-        public char getDefaultRepresentation() {
-            return representation;
-        }
-
-        public char getWhiteRepresentation() {
-            return representation;
-        }
-
-        public char getBlackRepresentation() {
-            return Character.toUpperCase(representation);
         }
     }
 }

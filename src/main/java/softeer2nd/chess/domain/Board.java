@@ -4,11 +4,10 @@ import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.Piece.Color;
 import softeer2nd.chess.domain.pieces.Piece.Type;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static softeer2nd.utils.StringUtils.NEWLINE;
 
 public class Board {
     public static final int BLACK_OFFICER_PIECES_INIT_RANK = 0;
@@ -21,6 +20,12 @@ public class Board {
     private List<Rank> boards;
 
     private Board(){}
+
+    public List<List<Piece>> getBoard() {
+        return boards.stream()
+                .map(rank -> Collections.unmodifiableList(rank.getPieces()))
+                .collect(Collectors.toUnmodifiableList());
+    }
 
     public static Board createInitialBoard() {
         Board board = createEmptyBoard();
@@ -79,34 +84,14 @@ public class Board {
                 .sum();
     }
 
-    public String showBoard() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Rank rank : boards) {
-            String lineRepresentation = rank.getLineRepresentation();
-            stringBuilder.append(lineRepresentation).append(NEWLINE);
-        }
-        return stringBuilder.toString();
-    }
-
-    public Piece findPiece(String coordinate) {
-        Position position = new Position(coordinate);
-        return findPieceByPosition(position);
-    }
-
     public Piece findPieceByPosition(Position position) {
         Rank rank = boards.get(position.getRankIndex());
-        return rank.get(position.getFileIndex());
+        return rank.getPiece(position.getFileIndex());
     }
 
     public List<Piece> findPiecesInFile(int fileIndex) {
         return boards.stream()
-                .map(rank -> rank.get(fileIndex))
-                .collect(Collectors.toList());
-    }
-
-    private List<Piece> findPiecesByColor(Color color) {
-        return boards.stream()
-                .flatMap(rank -> rank.findByColor(color).stream())
+                .map(rank -> rank.getPiece(fileIndex))
                 .collect(Collectors.toList());
     }
 
