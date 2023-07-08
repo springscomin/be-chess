@@ -3,10 +3,10 @@ package softeer2nd.chess.domain;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.Piece.Color;
 import softeer2nd.chess.domain.pieces.Piece.Type;
-import softeer2nd.chess.domain.pieces.Rank;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static softeer2nd.utils.StringUtils.NEWLINE;
 
@@ -29,30 +29,23 @@ public class Board {
     }
 
     public int pieceCount() {
-        int pieceCount = 0;
-        for (Rank rank : boards) {
-            pieceCount += rank.countPieces();
-        }
-        return pieceCount;
+        return boards.stream()
+                .mapToInt(Rank::countPieces)
+                .sum();
     }
 
     public String showBoard() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (Rank rank : boards) {
-            String lineRepresentation = rank.getLineRepresentation();
-            stringBuilder.append(lineRepresentation).append(NEWLINE);
-        }
-
-        return stringBuilder.toString();
+        return boards.stream()
+                .map(rank -> {
+                    String lineRepresentation = rank.getLineRepresentation();
+                    return lineRepresentation + NEWLINE;
+                }).collect(Collectors.joining());
     }
 
     public void initializeEmptyBoard() {
-        boards = new ArrayList<>();
-        for (int rankIndex = 0; rankIndex < BOARD_LENGTH; rankIndex++) {
-            Rank emptyRank = Rank.createBlankRank(rankIndex);
-            boards.add(emptyRank);
-        }
+        boards = IntStream.range(0, BOARD_LENGTH)
+                .mapToObj(Rank::createBlankRank)
+                .collect(Collectors.toList());
     }
 
     private void addWhitePawns() {
@@ -75,16 +68,10 @@ public class Board {
         boards.set(BLACK_OFFICER_PIECES_INIT_RANK, blackOfficers);
     }
 
-    private void addRank(int rankIndex, Rank rank){
-        boards.set(rankIndex, rank);
-    }
-
     public int countPieceByColorAndType(Color color, Type type) {
-        int count = 0;
-        for (Rank rank : boards) {
-            count += rank.countPieceByColorAndType(color, type);
-        }
-        return count;
+        return boards.stream()
+                .mapToInt(rank -> rank.countPieceByColorAndType(color, type))
+                .sum();
     }
 
     public Piece findPiece(String coordinate) {
@@ -94,7 +81,7 @@ public class Board {
 
     private Piece findPieceByPosition(Position position) {
         Rank rank = boards.get(position.getRankIndex());
-        return rank.findByIndex(position.getFileIndex());
+        return rank.get(position.getFileIndex());
     }
 
     public void addPiece(Piece piece) {
@@ -104,23 +91,31 @@ public class Board {
     }
 
     public double calculatePoint(Color color) {
-        double point = 0;
-        for (int col = 0; col < BOARD_LENGTH; col++) {
-            point += calculateFilePoint(col, color);
-        }
-        return point;
+        return IntStream.range(0, BOARD_LENGTH)
+                .mapToDouble(file -> calculateFilePoint(file, color))
+                .sum();
     }
 
     private double calculateFilePoint(int fileIndex, Color color) {
-        double point = 0;
-        int numOfPawn = 0;
-        for (Rank rank : boards) {
-            point += rank.getPiecePointAtIndex(fileIndex, color);
-            if (rank.isPiecePawn(fileIndex, color)) {
-                numOfPawn++;
-            }
-        }
+        double point = calPointsInFile(fileIndex, color);
+        int numOfPawn = getNumOfColorPawnInFile(fileIndex, color);
         return point - calPenaltyPoint(numOfPawn);
+    }
+
+    private double calPointsInFile(int fileIndex, Color color) {
+        return boards.stream()
+                .map(rank -> rank.get(fileIndex))
+                .filter(piece -> piece.matchesColor(color))
+                .mapToDouble(Piece::getDefaultPoint)
+                .sum();
+    }
+
+    private int getNumOfColorPawnInFile(int fileIndex, Color color) {
+        return (int) boards.stream()
+                .map(rank -> rank.get(fileIndex))
+                .filter(Piece::isPawn)
+                .filter(piece -> piece.matchesColor(color))
+                .count();
     }
 
     private double calPenaltyPoint(int numOfPawn) {
@@ -128,13 +123,6 @@ public class Board {
             return numOfPawn * 0.5;
         }
         return 0;
-    }
-
-    private static double getPoint(double point, int numOfPawn) {
-        if (numOfPawn >= 2) {
-            point -= numOfPawn * 0.5;
-        }
-        return point;
     }
 
     public List<Piece> getSortedAscendingPieces(Color color) {
@@ -150,11 +138,9 @@ public class Board {
     }
 
     private List<Piece> findPiecesByColor(Color color) {
-        List<Piece> findPieces = new ArrayList<>();
-        for (Rank rank : boards) {
-            findPieces.addAll(rank.findByColor(color));
-        }
-        return findPieces;
+        return boards.stream()
+                .flatMap(rank -> rank.findByColor(color).stream())
+                .collect(Collectors.toList());
     }
 
     public void move(String sourcePosition, String targetPosition) {

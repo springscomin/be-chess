@@ -1,7 +1,6 @@
-package softeer2nd.chess.domain.pieces;
+package softeer2nd.chess.domain;
 
-import softeer2nd.chess.domain.Board;
-import softeer2nd.chess.domain.Position;
+import softeer2nd.chess.domain.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Rank {
         pieces.set(index, piece);
     }
 
-    public Piece findByIndex(int index) {
+    public Piece get(int index) {
         return pieces.get(index);
     }
 
