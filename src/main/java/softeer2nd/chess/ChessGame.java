@@ -11,11 +11,11 @@ import java.util.stream.IntStream;
 
 import static softeer2nd.chess.domain.Board.BOARD_LENGTH;
 
-public class ChessGameManager {
-    private Board board;
+public class ChessGame {
+    private final Board board;
 
-    public void initializeBoard() {
-        board = Board.createInitialBoard();
+    public ChessGame(Board board) {
+        this.board = board;
     }
 
     public void movePiece(String source, String dest) {
