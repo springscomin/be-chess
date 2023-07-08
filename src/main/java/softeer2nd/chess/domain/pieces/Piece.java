@@ -1,6 +1,5 @@
 package softeer2nd.chess.domain.pieces;
 
-import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 
@@ -13,18 +12,10 @@ import static softeer2nd.chess.domain.pieces.enums.PieceType.*;
 public class Piece {
     private final PieceColor color;
     private final PieceType type;
-    private final Position position;
 
-    private Piece(Position position, PieceColor color, PieceType type) {
-        this.position = position;
+    private Piece(PieceColor color, PieceType type) {
         this.color = color;
         this.type = type;
-    }
-
-    public static Piece createMovedPiece(Piece piece, Position destination) {
-        PieceColor color = piece.color;
-        PieceType type = piece.type;
-        return new Piece(destination, color, type);
     }
 
     @Override
@@ -32,12 +23,12 @@ public class Piece {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Piece piece = (Piece) o;
-        return color == piece.color && type == piece.type && Objects.equals(position, piece.position);
+        return color == piece.color && type == piece.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(color, type, position);
+        return Objects.hash(color, type);
     }
 
     @Override
@@ -45,7 +36,6 @@ public class Piece {
         return "Piece{" +
                 "color=" + color +
                 ", type=" + type +
-                ", position=" + position +
                 '}';
     }
 
@@ -55,10 +45,6 @@ public class Piece {
 
     public PieceType getType() {
         return type;
-    }
-
-    public Position getPosition() {
-        return position;
     }
 
     public boolean matchesColorAndType(PieceColor color, PieceType type) {
@@ -89,63 +75,63 @@ public class Piece {
         return color.equals(BLACK);
     }
 
-    public static Piece createBlank(Position position) {
-        return new Piece(position, NO_COLOR, NO_PIECE);
+    public static Piece createBlank() {
+        return new Piece(NO_COLOR, NO_PIECE);
     }
 
-    public static Piece createWhitePawn(Position position) {
-        return createWhitePiece(position, PAWN);
+    public static Piece createWhitePawn() {
+        return createWhitePiece(PAWN);
     }
 
-    public static Piece createBlackPawn(Position position) {
-        return createBlackPiece(position, PAWN);
+    public static Piece createBlackPawn() {
+        return createBlackPiece(PAWN);
     }
 
-    public static Piece createWhiteKnight(Position position) {
-        return createWhitePiece(position, KNIGHT);
+    public static Piece createWhiteKnight() {
+        return createWhitePiece(KNIGHT);
     }
 
-    public static Piece createBlackKnight(Position position) {
-        return createBlackPiece(position, KNIGHT);
+    public static Piece createBlackKnight() {
+        return createBlackPiece(KNIGHT);
     }
 
-    public static Piece createWhiteRook(Position position) {
-        return createWhitePiece(position, ROOK);
+    public static Piece createWhiteRook() {
+        return createWhitePiece(ROOK);
     }
 
-    public static Piece createBlackRook(Position position) {
-        return createBlackPiece(position, ROOK);
+    public static Piece createBlackRook() {
+        return createBlackPiece(ROOK);
     }
 
-    public static Piece createWhiteBishop(Position position) {
-        return createWhitePiece(position, BISHOP);
+    public static Piece createWhiteBishop() {
+        return createWhitePiece(BISHOP);
     }
 
-    public static Piece createBlackBishop(Position position) {
-        return createBlackPiece(position, BISHOP);
+    public static Piece createBlackBishop() {
+        return createBlackPiece(BISHOP);
     }
 
-    public static Piece createWhiteQueen(Position position) {
-        return createWhitePiece(position, QUEEN);
+    public static Piece createWhiteQueen() {
+        return createWhitePiece(QUEEN);
     }
 
-    public static Piece createBlackQueen(Position position) {
-        return createBlackPiece(position, QUEEN);
+    public static Piece createBlackQueen() {
+        return createBlackPiece(QUEEN);
     }
 
-    public static Piece createWhiteKing(Position position) {
-        return createWhitePiece(position, KING);
+    public static Piece createWhiteKing() {
+        return createWhitePiece(KING);
     }
 
-    public static Piece createBlackKing(Position position) {
-        return createBlackPiece(position, KING);
+    public static Piece createBlackKing() {
+        return createBlackPiece(KING);
     }
 
-    private static Piece createWhitePiece(Position position, PieceType type) {
-        return new Piece(position, WHITE, type);
+    private static Piece createWhitePiece(PieceType type) {
+        return new Piece(WHITE, type);
     }
 
-    private static Piece createBlackPiece(Position position, PieceType type) {
-        return new Piece(position, BLACK, type);
+    private static Piece createBlackPiece(PieceType type) {
+        return new Piece(BLACK, type);
     }
 }

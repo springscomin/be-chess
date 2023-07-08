@@ -56,53 +56,53 @@ public class Rank {
         return count;
     }
 
-    public static Rank createBlankRank(int rankIndex) {
+    public static Rank createBlankRank() {
         List<Piece> blankPieces = new ArrayList<>();
         for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
-            blankPieces.add(Piece.createBlank(new Position(rankIndex, fileIndex)));
+            blankPieces.add(Piece.createBlank());
         }
         return new Rank(blankPieces);
     }
 
-    public static Rank CreateWhitePawnRank(int rankIndex) {
+    public static Rank CreateWhitePawnRank() {
         List<Piece> whitePawns = new ArrayList<>();
         for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
-            whitePawns.add(Piece.createWhitePawn(new Position(rankIndex, fileIndex)));
+            whitePawns.add(Piece.createWhitePawn());
         }
         return new Rank(whitePawns);
     }
 
-    public static Rank CreateBlackPawnRank(int rankIndex) {
+    public static Rank CreateBlackPawnRank() {
         List<Piece> blackPawns = new ArrayList<>();
         for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
-            blackPawns.add(Piece.createBlackPawn(new Position(rankIndex, fileIndex)));
+            blackPawns.add(Piece.createBlackPawn());
         }
         return new Rank(blackPawns);
     }
 
-    public static Rank createWhiteOfficersRank(int rankIndex) {
+    public static Rank createWhiteOfficersRank() {
         List<Piece> whiteOfficers = new ArrayList<>();
-        whiteOfficers.add(Piece.createWhiteRook(new Position(rankIndex, 0)));
-        whiteOfficers.add(Piece.createWhiteKnight(new Position(rankIndex, 1)));
-        whiteOfficers.add(Piece.createWhiteBishop(new Position(rankIndex, 2)));
-        whiteOfficers.add(Piece.createWhiteQueen(new Position(rankIndex, 3)));
-        whiteOfficers.add(Piece.createWhiteKing(new Position(rankIndex, 4)));
-        whiteOfficers.add(Piece.createWhiteBishop(new Position(rankIndex, 5)));
-        whiteOfficers.add(Piece.createWhiteKnight(new Position(rankIndex, 6)));
-        whiteOfficers.add(Piece.createWhiteRook(new Position(rankIndex, 7)));
+        whiteOfficers.add(Piece.createWhiteRook());
+        whiteOfficers.add(Piece.createWhiteKnight());
+        whiteOfficers.add(Piece.createWhiteBishop());
+        whiteOfficers.add(Piece.createWhiteQueen());
+        whiteOfficers.add(Piece.createWhiteKing());
+        whiteOfficers.add(Piece.createWhiteBishop());
+        whiteOfficers.add(Piece.createWhiteKnight());
+        whiteOfficers.add(Piece.createWhiteRook());
         return new Rank(whiteOfficers);
     }
 
-    public static Rank createBlackOfficersRank(int rankIndex) {
+    public static Rank createBlackOfficersRank() {
         List<Piece> blackOfficers = new ArrayList<>();
-        blackOfficers.add(Piece.createBlackRook(new Position(rankIndex, 0)));
-        blackOfficers.add(Piece.createBlackKnight(new Position(rankIndex, 1)));
-        blackOfficers.add(Piece.createBlackBishop(new Position(rankIndex, 2)));
-        blackOfficers.add(Piece.createBlackQueen(new Position(rankIndex, 3)));
-        blackOfficers.add(Piece.createBlackKing(new Position(rankIndex, 4)));
-        blackOfficers.add(Piece.createBlackBishop(new Position(rankIndex, 5)));
-        blackOfficers.add(Piece.createBlackKnight(new Position(rankIndex, 6)));
-        blackOfficers.add(Piece.createBlackRook(new Position(rankIndex, 7)));
+        blackOfficers.add(Piece.createBlackRook());
+        blackOfficers.add(Piece.createBlackKnight());
+        blackOfficers.add(Piece.createBlackBishop());
+        blackOfficers.add(Piece.createBlackQueen());
+        blackOfficers.add(Piece.createBlackKing());
+        blackOfficers.add(Piece.createBlackBishop());
+        blackOfficers.add(Piece.createBlackKnight());
+        blackOfficers.add(Piece.createBlackRook());
         return new Rank(blackOfficers);
     }
 
@@ -123,7 +123,7 @@ public class Rank {
     }
 
     public void remove(Position position) {
-        Piece blankPiece = Piece.createBlank(position);
+        Piece blankPiece = Piece.createBlank();
         pieces.set(position.getFileIndex(), blankPiece);
     }
 }

@@ -43,7 +43,7 @@ public class Board {
 
     private void initializeEmptyBoard() {
         boards = IntStream.range(0, BOARD_LENGTH)
-                .mapToObj(Rank::createBlankRank)
+                .mapToObj(n -> Rank.createBlankRank())
                 .collect(Collectors.toList());
     }
 
@@ -55,22 +55,22 @@ public class Board {
     }
 
     private void addWhitePawns() {
-        Rank whitePawns = Rank.CreateWhitePawnRank(Board.WHITE_PAWN_INIT_LINE);
+        Rank whitePawns = Rank.CreateWhitePawnRank();
         boards.set(WHITE_PAWN_INIT_LINE, whitePawns);
     }
 
     private void addBlackPawns() {
-        Rank blackPawns = Rank.CreateBlackPawnRank(Board.BLACK_PAWN_INIT_LINE);
+        Rank blackPawns = Rank.CreateBlackPawnRank();
         boards.set(BLACK_PAWN_INIT_LINE, blackPawns);
     }
 
     private void addWhiteOfficerPieces() {
-        Rank whiteOfficers = Rank.createWhiteOfficersRank(Board.WHITE_OFFICER_PIECES_INIT_LINE);
+        Rank whiteOfficers = Rank.createWhiteOfficersRank();
         boards.set(WHITE_OFFICER_PIECES_INIT_LINE, whiteOfficers);
     }
 
     private void addBlackOfficerPieces() {
-        Rank blackOfficers = Rank.createBlackOfficersRank(Board.BLACK_OFFICER_PIECES_INIT_RANK);
+        Rank blackOfficers = Rank.createBlackOfficersRank();
         boards.set(BLACK_OFFICER_PIECES_INIT_RANK, blackOfficers);
     }
 
@@ -105,14 +105,12 @@ public class Board {
                 .collect(Collectors.toList());
     }
 
-    public void addPiece(Piece piece) {
-        Position position = piece.getPosition();
+    public void addPiece(Position position, Piece piece) {
         Rank rank = boards.get(position.getRankIndex());
         rank.update(position.getFileIndex(), piece);
     }
 
-    public void removePiece(Piece piece) {
-        Position position = piece.getPosition();
+    public void removePiece(Position position) {
         Rank rank = boards.get(position.getRankIndex());
         rank.remove(position);
     }

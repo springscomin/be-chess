@@ -25,20 +25,19 @@ public class PieceTest {
     }
 
     static Stream<Arguments> createPieceParameters() {
-        Position position = new Position("a1");
         return Stream.of(
-                arguments(Piece.createWhitePawn(position), PieceColor.WHITE, PieceType.PAWN),
-                arguments(Piece.createBlackPawn(position), PieceColor.BLACK, PieceType.PAWN),
-                arguments(Piece.createWhiteRook(position), PieceColor.WHITE, PieceType.ROOK),
-                arguments(Piece.createBlackRook(position), PieceColor.BLACK, PieceType.ROOK),
-                arguments(Piece.createWhiteBishop(position), PieceColor.WHITE, PieceType.BISHOP),
-                arguments(Piece.createBlackBishop(position), PieceColor.BLACK, PieceType.BISHOP),
-                arguments(Piece.createWhiteKnight(position), PieceColor.WHITE, PieceType.KNIGHT),
-                arguments(Piece.createBlackKnight(position), PieceColor.BLACK, PieceType.KNIGHT),
-                arguments(Piece.createWhiteQueen(position), PieceColor.WHITE, PieceType.QUEEN),
-                arguments(Piece.createBlackQueen(position), PieceColor.BLACK, PieceType.QUEEN),
-                arguments(Piece.createWhiteKing(position), PieceColor.WHITE, PieceType.KING),
-                arguments(Piece.createBlackKing(position), PieceColor.BLACK, PieceType.KING)
+                arguments(Piece.createWhitePawn(), PieceColor.WHITE, PieceType.PAWN),
+                arguments(Piece.createBlackPawn(), PieceColor.BLACK, PieceType.PAWN),
+                arguments(Piece.createWhiteRook(), PieceColor.WHITE, PieceType.ROOK),
+                arguments(Piece.createBlackRook(), PieceColor.BLACK, PieceType.ROOK),
+                arguments(Piece.createWhiteBishop(), PieceColor.WHITE, PieceType.BISHOP),
+                arguments(Piece.createBlackBishop(), PieceColor.BLACK, PieceType.BISHOP),
+                arguments(Piece.createWhiteKnight(), PieceColor.WHITE, PieceType.KNIGHT),
+                arguments(Piece.createBlackKnight(), PieceColor.BLACK, PieceType.KNIGHT),
+                arguments(Piece.createWhiteQueen(), PieceColor.WHITE, PieceType.QUEEN),
+                arguments(Piece.createBlackQueen(), PieceColor.BLACK, PieceType.QUEEN),
+                arguments(Piece.createWhiteKing(), PieceColor.WHITE, PieceType.KING),
+                arguments(Piece.createBlackKing(), PieceColor.BLACK, PieceType.KING)
         );
     }
 }

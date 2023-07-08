@@ -17,19 +17,21 @@ public class ChessGame {
     }
 
     public void movePiece(Position sourcePosition, Position targetPosition) {
-        Piece removedPiece = removePiece(sourcePosition);
-        addPiece(targetPosition, removedPiece);
+        Piece piece = removePiece(sourcePosition);
+        addPiece(targetPosition, piece);
     }
 
     private Piece removePiece(Position position) {
         Piece piece = board.findPieceByPosition(position);
-        board.removePiece(piece);
+        if (piece.isBlank()) {
+            throw new RuntimeException("해당 위치에 Piece가 없습니다.");
+        }
+        board.removePiece(position);
         return piece;
     }
 
     private void addPiece(Position position, Piece piece) {
-        Piece movedPiece = Piece.createMovedPiece(piece, position);
-        board.addPiece(movedPiece);
+        board.addPiece(position, piece);
     }
 
     public double calculatePoint(PieceColor color) {
@@ -39,14 +41,18 @@ public class ChessGame {
     }
 
     private double calculateFilePoint(int fileIndex, PieceColor color) {
-        List<Piece> pieces = board.findPiecesInFile(fileIndex)
+        List<Piece> piecesInFile = getPiecesInFile(fileIndex, color);
+
+        double point = calPoint(piecesInFile);
+        int numOfPawns = getNumOfPawns(piecesInFile);
+        return point - calPenaltyPoint(numOfPawns);
+    }
+
+    private List<Piece> getPiecesInFile(int fileIndex, PieceColor color) {
+        return board.findPiecesInFile(fileIndex)
                 .stream()
                 .filter(piece -> piece.matchesColor(color))
                 .collect(Collectors.toList());
-
-        double point = calPoint(pieces);
-        int numOfPawns = getNumOfPawns(pieces);
-        return point - calPenaltyPoint(numOfPawns);
     }
 
     private int getNumOfPawns(List<Piece> pieces) {

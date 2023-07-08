@@ -54,22 +54,22 @@ public class BoardTest {
     public void addNewPieceTest() {
         Board board = Board.createEmptyBoard();
         Position position = new Position("d5");
-        Piece blackKing = Piece.createBlackKing(position);
+        Piece blackKing = Piece.createBlackKing();
 
-        board.addPiece(blackKing);
+        board.addPiece(position, blackKing);
 
         Piece actualPiece = board.findPieceByPosition(position);
         assertEquals(blackKing, actualPiece);
     }
 
-//
+    //
     @DisplayName("기물 정렬 기능 테스트")
     @Test
     public void getSortedPiecesTest() {
         Board board = Board.createEmptyBoard();
-        board.addPiece(Piece.createBlackPawn(new Position("b6")));
-        board.addPiece(Piece.createBlackQueen(new Position("e6")));
-        board.addPiece(Piece.createBlackRook(new Position("c8")));
+        board.addPiece(new Position("b6"), Piece.createBlackPawn());
+        board.addPiece(new Position("e6"), Piece.createBlackQueen());
+        board.addPiece(new Position("c8"), Piece.createBlackRook());
 
         List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(PieceColor.BLACK);
         List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(PieceColor.BLACK);

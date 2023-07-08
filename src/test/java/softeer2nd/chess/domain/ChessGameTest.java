@@ -15,15 +15,15 @@ class ChessGameTest {
         Board board = Board.createEmptyBoard();
         ChessGame game = new ChessGame(board);
 
-        board.addPiece(Piece.createBlackPawn(new Position("b6")));
-        board.addPiece(Piece.createBlackQueen(new Position("e6")));
-        board.addPiece(Piece.createBlackKing(new Position("b8")));
-        board.addPiece(Piece.createBlackRook(new Position("c8")));
+        board.addPiece(new Position("b6"), Piece.createBlackPawn());
+        board.addPiece(new Position("e6"), Piece.createBlackQueen());
+        board.addPiece(new Position("b8"), Piece.createBlackKing());
+        board.addPiece(new Position("c8"), Piece.createBlackRook());
 
-        board.addPiece(Piece.createWhitePawn(new Position("f2")));
-        board.addPiece(Piece.createWhitePawn(new Position("g2")));
-        board.addPiece(Piece.createWhiteRook(new Position("e1")));
-        board.addPiece(Piece.createWhiteKing(new Position("f1")));
+        board.addPiece(new Position("f2"), Piece.createWhitePawn());
+        board.addPiece(new Position("g2"), Piece.createWhitePawn());
+        board.addPiece(new Position("e1"), Piece.createWhiteRook());
+        board.addPiece(new Position("f1"), Piece.createWhiteKing());
 
         assertEquals(15.0, game.calculatePoint(PieceColor.BLACK), 0.01);
         assertEquals(7.0, game.calculatePoint(PieceColor.WHITE), 0.01);
@@ -36,11 +36,11 @@ class ChessGameTest {
         ChessGame game = new ChessGame(board);
         Position sourcePosition = new Position("b2");
         Position targetPosition = new Position("b3");
-        board.addPiece(Piece.createBlackQueen(sourcePosition));
+        board.addPiece(sourcePosition, Piece.createBlackQueen());
 
         game.movePiece(sourcePosition, targetPosition);
 
-        assertEquals(Piece.createBlank(sourcePosition), board.findPieceByPosition(sourcePosition));
-        assertEquals(Piece.createBlackQueen(targetPosition), board.findPieceByPosition(targetPosition));
+        assertEquals(Piece.createBlank(), board.findPieceByPosition(sourcePosition));
+        assertEquals(Piece.createBlackQueen(), board.findPieceByPosition(targetPosition));
     }
 }
