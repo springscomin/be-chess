@@ -67,6 +67,12 @@ public class Board {
         boards.set(BLACK_OFFICER_PIECES_INIT_RANK, blackOfficers);
     }
 
+    public int countPiece() {
+        return boards.stream()
+                .mapToInt(Rank::countPieces)
+                .sum();
+    }
+
     public int countPieceByColorAndType(Color color, Type type) {
         return boards.stream()
                 .mapToInt(rank -> rank.countPieceByColorAndType(color, type))
@@ -92,63 +98,22 @@ public class Board {
         return rank.get(position.getFileIndex());
     }
 
-    public void addPiece(Piece piece) {
-        Position position = piece.getPosition();
-        Rank rank = boards.get(position.getRankIndex());
-        rank.update(position.getFileIndex(), piece);
-    }
-
-    public double calculatePoint(Color color) {
-        return IntStream.range(0, BOARD_LENGTH)
-                .mapToDouble(file -> calculateFilePoint(file, color))
-                .sum();
-    }
-
-    private double calculateFilePoint(int fileIndex, Color color) {
-        double point = calPointsInFile(fileIndex, color);
-        int numOfPawn = getNumOfColorPawnInFile(fileIndex, color);
-        return point - calPenaltyPoint(numOfPawn);
-    }
-
-    private double calPointsInFile(int fileIndex, Color color) {
+    public List<Piece> findPiecesInFile(int fileIndex) {
         return boards.stream()
                 .map(rank -> rank.get(fileIndex))
-                .filter(piece -> piece.matchesColor(color))
-                .mapToDouble(Piece::getDefaultPoint)
-                .sum();
-    }
-
-    private int getNumOfColorPawnInFile(int fileIndex, Color color) {
-        return (int) boards.stream()
-                .map(rank -> rank.get(fileIndex))
-                .filter(Piece::isPawn)
-                .filter(piece -> piece.matchesColor(color))
-                .count();
-    }
-
-    private double calPenaltyPoint(int numOfPawn) {
-        if (numOfPawn >= 2) {
-            return numOfPawn * 0.5;
-        }
-        return 0;
-    }
-
-    public List<Piece> getSortedAscendingPieces(Color color) {
-        List<Piece> sortedPieces = findPiecesByColor(color);
-        sortedPieces.sort((piece1, piece2) -> (int) (piece1.getDefaultPoint() - piece2.getDefaultPoint()));
-        return sortedPieces;
-    }
-
-    public List<Piece> getSortedDescendingPieces(Color color) {
-        List<Piece> sortedPieces = findPiecesByColor(color);
-        sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
-        return sortedPieces;
+                .collect(Collectors.toList());
     }
 
     private List<Piece> findPiecesByColor(Color color) {
         return boards.stream()
                 .flatMap(rank -> rank.findByColor(color).stream())
                 .collect(Collectors.toList());
+    }
+
+    public void addPiece(Piece piece) {
+        Position position = piece.getPosition();
+        Rank rank = boards.get(position.getRankIndex());
+        rank.update(position.getFileIndex(), piece);
     }
 
     public void move(String sourcePosition, String targetPosition) {
