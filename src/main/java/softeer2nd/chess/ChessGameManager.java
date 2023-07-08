@@ -1,6 +1,7 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.domain.Board;
+import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.Piece.Color;
 
@@ -15,6 +16,24 @@ public class ChessGameManager {
 
     public void initializeBoard() {
         board = Board.createInitialBoard();
+    }
+
+    public void movePiece(String source, String dest) {
+        Piece removedPiece = removePiece(source);
+        addPiece(dest, removedPiece);
+    }
+
+    private Piece removePiece(String source) {
+        Position sourcePosition = new Position(source);
+        Piece piece = board.findPieceByPosition(sourcePosition);
+        board.removePiece(piece);
+        return piece;
+    }
+
+    private void addPiece(String dest, Piece piece) {
+        Position destination = new Position(dest);
+        Piece movedPiece = Piece.createMovedPiece(piece, destination);
+        board.addPiece(movedPiece);
     }
 
     public double calculatePoint(Color color) {
