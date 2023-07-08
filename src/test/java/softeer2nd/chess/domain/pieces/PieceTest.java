@@ -5,7 +5,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import softeer2nd.chess.domain.Position;
-import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.stream.Stream;
 
@@ -18,7 +19,7 @@ public class PieceTest {
     @DisplayName("기물 생성 테스트")
     @ParameterizedTest(name = "{0}->색: {1}, 타입: {2}")
     @MethodSource("createPieceParameters")
-    public void create_piece(final Piece piece, final Piece.Color color, final Piece.Type type) {
+    public void create_piece(final Piece piece, final PieceColor color, final PieceType type) {
         assertEquals(color, piece.getColor());
         assertEquals(type, piece.getType());
     }
@@ -26,18 +27,18 @@ public class PieceTest {
     static Stream<Arguments> createPieceParameters() {
         Position position = new Position("a1");
         return Stream.of(
-                arguments(Piece.createWhitePawn(position), Piece.Color.WHITE, Piece.Type.PAWN),
-                arguments(Piece.createBlackPawn(position), Piece.Color.BLACK, Piece.Type.PAWN),
-                arguments(Piece.createWhiteRook(position), Piece.Color.WHITE, Piece.Type.ROOK),
-                arguments(Piece.createBlackRook(position), Piece.Color.BLACK, Piece.Type.ROOK),
-                arguments(Piece.createWhiteBishop(position), Piece.Color.WHITE, Piece.Type.BISHOP),
-                arguments(Piece.createBlackBishop(position), Piece.Color.BLACK, Piece.Type.BISHOP),
-                arguments(Piece.createWhiteKnight(position), Piece.Color.WHITE, Piece.Type.KNIGHT),
-                arguments(Piece.createBlackKnight(position), Piece.Color.BLACK, Piece.Type.KNIGHT),
-                arguments(Piece.createWhiteQueen(position), Piece.Color.WHITE, Piece.Type.QUEEN),
-                arguments(Piece.createBlackQueen(position), Piece.Color.BLACK, Piece.Type.QUEEN),
-                arguments(Piece.createWhiteKing(position), Piece.Color.WHITE, Piece.Type.KING),
-                arguments(Piece.createBlackKing(position), Piece.Color.BLACK, Piece.Type.KING)
+                arguments(Piece.createWhitePawn(position), PieceColor.WHITE, PieceType.PAWN),
+                arguments(Piece.createBlackPawn(position), PieceColor.BLACK, PieceType.PAWN),
+                arguments(Piece.createWhiteRook(position), PieceColor.WHITE, PieceType.ROOK),
+                arguments(Piece.createBlackRook(position), PieceColor.BLACK, PieceType.ROOK),
+                arguments(Piece.createWhiteBishop(position), PieceColor.WHITE, PieceType.BISHOP),
+                arguments(Piece.createBlackBishop(position), PieceColor.BLACK, PieceType.BISHOP),
+                arguments(Piece.createWhiteKnight(position), PieceColor.WHITE, PieceType.KNIGHT),
+                arguments(Piece.createBlackKnight(position), PieceColor.BLACK, PieceType.KNIGHT),
+                arguments(Piece.createWhiteQueen(position), PieceColor.WHITE, PieceType.QUEEN),
+                arguments(Piece.createBlackQueen(position), PieceColor.BLACK, PieceType.QUEEN),
+                arguments(Piece.createWhiteKing(position), PieceColor.WHITE, PieceType.KING),
+                arguments(Piece.createBlackKing(position), PieceColor.BLACK, PieceType.KING)
         );
     }
 }

@@ -1,9 +1,7 @@
 package softeer2nd.chess.domain;
 
-import softeer2nd.chess.domain.Board;
-import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
-import softeer2nd.chess.domain.pieces.Piece.Color;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,13 +32,13 @@ public class ChessGame {
         board.addPiece(movedPiece);
     }
 
-    public double calculatePoint(Color color) {
+    public double calculatePoint(PieceColor color) {
         return IntStream.range(0, BOARD_LENGTH)
                 .mapToDouble(file -> calculateFilePoint(file, color))
                 .sum();
     }
 
-    private double calculateFilePoint(int fileIndex, Color color) {
+    private double calculateFilePoint(int fileIndex, PieceColor color) {
         List<Piece> pieces = board.findPiecesInFile(fileIndex)
                 .stream()
                 .filter(piece -> piece.matchesColor(color))

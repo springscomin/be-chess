@@ -1,6 +1,8 @@
 package softeer2nd.chess.domain;
 
 import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +27,7 @@ public class Rank {
         return pieces.get(index);
     }
 
-    public List<Piece> findByColor(Piece.Color color) {
+    public List<Piece> findByColor(PieceColor color) {
         List<Piece> findPieces = new ArrayList<>();
         for (Piece piece : pieces) {
             if (piece.matchesColor(color)) {
@@ -44,7 +46,7 @@ public class Rank {
         return pieceCount;
     }
 
-    public int countPieceByColorAndType(Piece.Color color, Piece.Type type) {
+    public int countPieceByColorAndType(PieceColor color, PieceType type) {
         int count = 0;
         for (Piece piece : pieces) {
             if (piece.matchesColorAndType(color, type)) {
@@ -104,7 +106,7 @@ public class Rank {
         return new Rank(blackOfficers);
     }
 
-    public double getPiecePointAtIndex(int fileIndex, Piece.Color color) {
+    public double getPiecePointAtIndex(int fileIndex, PieceColor color) {
         Piece piece = pieces.get(fileIndex);
         if (piece.matchesColor(color)) {
             return piece.getDefaultPoint();
@@ -112,7 +114,7 @@ public class Rank {
         return 0;
     }
 
-    public boolean isPiecePawn(int fileIndex, Piece.Color color) {
+    public boolean isPiecePawn(int fileIndex, PieceColor color) {
         Piece piece = pieces.get(fileIndex);
         if (!piece.matchesColor(color)) {
             return false;

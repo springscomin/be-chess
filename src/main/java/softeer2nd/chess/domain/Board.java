@@ -1,8 +1,8 @@
 package softeer2nd.chess.domain;
 
 import softeer2nd.chess.domain.pieces.Piece;
-import softeer2nd.chess.domain.pieces.Piece.Color;
-import softeer2nd.chess.domain.pieces.Piece.Type;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,7 +80,7 @@ public class Board {
                 .sum();
     }
 
-    public int countPieceByColorAndType(Color color, Type type) {
+    public int countPieceByColorAndType(PieceColor color, PieceType type) {
         return boards.stream()
                 .mapToInt(rank -> rank.countPieceByColorAndType(color, type))
                 .sum();
@@ -91,7 +91,7 @@ public class Board {
         return rank.getPiece(position.getFileIndex());
     }
 
-    private List<Piece> findPiecesByColor(Color color) {
+    private List<Piece> findPiecesByColor(PieceColor color) {
         List<Piece> findPieces = new ArrayList<>();
         for (Rank rank : boards) {
             findPieces.addAll(rank.findByColor(color));
@@ -117,13 +117,13 @@ public class Board {
         rank.remove(position);
     }
 
-    public List<Piece> getSortedAscendingPieces(Color color) {
+    public List<Piece> getSortedAscendingPieces(PieceColor color) {
         List<Piece> sortedPieces = findPiecesByColor(color);
         sortedPieces.sort((piece1, piece2) -> (int) (piece1.getDefaultPoint() - piece2.getDefaultPoint()));
         return sortedPieces;
     }
 
-    public List<Piece> getSortedDescendingPieces(Color color) {
+    public List<Piece> getSortedDescendingPieces(PieceColor color) {
         List<Piece> sortedPieces = findPiecesByColor(color);
         sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
         return sortedPieces;

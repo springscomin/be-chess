@@ -2,10 +2,8 @@ package softeer2nd.chess.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.domain.Board;
-import softeer2nd.chess.domain.ChessGame;
-import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,8 +25,8 @@ class ChessGameTest {
         board.addPiece(Piece.createWhiteRook(new Position("e1")));
         board.addPiece(Piece.createWhiteKing(new Position("f1")));
 
-        assertEquals(15.0, game.calculatePoint(Piece.Color.BLACK), 0.01);
-        assertEquals(7.0, game.calculatePoint(Piece.Color.WHITE), 0.01);
+        assertEquals(15.0, game.calculatePoint(PieceColor.BLACK), 0.01);
+        assertEquals(7.0, game.calculatePoint(PieceColor.WHITE), 0.01);
     }
 
     @DisplayName("기물 이동 기능 테스트")

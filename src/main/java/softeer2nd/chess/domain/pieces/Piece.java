@@ -1,26 +1,29 @@
 package softeer2nd.chess.domain.pieces;
 
 import softeer2nd.chess.domain.Position;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.Objects;
 
-import static softeer2nd.chess.domain.pieces.Piece.Color.*;
-import static softeer2nd.chess.domain.pieces.Piece.Type.*;
+import static softeer2nd.chess.domain.pieces.enums.PieceColor.*;
+import static softeer2nd.chess.domain.pieces.enums.PieceType.*;
+
 
 public class Piece {
-    private final Color color;
-    private final Type type;
+    private final PieceColor color;
+    private final PieceType type;
     private final Position position;
 
-    private Piece(Position position, Color color, Type type) {
+    private Piece(Position position, PieceColor color, PieceType type) {
         this.position = position;
         this.color = color;
         this.type = type;
     }
 
     public static Piece createMovedPiece(Piece piece, Position destination) {
-        Color color = piece.color;
-        Type type = piece.type;
+        PieceColor color = piece.color;
+        PieceType type = piece.type;
         return new Piece(destination, color, type);
     }
 
@@ -46,11 +49,11 @@ public class Piece {
                 '}';
     }
 
-    public Color getColor() {
+    public PieceColor getColor() {
         return color;
     }
 
-    public Type getType() {
+    public PieceType getType() {
         return type;
     }
 
@@ -58,11 +61,11 @@ public class Piece {
         return position;
     }
 
-    public boolean matchesColorAndType(Color color, Type type) {
+    public boolean matchesColorAndType(PieceColor color, PieceType type) {
         return this.color.equals(color) && this.type.equals(type);
     }
 
-    public boolean matchesColor(Color color) {
+    public boolean matchesColor(PieceColor color) {
         return this.color.equals(color);
     }
 
@@ -138,36 +141,11 @@ public class Piece {
         return createBlackPiece(position, KING);
     }
 
-    private static Piece createWhitePiece(Position position, Type type) {
+    private static Piece createWhitePiece(Position position, PieceType type) {
         return new Piece(position, WHITE, type);
     }
 
-    private static Piece createBlackPiece(Position position, Type type) {
+    private static Piece createBlackPiece(Position position, PieceType type) {
         return new Piece(position, BLACK, type);
-    }
-
-
-    public enum Color {
-        WHITE, BLACK, NO_COLOR;
-    }
-
-    public enum Type {
-        PAWN(1.0),
-        ROOK(5.0),
-        KNIGHT(2.5),
-        BISHOP(3.0),
-        QUEEN(9.0),
-        KING(0.0),
-        NO_PIECE(0.0);
-
-        private final double defaultPoint;
-
-        Type(double defaultPoint) {
-            this.defaultPoint = defaultPoint;
-        }
-
-        public double getDefaultPoint() {
-            return defaultPoint;
-        }
     }
 }

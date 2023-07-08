@@ -3,6 +3,8 @@ package softeer2nd.chess.view.console;
 import softeer2nd.Command;
 import softeer2nd.CommandType;
 import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 import softeer2nd.chess.view.ChessView;
 
 import java.util.List;
@@ -60,8 +62,8 @@ public class ChessConsoleView implements ChessView {
     private String makeRankRepresentation(List<Piece> rank) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Piece piece : rank) {
-            Piece.Type type = piece.getType();
-            Piece.Color color = piece.getColor();
+            PieceType type = piece.getType();
+            PieceColor color = piece.getColor();
             char representation = ViewRepresentation.getByTypeAndColor(type, color);
             stringBuilder.append(representation);
         }
