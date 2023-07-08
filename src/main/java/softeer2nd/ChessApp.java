@@ -1,6 +1,6 @@
 package softeer2nd;
 
-import softeer2nd.chess.ChessController;
+import softeer2nd.chess.controller.ChessController;
 
 import java.util.Scanner;
 

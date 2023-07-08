@@ -20,32 +20,31 @@ public class Board {
 
     private List<Rank> boards;
 
-    public void initialize() {
-        initializeEmptyBoard();
+    private Board(){}
+
+    public static Board createInitialBoard() {
+        Board board = createEmptyBoard();
+        board.initialize();
+        return board;
+    }
+
+    public static Board createEmptyBoard() {
+        Board board = new Board();
+        board.initializeEmptyBoard();
+        return board;
+    }
+
+    private void initializeEmptyBoard() {
+        boards = IntStream.range(0, BOARD_LENGTH)
+                .mapToObj(Rank::createBlankRank)
+                .collect(Collectors.toList());
+    }
+
+    private void initialize() {
         addWhitePawns();
         addWhiteOfficerPieces();
         addBlackPawns();
         addBlackOfficerPieces();
-    }
-
-    public int pieceCount() {
-        return boards.stream()
-                .mapToInt(Rank::countPieces)
-                .sum();
-    }
-
-    public String showBoard() {
-        return boards.stream()
-                .map(rank -> {
-                    String lineRepresentation = rank.getLineRepresentation();
-                    return lineRepresentation + NEWLINE;
-                }).collect(Collectors.joining());
-    }
-
-    public void initializeEmptyBoard() {
-        boards = IntStream.range(0, BOARD_LENGTH)
-                .mapToObj(Rank::createBlankRank)
-                .collect(Collectors.toList());
     }
 
     private void addWhitePawns() {
@@ -72,6 +71,15 @@ public class Board {
         return boards.stream()
                 .mapToInt(rank -> rank.countPieceByColorAndType(color, type))
                 .sum();
+    }
+
+    public String showBoard() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Rank rank : boards) {
+            String lineRepresentation = rank.getLineRepresentation();
+            stringBuilder.append(lineRepresentation).append(NEWLINE);
+        }
+        return stringBuilder.toString();
     }
 
     public Piece findPiece(String coordinate) {

@@ -5,8 +5,7 @@ import softeer2nd.chess.domain.Board;
 public class ChessController {
     private Board board;
     public void init() {
-        board = new Board();
-        board.initialize();
+        board = Board.createInitialBoard();
     }
 
     public String getBoard() {
