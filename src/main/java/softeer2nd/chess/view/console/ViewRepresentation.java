@@ -12,14 +12,14 @@ public enum ViewRepresentation {
     BLACK_ROOK('R', Type.ROOK, Color.BLACK),
     BLACK_KNIGHT('N', Type.KNIGHT, Color.BLACK),
     BLACK_BISHOP('B', Type.BISHOP, Color.BLACK),
-    BLACK_QUEEN('Q', Type.BISHOP, Color.BLACK),
+    BLACK_QUEEN('Q', Type.QUEEN, Color.BLACK),
     BLACK_KING('K', Type.KING, Color.BLACK),
 
     WHITE_PAWN('p', Type.PAWN, Color.WHITE),
     WHITE_ROOK('r', Type.ROOK, Color.WHITE),
     WHITE_KNIGHT('n', Type.KNIGHT, Color.WHITE),
     WHITE_BISHOP('b', Type.BISHOP, Color.WHITE),
-    WHITE_QUEEN('q', Type.BISHOP, Color.WHITE),
+    WHITE_QUEEN('q', Type.QUEEN, Color.WHITE),
     WHITE_KING('k', Type.KING, Color.WHITE),
     ;
 
