@@ -4,6 +4,7 @@ import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.Piece.Color;
 import softeer2nd.chess.domain.pieces.Piece.Type;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,23 +20,24 @@ public class Board {
 
     private List<Rank> boards;
 
-    private Board(){}
+    private Board() {
+    }
 
-    public List<List<Piece>> getBoard() {
+    public List<List<Piece>> showBoard() {
         return boards.stream()
                 .map(rank -> Collections.unmodifiableList(rank.getPieces()))
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public static Board createInitialBoard() {
-        Board board = createEmptyBoard();
-        board.initialize();
-        return board;
-    }
-
     public static Board createEmptyBoard() {
         Board board = new Board();
         board.initializeEmptyBoard();
+        return board;
+    }
+
+    public static Board createInitialBoard() {
+        Board board = createEmptyBoard();
+        board.initialize();
         return board;
     }
 
@@ -89,6 +91,14 @@ public class Board {
         return rank.getPiece(position.getFileIndex());
     }
 
+    private List<Piece> findPiecesByColor(Color color) {
+        List<Piece> findPieces = new ArrayList<>();
+        for (Rank rank : boards) {
+            findPieces.addAll(rank.findByColor(color));
+        }
+        return findPieces;
+    }
+
     public List<Piece> findPiecesInFile(int fileIndex) {
         return boards.stream()
                 .map(rank -> rank.getPiece(fileIndex))
@@ -105,5 +115,17 @@ public class Board {
         Position position = piece.getPosition();
         Rank rank = boards.get(position.getRankIndex());
         rank.remove(position);
+    }
+
+    public List<Piece> getSortedAscendingPieces(Color color) {
+        List<Piece> sortedPieces = findPiecesByColor(color);
+        sortedPieces.sort((piece1, piece2) -> (int) (piece1.getDefaultPoint() - piece2.getDefaultPoint()));
+        return sortedPieces;
+    }
+
+    public List<Piece> getSortedDescendingPieces(Color color) {
+        List<Piece> sortedPieces = findPiecesByColor(color);
+        sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
+        return sortedPieces;
     }
 }

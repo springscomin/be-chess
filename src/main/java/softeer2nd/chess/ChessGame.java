@@ -18,21 +18,19 @@ public class ChessGame {
         this.board = board;
     }
 
-    public void movePiece(String source, String dest) {
-        Piece removedPiece = removePiece(source);
-        addPiece(dest, removedPiece);
+    public void movePiece(Position sourcePosition, Position targetPosition) {
+        Piece removedPiece = removePiece(sourcePosition);
+        addPiece(targetPosition, removedPiece);
     }
 
-    private Piece removePiece(String source) {
-        Position sourcePosition = new Position(source);
-        Piece piece = board.findPieceByPosition(sourcePosition);
+    private Piece removePiece(Position position) {
+        Piece piece = board.findPieceByPosition(position);
         board.removePiece(piece);
         return piece;
     }
 
-    private void addPiece(String dest, Piece piece) {
-        Position destination = new Position(dest);
-        Piece movedPiece = Piece.createMovedPiece(piece, destination);
+    private void addPiece(Position position, Piece piece) {
+        Piece movedPiece = Piece.createMovedPiece(piece, position);
         board.addPiece(movedPiece);
     }
 
