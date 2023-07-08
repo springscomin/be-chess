@@ -1,24 +1,56 @@
 package softeer2nd.chess.view.console;
 
-import softeer2nd.chess.domain.Board;
+import softeer2nd.Command;
+import softeer2nd.CommandType;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.view.ChessView;
 
 import java.util.List;
+import java.util.Scanner;
 
 import static softeer2nd.utils.StringUtils.NEWLINE;
 
 public class ChessConsoleView implements ChessView {
     @Override
-    public void printBoard(Board board) {
-        String representations = makeBoardRepresentation(board);
-        System.out.println(representations);
+    public Command getCommand() {
+        String stringCommand = getConsoleInput();
+        return parseCommand(stringCommand);
     }
 
-    private String makeBoardRepresentation(final Board board) {
+    private Command parseCommand(String stringCommand) {
+        String[] commands = stringCommand.split(" ");
+        String operation = commands[0];
+
+        if (operation.equals("start")) {
+            return new Command(CommandType.START);
+        }
+        if (operation.equals("end")) {
+            return new Command(CommandType.END);
+        }
+        if (operation.equals("move")) {
+            return new Command(CommandType.MOVE, commands[1], commands[2]);
+        }
+        throw new RuntimeException("올바른 명령 아님");
+    }
+
+    public String getConsoleInput() {
+        return new Scanner(System.in).nextLine();
+    }
+
+    @Override
+    public void showBoard(List<List<Piece>> board) {
+        String representations = makeBoardRepresentation(board);
+        showMessage(representations);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    private String makeBoardRepresentation(final List<List<Piece>> board) {
         StringBuilder stringBuilder = new StringBuilder();
-        List<List<Piece>> boards = board.getBoard();
-        for (List<Piece> rank : boards) {
+        for (List<Piece> rank : board) {
             String rankRepresentation = makeRankRepresentation(rank);
             stringBuilder.append(rankRepresentation).append(NEWLINE);
         }

@@ -1,47 +1,47 @@
 package softeer2nd;
 
 import softeer2nd.chess.controller.ChessController;
+import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.view.ChessView;
+import softeer2nd.chess.view.console.ChessConsoleView;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class ChessApp {
-    public static final String START = "start";
-    public static final String END = "end";
-
+    private final ChessView chessView = new ChessConsoleView();
     private final ChessController chessController = new ChessController();
 
     private boolean isStarted = false;
 
     public void run() {
-        printConsoleOutput("체스 게임");
-        printConsoleOutput("시작 : start, 종료 : end");
+        chessView.showMessage("체스 게임\n시작 : start, 종료 : end");
 
         while (true) {
-            String input = getConsoleInput();
-            if (START.equals(input) && isStarted) printConsoleOutput("이미 시작 되었습니다.");
-            else if (START.equals(input)) initSetting();
-            else if (END.equals(input)) exitSystem();
-            else printConsoleOutput("???");
+            try {
+                Command command = chessView.getCommand();
+                if (command.isStart() && isStarted) chessView.showMessage("이미 시작됨.");
+                else if (command.isStart()) initSetting();
+                else if (command.isEnd()) exitSystem();
+                else if (command.isMove()) {
+                    // TODO
+                    // 유닛 이동
+                }
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+//                chessView.showMessage("???");
+            }
         }
     }
 
     private void initSetting() {
         isStarted = true;
         chessController.init();
-        String board = chessController.getBoard();
-        printConsoleOutput(board);
+        List<List<Piece>> board = chessController.getBoard();
+        chessView.showBoard(board);
     }
 
     private static void exitSystem() {
         System.exit(0);
-    }
-
-    private String getConsoleInput() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.next();
-    }
-
-    private void printConsoleOutput(String message) {
-        System.out.println(message);
     }
 }
