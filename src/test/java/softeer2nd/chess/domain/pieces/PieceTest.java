@@ -1,4 +1,4 @@
-package softeer2nd.chess.pieces;
+package softeer2nd.chess.domain.pieces;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
