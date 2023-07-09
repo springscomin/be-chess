@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 
@@ -26,18 +25,18 @@ public class PieceTest {
 
     static Stream<Arguments> createPieceParameters() {
         return Stream.of(
-                arguments(Piece.createWhitePawn(), PieceColor.WHITE, PieceType.PAWN),
-                arguments(Piece.createBlackPawn(), PieceColor.BLACK, PieceType.PAWN),
-                arguments(Piece.createWhiteRook(), PieceColor.WHITE, PieceType.ROOK),
-                arguments(Piece.createBlackRook(), PieceColor.BLACK, PieceType.ROOK),
-                arguments(Piece.createWhiteBishop(), PieceColor.WHITE, PieceType.BISHOP),
-                arguments(Piece.createBlackBishop(), PieceColor.BLACK, PieceType.BISHOP),
-                arguments(Piece.createWhiteKnight(), PieceColor.WHITE, PieceType.KNIGHT),
-                arguments(Piece.createBlackKnight(), PieceColor.BLACK, PieceType.KNIGHT),
-                arguments(Piece.createWhiteQueen(), PieceColor.WHITE, PieceType.QUEEN),
-                arguments(Piece.createBlackQueen(), PieceColor.BLACK, PieceType.QUEEN),
-                arguments(Piece.createWhiteKing(), PieceColor.WHITE, PieceType.KING),
-                arguments(Piece.createBlackKing(), PieceColor.BLACK, PieceType.KING)
+                arguments(Pawn.createWhite(), PieceColor.WHITE, PieceType.PAWN),
+                arguments(Pawn.createBlack(), PieceColor.BLACK, PieceType.PAWN),
+                arguments(Rook.createWhite(), PieceColor.WHITE, PieceType.ROOK),
+                arguments(Rook.createBlack(), PieceColor.BLACK, PieceType.ROOK),
+                arguments(Bishop.createWhite(), PieceColor.WHITE, PieceType.BISHOP),
+                arguments(Bishop.createBlack(), PieceColor.BLACK, PieceType.BISHOP),
+                arguments(Knight.createWhite(), PieceColor.WHITE, PieceType.KNIGHT),
+                arguments(Knight.createBlack(), PieceColor.BLACK, PieceType.KNIGHT),
+                arguments(Queen.createWhite(), PieceColor.WHITE, PieceType.QUEEN),
+                arguments(Queen.createBlack(), PieceColor.BLACK, PieceType.QUEEN),
+                arguments(King.createWhite(), PieceColor.WHITE, PieceType.KING),
+                arguments(King.createBlack(), PieceColor.BLACK, PieceType.KING)
         );
     }
 }

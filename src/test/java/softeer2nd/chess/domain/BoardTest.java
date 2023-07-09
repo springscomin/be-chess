@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.*;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 
@@ -54,7 +54,7 @@ public class BoardTest {
     public void addNewPieceTest() {
         Board board = Board.createEmptyBoard();
         Position position = new Position("d5");
-        Piece blackKing = Piece.createBlackKing();
+        Piece blackKing = King.createBlack();
 
         board.addPiece(position, blackKing);
 
@@ -67,9 +67,9 @@ public class BoardTest {
     @Test
     public void getSortedPiecesTest() {
         Board board = Board.createEmptyBoard();
-        board.addPiece(new Position("b6"), Piece.createBlackPawn());
-        board.addPiece(new Position("e6"), Piece.createBlackQueen());
-        board.addPiece(new Position("c8"), Piece.createBlackRook());
+        board.addPiece(new Position("b6"), Pawn.createBlack());
+        board.addPiece(new Position("e6"), Queen.createBlack());
+        board.addPiece(new Position("c8"), Rook.createBlack());
 
         List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(PieceColor.BLACK);
         List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(PieceColor.BLACK);

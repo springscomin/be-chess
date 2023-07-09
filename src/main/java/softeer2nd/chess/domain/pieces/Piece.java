@@ -1,22 +1,26 @@
 package softeer2nd.chess.domain.pieces;
 
+import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 
+import java.util.List;
 import java.util.Objects;
 
-import static softeer2nd.chess.domain.pieces.enums.PieceColor.*;
-import static softeer2nd.chess.domain.pieces.enums.PieceType.*;
+import static softeer2nd.chess.domain.pieces.enums.PieceType.NO_PIECE;
+import static softeer2nd.chess.domain.pieces.enums.PieceType.PAWN;
 
 
-public class Piece {
+public abstract class Piece {
     private final PieceColor color;
     private final PieceType type;
 
-    private Piece(PieceColor color, PieceType type) {
+    protected Piece(PieceColor color, PieceType type) {
         this.color = color;
         this.type = type;
     }
+
+    public abstract List<Position> getPositionsOnRoute(Position start, Position dest);
 
     @Override
     public boolean equals(Object o) {
@@ -65,73 +69,5 @@ public class Piece {
 
     public boolean isBlank() {
         return type.equals(NO_PIECE);
-    }
-
-    public boolean isWhite() {
-        return color.equals(WHITE);
-    }
-
-    public boolean isBlack() {
-        return color.equals(BLACK);
-    }
-
-    public static Piece createBlank() {
-        return new Piece(NO_COLOR, NO_PIECE);
-    }
-
-    public static Piece createWhitePawn() {
-        return createWhitePiece(PAWN);
-    }
-
-    public static Piece createBlackPawn() {
-        return createBlackPiece(PAWN);
-    }
-
-    public static Piece createWhiteKnight() {
-        return createWhitePiece(KNIGHT);
-    }
-
-    public static Piece createBlackKnight() {
-        return createBlackPiece(KNIGHT);
-    }
-
-    public static Piece createWhiteRook() {
-        return createWhitePiece(ROOK);
-    }
-
-    public static Piece createBlackRook() {
-        return createBlackPiece(ROOK);
-    }
-
-    public static Piece createWhiteBishop() {
-        return createWhitePiece(BISHOP);
-    }
-
-    public static Piece createBlackBishop() {
-        return createBlackPiece(BISHOP);
-    }
-
-    public static Piece createWhiteQueen() {
-        return createWhitePiece(QUEEN);
-    }
-
-    public static Piece createBlackQueen() {
-        return createBlackPiece(QUEEN);
-    }
-
-    public static Piece createWhiteKing() {
-        return createWhitePiece(KING);
-    }
-
-    public static Piece createBlackKing() {
-        return createBlackPiece(KING);
-    }
-
-    private static Piece createWhitePiece(PieceType type) {
-        return new Piece(WHITE, type);
-    }
-
-    private static Piece createBlackPiece(PieceType type) {
-        return new Piece(BLACK, type);
     }
 }
