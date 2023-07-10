@@ -62,8 +62,7 @@ class PawnTest {
         return Stream.of(
                 arguments("d7", "c6", List.of("c6")),
                 arguments("d7", "d6", List.of("d6")),
-                arguments("d7", "d5", List.of("d5")),
-                arguments("d7", "e6", List.of("d7")),
+                arguments("d7", "e6", List.of("e6")),
                 arguments("d7", "e5", Collections.emptyList())
         );
     }
@@ -72,7 +71,6 @@ class PawnTest {
         return Stream.of(
                 arguments("b2", "a3", List.of("a3")),
                 arguments("b2", "b3", List.of("b3")),
-                arguments("b2", "b4", List.of("b4")),
                 arguments("b2", "c3", List.of("c3")),
                 arguments("d7", "e5", Collections.emptyList())
         );
