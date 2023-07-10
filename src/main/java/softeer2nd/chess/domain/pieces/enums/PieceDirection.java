@@ -2,6 +2,7 @@ package softeer2nd.chess.domain.pieces.enums;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public enum PieceDirection {
     NORTH(0, 1),
@@ -60,5 +61,11 @@ public enum PieceDirection {
 
     public static List<PieceDirection> blackPawnDirection() {
         return Arrays.asList(SOUTH, SOUTHEAST, SOUTHWEST);
+    }
+
+    public static Optional<PieceDirection> getDirection(int y, int x) {
+        return Arrays.stream(PieceDirection.values())
+                .filter(direction -> direction.getXDegree() == x && direction.getYDegree() == y)
+                .findAny();
     }
 }

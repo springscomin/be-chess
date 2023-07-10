@@ -21,6 +21,10 @@ public class Position {
         this.fileIndex = colNotation - 'a';
     }
 
+    public static boolean isValid(int rank, int file) {
+        return rank >= 0 && rank < BOARD_LENGTH && file >= 0 && file < BOARD_LENGTH;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +53,4 @@ public class Position {
     public int getFileIndex() {
         return fileIndex;
     }
-
-
 }
