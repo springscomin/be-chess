@@ -1,8 +1,11 @@
-package softeer2nd.chess.pieces;
+package softeer2nd.chess.domain;
 
-import softeer2nd.chess.Board;
+import softeer2nd.chess.domain.pieces.*;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Rank {
@@ -16,11 +19,15 @@ public class Rank {
         pieces.set(index, piece);
     }
 
-    public Piece findByIndex(int index) {
+    public List<Piece> getPieces() {
+        return Collections.unmodifiableList(pieces);
+    }
+
+    public Piece getPiece(int index) {
         return pieces.get(index);
     }
 
-    public List<Piece> findByColor(Piece.Color color) {
+    public List<Piece> findByColor(PieceColor color) {
         List<Piece> findPieces = new ArrayList<>();
         for (Piece piece : pieces) {
             if (piece.matchesColor(color)) {
@@ -39,7 +46,7 @@ public class Rank {
         return pieceCount;
     }
 
-    public int countPieceByColorAndType(Piece.Color color, Piece.Type type) {
+    public int countPieceByColorAndType(PieceColor color, PieceType type) {
         int count = 0;
         for (Piece piece : pieces) {
             if (piece.matchesColorAndType(color, type)) {
@@ -49,66 +56,57 @@ public class Rank {
         return count;
     }
 
-    public String getLineRepresentation() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Piece piece : pieces) {
-            char representation = piece.getRepresentation();
-            stringBuilder.append(representation);
-        }
-        return stringBuilder.toString();
-    }
-
     public static Rank createBlankRank() {
         List<Piece> blankPieces = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            blankPieces.add(Piece.createBlank());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            blankPieces.add(Blank.create());
         }
         return new Rank(blankPieces);
     }
 
     public static Rank CreateWhitePawnRank() {
         List<Piece> whitePawns = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            whitePawns.add(Piece.createWhitePawn());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            whitePawns.add(Pawn.createWhite());
         }
         return new Rank(whitePawns);
     }
 
     public static Rank CreateBlackPawnRank() {
         List<Piece> blackPawns = new ArrayList<>();
-        for (int num = 0; num < Board.BOARD_LENGTH; num++) {
-            blackPawns.add(Piece.createBlackPawn());
+        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
+            blackPawns.add(Pawn.createBlack());
         }
         return new Rank(blackPawns);
     }
 
     public static Rank createWhiteOfficersRank() {
         List<Piece> whiteOfficers = new ArrayList<>();
-        whiteOfficers.add(Piece.createWhiteRook());
-        whiteOfficers.add(Piece.createWhiteKnight());
-        whiteOfficers.add(Piece.createWhiteBishop());
-        whiteOfficers.add(Piece.createWhiteQueen());
-        whiteOfficers.add(Piece.createWhiteKing());
-        whiteOfficers.add(Piece.createWhiteBishop());
-        whiteOfficers.add(Piece.createWhiteKnight());
-        whiteOfficers.add(Piece.createWhiteRook());
+        whiteOfficers.add(Rook.createWhite());
+        whiteOfficers.add(Knight.createWhite());
+        whiteOfficers.add(Bishop.createWhite());
+        whiteOfficers.add(Queen.createWhite());
+        whiteOfficers.add(King.createWhite());
+        whiteOfficers.add(Bishop.createWhite());
+        whiteOfficers.add(Knight.createWhite());
+        whiteOfficers.add(Rook.createWhite());
         return new Rank(whiteOfficers);
     }
 
     public static Rank createBlackOfficersRank() {
         List<Piece> blackOfficers = new ArrayList<>();
-        blackOfficers.add(Piece.createBlackRook());
-        blackOfficers.add(Piece.createBlackKnight());
-        blackOfficers.add(Piece.createBlackBishop());
-        blackOfficers.add(Piece.createBlackQueen());
-        blackOfficers.add(Piece.createBlackKing());
-        blackOfficers.add(Piece.createBlackBishop());
-        blackOfficers.add(Piece.createBlackKnight());
-        blackOfficers.add(Piece.createBlackRook());
+        blackOfficers.add(Rook.createBlack());
+        blackOfficers.add(Knight.createBlack());
+        blackOfficers.add(Bishop.createBlack());
+        blackOfficers.add(Queen.createBlack());
+        blackOfficers.add(King.createBlack());
+        blackOfficers.add(Bishop.createBlack());
+        blackOfficers.add(Knight.createBlack());
+        blackOfficers.add(Rook.createBlack());
         return new Rank(blackOfficers);
     }
 
-    public double getPiecePointAtIndex(int fileIndex, Piece.Color color) {
+    public double getPiecePointAtIndex(int fileIndex, PieceColor color) {
         Piece piece = pieces.get(fileIndex);
         if (piece.matchesColor(color)) {
             return piece.getDefaultPoint();
@@ -116,11 +114,16 @@ public class Rank {
         return 0;
     }
 
-    public boolean isPiecePawn(int fileIndex, Piece.Color color) {
+    public boolean isPiecePawn(int fileIndex, PieceColor color) {
         Piece piece = pieces.get(fileIndex);
         if (!piece.matchesColor(color)) {
             return false;
         }
         return piece.isPawn();
+    }
+
+    public void remove(Position position) {
+        Piece blankPiece = Blank.create();
+        pieces.set(position.getFileIndex(), blankPiece);
     }
 }
