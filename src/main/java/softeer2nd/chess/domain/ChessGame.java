@@ -17,21 +17,13 @@ public class ChessGame {
     }
 
     public void movePiece(Position sourcePosition, Position targetPosition) {
-        Piece piece = removePiece(sourcePosition);
-        addPiece(targetPosition, piece);
-    }
+        Piece piece = board.findPieceByPosition(sourcePosition);
+        if (piece.isBlank()) throw new RuntimeException("Blank Piece 입니다.");
+        List<Position> positionsOnRoute = piece.getPositionsOnRoute(sourcePosition, targetPosition);
+        if (positionsOnRoute.isEmpty()) throw new RuntimeException("이동할 수 없음.");
 
-    private Piece removePiece(Position position) {
-        Piece piece = board.findPieceByPosition(position);
-        if (piece.isBlank()) {
-            throw new RuntimeException("해당 위치에 Piece가 없습니다.");
-        }
-        board.removePiece(position);
-        return piece;
-    }
-
-    private void addPiece(Position position, Piece piece) {
-        board.addPiece(position, piece);
+        board.removePiece(sourcePosition);
+        board.addPiece(targetPosition, piece);
     }
 
     public double calculatePoint(PieceColor color) {

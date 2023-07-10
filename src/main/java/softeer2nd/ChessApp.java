@@ -22,21 +22,26 @@ public class ChessApp {
                 if (command.isStart() && isStarted) chessView.showMessage("이미 시작됨.");
                 else if (command.isStart()) initSetting();
                 else if (command.isEnd()) exitSystem();
-                else if (command.isMove()) {
-                    // TODO
-                    // 유닛 이동
-                }
+                else if (command.isMove()) move(command);
+                showBoard();
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
-//                chessView.showMessage("???");
             }
         }
+    }
+
+    private void move(Command command) {
+        String[] args = command.getArgs();
+        chessController.movePiece(args[0], args[1]);
     }
 
     private void initSetting() {
         isStarted = true;
         chessController.init();
+    }
+
+    private void showBoard() {
         List<List<Piece>> board = chessController.getBoard();
         chessView.showBoard(board);
     }
