@@ -1,5 +1,7 @@
-package softeer2nd.chess.domain;
+package softeer2nd.chess;
 
+import softeer2nd.chess.domain.Board;
+import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
@@ -16,9 +18,9 @@ public class ChessGame {
         this.board = board;
     }
 
-    public void movePiece(Position sourcePosition, Position targetPosition) {
+    public void movePiece(Position sourcePosition, Position targetPosition, PieceColor color) {
         Piece piece = board.findPieceByPosition(sourcePosition);
-        validateIsNotBlank(piece);
+        validateMatchColor(piece, color);
 
         List<Position> positionsOnRoute = piece.getPositionsOnRoute(sourcePosition, targetPosition);
         validateCanMoveTo(positionsOnRoute);
@@ -33,10 +35,14 @@ public class ChessGame {
         }
     }
 
-    private void validateIsNotBlank(Piece piece) {
-        if (piece.isBlank()) {
-            throw new RuntimeException("Blank Piece 입니다.");
+    private void validateMatchColor(Piece piece, PieceColor color) {
+        if (piece.matchesColor(color)) {
+            return;
         }
+        if (piece.isBlank()) {
+            throw new RuntimeException("Blank위치 입니다.");
+        }
+        throw new RuntimeException("상대팀 말을 움직일 수 없습니다.");
     }
 
     public double calculatePoint(PieceColor color) {
