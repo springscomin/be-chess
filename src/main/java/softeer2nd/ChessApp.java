@@ -41,6 +41,7 @@ public class ChessApp {
     }
 
     private void move(Command command) {
+        assert game != null;
         String[] args = command.getArgs();
         game.movePiece(args[0], args[1]);
     }

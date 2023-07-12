@@ -40,9 +40,9 @@ public class ChessGame {
             return;
         }
         if (piece.isBlank()) {
-            throw new RuntimeException("Blank위치 입니다.");
+            throw new RuntimeException("해당 위치에 기물이 없습니다.");
         }
-        throw new RuntimeException("상대팀 말을 움직일 수 없습니다.");
+        throw new RuntimeException(color.name() + "차례 입니다.");
     }
 
     public double calculatePoint(PieceColor color) {

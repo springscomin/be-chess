@@ -21,6 +21,8 @@ public class ChessConsoleView implements ChessView {
 
     @Override
     public Command getCommand() {
+        showEmptyLine();
+        showMessage("명령어를 입력하세요.");
         String stringCommand = getConsoleInput();
         showEmptyLine();
         return parseCommand(stringCommand);
@@ -37,9 +39,16 @@ public class ChessConsoleView implements ChessView {
             return new Command(Command.CommandType.END);
         }
         if (operation.equals(MOVE)) {
+            verifyTwoArgs(commands);
             return new Command(Command.CommandType.MOVE, commands[1], commands[2]);
         }
         throw new RuntimeException("올바른 명령 아님");
+    }
+
+    private void verifyTwoArgs(String[] commands) {
+        if (commands.length != 3) {
+            throw new RuntimeException("인자가 2개여야 합니다.");
+        }
     }
 
     public String getConsoleInput() {
