@@ -14,11 +14,20 @@ public class Position {
     }
 
     public Position(String sourcePosition) {
+        validateChessNotation(sourcePosition);
         char rowNotation = sourcePosition.charAt(1);
         char colNotation = sourcePosition.charAt(0);
 
         this.rankIndex = BOARD_LENGTH - (rowNotation - '0');
         this.fileIndex = colNotation - 'a';
+    }
+
+    private void validateChessNotation(String sourcePosition) {
+        char rowNotation = sourcePosition.charAt(1);
+        char colNotation = sourcePosition.charAt(0);
+        if (rowNotation < '1' || rowNotation > '8' || colNotation < 'a' || colNotation > 'h') {
+            throw new RuntimeException("유효하지 않은 위치 정보입니다");
+        }
     }
 
     public static boolean isValid(int rank, int file) {
