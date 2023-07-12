@@ -22,6 +22,39 @@ public abstract class Piece {
 
     public abstract List<Position> getPositionsOnRoute(Position start, Position dest);
 
+    public PieceColor getColor() {
+        return color;
+    }
+
+    public PieceType getType() {
+        return type;
+    }
+
+    public boolean matchesColorAndType(PieceColor color, PieceType type) {
+        return matchesColor(color) && matchesType(type);
+    }
+
+    public boolean matchesColor(PieceColor color) {
+        return this.color.equals(color);
+    }
+
+    public boolean matchesType(PieceType type) {
+        return this.type.equals(type);
+    }
+
+    public double getDefaultPoint() {
+        return type.getDefaultPoint();
+    }
+
+    public boolean isPawn() {
+        return type.equals(PAWN);
+    }
+
+    public boolean isBlank() {
+        return type.equals(NO_PIECE);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,33 +74,5 @@ public abstract class Piece {
                 "color=" + color +
                 ", type=" + type +
                 '}';
-    }
-
-    public PieceColor getColor() {
-        return color;
-    }
-
-    public PieceType getType() {
-        return type;
-    }
-
-    public boolean matchesColorAndType(PieceColor color, PieceType type) {
-        return this.color.equals(color) && this.type.equals(type);
-    }
-
-    public boolean matchesColor(PieceColor color) {
-        return this.color.equals(color);
-    }
-
-    public double getDefaultPoint() {
-        return type.getDefaultPoint();
-    }
-
-    public boolean isPawn() {
-        return type.equals(PAWN);
-    }
-
-    public boolean isBlank() {
-        return type.equals(NO_PIECE);
     }
 }

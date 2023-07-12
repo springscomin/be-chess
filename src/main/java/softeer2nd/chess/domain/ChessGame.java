@@ -18,12 +18,25 @@ public class ChessGame {
 
     public void movePiece(Position sourcePosition, Position targetPosition) {
         Piece piece = board.findPieceByPosition(sourcePosition);
-        if (piece.isBlank()) throw new RuntimeException("Blank Piece 입니다.");
+        validateIsNotBlank(piece);
+
         List<Position> positionsOnRoute = piece.getPositionsOnRoute(sourcePosition, targetPosition);
-        if (positionsOnRoute.isEmpty()) throw new RuntimeException("이동할 수 없음.");
+        validateCanMoveTo(positionsOnRoute);
 
         board.removePiece(sourcePosition);
         board.addPiece(targetPosition, piece);
+    }
+
+    private void validateCanMoveTo(List<Position> positionsOnRoute) {
+        if (positionsOnRoute.isEmpty()) {
+            throw new RuntimeException("이동할 수 없음.");
+        }
+    }
+
+    private void validateIsNotBlank(Piece piece) {
+        if (piece.isBlank()) {
+            throw new RuntimeException("Blank Piece 입니다.");
+        }
     }
 
     public double calculatePoint(PieceColor color) {
@@ -33,14 +46,14 @@ public class ChessGame {
     }
 
     private double calculateFilePoint(int fileIndex, PieceColor color) {
-        List<Piece> piecesInFile = getPiecesInFile(fileIndex, color);
+        List<Piece> piecesInFile = findPiecesInFileByColor(fileIndex, color);
 
         double point = calPoint(piecesInFile);
         int numOfPawns = getNumOfPawns(piecesInFile);
         return point - calPenaltyPoint(numOfPawns);
     }
 
-    private List<Piece> getPiecesInFile(int fileIndex, PieceColor color) {
+    private List<Piece> findPiecesInFileByColor(int fileIndex, PieceColor color) {
         return board.findPiecesInFile(fileIndex)
                 .stream()
                 .filter(piece -> piece.matchesColor(color))

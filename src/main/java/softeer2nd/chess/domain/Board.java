@@ -107,7 +107,7 @@ public class Board {
 
     public void addPiece(Position position, Piece piece) {
         Rank rank = boards.get(position.getRankIndex());
-        rank.update(position.getFileIndex(), piece);
+        rank.add(position.getFileIndex(), piece);
     }
 
     public void removePiece(Position position) {

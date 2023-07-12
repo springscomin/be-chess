@@ -25,6 +25,14 @@ public class Position {
         return rank >= 0 && rank < BOARD_LENGTH && file >= 0 && file < BOARD_LENGTH;
     }
 
+    public int getRankIndex() {
+        return rankIndex;
+    }
+
+    public int getFileIndex() {
+        return fileIndex;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,13 +52,5 @@ public class Position {
                 "rankIndex=" + rankIndex +
                 ", fileIndex=" + fileIndex +
                 '}';
-    }
-
-    public int getRankIndex() {
-        return rankIndex;
-    }
-
-    public int getFileIndex() {
-        return fileIndex;
     }
 }

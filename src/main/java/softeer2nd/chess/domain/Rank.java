@@ -7,6 +7,8 @@ import softeer2nd.chess.domain.pieces.enums.PieceType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Rank {
     private final List<Piece> pieces;
@@ -15,7 +17,7 @@ public class Rank {
         this.pieces = pieces;
     }
 
-    public void update(int index, Piece piece) {
+    public void add(int index, Piece piece) {
         pieces.set(index, piece);
     }
 
@@ -28,32 +30,26 @@ public class Rank {
     }
 
     public List<Piece> findByColor(PieceColor color) {
-        List<Piece> findPieces = new ArrayList<>();
-        for (Piece piece : pieces) {
-            if (piece.matchesColor(color)) {
-                findPieces.add(piece);
-            }
-        }
-        return findPieces;
+        return pieces.stream()
+                .filter(piece -> piece.matchesColor(color))
+                .collect(Collectors.toList());
     }
 
     public int countPieces() {
-        int pieceCount = 0;
-        for (Piece piece : pieces) {
-            if (piece.isBlank()) continue;
-            pieceCount++;
-        }
-        return pieceCount;
+        return (int) pieces.stream()
+                .filter(piece -> !piece.isBlank())
+                .count();
     }
 
     public int countPieceByColorAndType(PieceColor color, PieceType type) {
-        int count = 0;
-        for (Piece piece : pieces) {
-            if (piece.matchesColorAndType(color, type)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) pieces.stream()
+                .filter(piece -> piece.matchesColorAndType(color, type))
+                .count();
+    }
+
+    public void remove(Position position) {
+        Piece blankPiece = Blank.create();
+        pieces.set(position.getFileIndex(), blankPiece);
     }
 
     public static Rank createBlankRank() {
@@ -65,18 +61,18 @@ public class Rank {
     }
 
     public static Rank CreateWhitePawnRank() {
-        List<Piece> whitePawns = new ArrayList<>();
-        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
-            whitePawns.add(Pawn.createWhite());
-        }
+        List<Piece> whitePawns =
+                IntStream.range(0, Board.BOARD_LENGTH)
+                        .mapToObj(fileIdx -> Pawn.createWhite())
+                        .collect(Collectors.toList());
         return new Rank(whitePawns);
     }
 
     public static Rank CreateBlackPawnRank() {
-        List<Piece> blackPawns = new ArrayList<>();
-        for (int fileIndex = 0; fileIndex < Board.BOARD_LENGTH; fileIndex++) {
-            blackPawns.add(Pawn.createBlack());
-        }
+        List<Piece> blackPawns =
+                IntStream.range(0, Board.BOARD_LENGTH)
+                        .mapToObj(fileIdx -> Pawn.createBlack())
+                        .collect(Collectors.toList());
         return new Rank(blackPawns);
     }
 
@@ -104,26 +100,5 @@ public class Rank {
         blackOfficers.add(Knight.createBlack());
         blackOfficers.add(Rook.createBlack());
         return new Rank(blackOfficers);
-    }
-
-    public double getPiecePointAtIndex(int fileIndex, PieceColor color) {
-        Piece piece = pieces.get(fileIndex);
-        if (piece.matchesColor(color)) {
-            return piece.getDefaultPoint();
-        }
-        return 0;
-    }
-
-    public boolean isPiecePawn(int fileIndex, PieceColor color) {
-        Piece piece = pieces.get(fileIndex);
-        if (!piece.matchesColor(color)) {
-            return false;
-        }
-        return piece.isPawn();
-    }
-
-    public void remove(Position position) {
-        Piece blankPiece = Blank.create();
-        pieces.set(position.getFileIndex(), blankPiece);
     }
 }

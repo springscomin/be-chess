@@ -9,9 +9,14 @@ import java.util.List;
 
 public class Game {
     private Board board;
-    private ChessGame game;
-    public void init() {
+    private ChessGame chessGame;
 
+    // TODO
+    // 턴 개념 추가
+
+    public void init() {
+        board = Board.createInitialBoard();
+        chessGame = new ChessGame(board);
     }
 
     public List<List<Piece>> getBoard() {
@@ -19,6 +24,6 @@ public class Game {
     }
 
     public void movePiece(String sourcePosition, String destPosition) {
-        game.movePiece(new Position(sourcePosition), new Position(destPosition));
+        chessGame.movePiece(new Position(sourcePosition), new Position(destPosition));
     }
 }

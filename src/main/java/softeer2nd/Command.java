@@ -1,6 +1,10 @@
 package softeer2nd;
 
 public class Command {
+    public enum CommandType {
+        START, END, MOVE;
+    }
+
     private final CommandType commandType;
     private final String[] args;
 
@@ -8,6 +12,7 @@ public class Command {
         this.commandType = commandType;
         this.args = null;
     }
+
     public Command(CommandType commandType, String... args) {
         this.commandType = commandType;
         this.args = args;
