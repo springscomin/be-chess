@@ -1,4 +1,4 @@
-package softeer2nd.chess.controller;
+package softeer2nd.chess;
 
 import softeer2nd.chess.domain.Board;
 import softeer2nd.chess.domain.ChessGame;
@@ -7,12 +7,11 @@ import softeer2nd.chess.domain.pieces.Piece;
 
 import java.util.List;
 
-public class ChessController {
+public class Game {
     private Board board;
     private ChessGame game;
     public void init() {
-        board = Board.createInitialBoard();
-        game = new ChessGame(board);
+
     }
 
     public List<List<Piece>> getBoard() {
