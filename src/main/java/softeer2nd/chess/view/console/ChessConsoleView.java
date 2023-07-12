@@ -5,16 +5,24 @@ import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 import softeer2nd.chess.view.ChessView;
+import softeer2nd.utils.StringUtils;
 
 import java.util.List;
 import java.util.Scanner;
 
+import static softeer2nd.chess.domain.Board.BOARD_LENGTH;
 import static softeer2nd.utils.StringUtils.NEWLINE;
 
 public class ChessConsoleView implements ChessView {
+
+    public static final String START = "start";
+    public static final String END = "end";
+    public static final String MOVE = "move";
+
     @Override
     public Command getCommand() {
         String stringCommand = getConsoleInput();
+        showEmptyLine();
         return parseCommand(stringCommand);
     }
 
@@ -22,13 +30,13 @@ public class ChessConsoleView implements ChessView {
         String[] commands = stringCommand.split(" ");
         String operation = commands[0];
 
-        if (operation.equals("start")) {
+        if (operation.equals(START)) {
             return new Command(Command.CommandType.START);
         }
-        if (operation.equals("end")) {
+        if (operation.equals(END)) {
             return new Command(Command.CommandType.END);
         }
-        if (operation.equals("move")) {
+        if (operation.equals(MOVE)) {
             return new Command(Command.CommandType.MOVE, commands[1], commands[2]);
         }
         throw new RuntimeException("올바른 명령 아님");
@@ -46,20 +54,27 @@ public class ChessConsoleView implements ChessView {
 
     @Override
     public void showMessage(String message) {
-        System.out.println(message);
+        message = StringUtils.appendNewLine(message);
+        System.out.print(message);
     }
 
     @Override
-    public void showError(RuntimeException e) {
-        showMessage(e.getMessage());
+    public void showError(RuntimeException error) {
+        showMessage("[error] : " + error.getMessage());
+    }
+
+    private void showEmptyLine() {
+        showMessage("");
     }
 
     private String makeBoardRepresentation(final List<List<Piece>> board) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (List<Piece> rank : board) {
+        for (int rankIndex = 0; rankIndex < BOARD_LENGTH; rankIndex++) {
+            List<Piece> rank = board.get(rankIndex);
             String rankRepresentation = makeRankRepresentation(rank);
-            stringBuilder.append(rankRepresentation).append(NEWLINE);
+            stringBuilder.append(rankRepresentation).append(" ").append(BOARD_LENGTH - rankIndex).append(NEWLINE);
         }
+        stringBuilder.append("abcdefgh");
         return stringBuilder.toString();
     }
 

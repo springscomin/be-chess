@@ -12,8 +12,8 @@ public class ChessApp {
     private Game game;
 
     public void run() {
-        chessView.showMessage("체스 게임\n시작 : start, 종료 : end");
-
+        chessView.showMessage("체스 게임");
+        chessView.showMessage("시작 : start, 종료 : end");
         while (true) {
             try {
                 Command command = chessView.getCommand();
