@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.logic;
 
 import softeer2nd.chess.domain.Board;
 import softeer2nd.chess.domain.pieces.Piece;

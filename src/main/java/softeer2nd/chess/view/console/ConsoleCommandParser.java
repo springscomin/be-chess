@@ -1,6 +1,6 @@
 package softeer2nd.chess.view.console;
 
-import softeer2nd.Command;
+import softeer2nd.chess.flow.Command;
 
 import static softeer2nd.chess.view.console.ChessConsoleView.*;
 

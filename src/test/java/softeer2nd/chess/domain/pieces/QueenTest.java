@@ -58,5 +58,4 @@ class QueenTest {
                 arguments("a8", "b6", Collections.emptyList())
         );
     }
-
 }

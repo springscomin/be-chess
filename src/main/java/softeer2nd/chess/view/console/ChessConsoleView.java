@@ -1,18 +1,18 @@
 package softeer2nd.chess.view.console;
 
-import softeer2nd.Command;
-import softeer2nd.chess.Turn;
+import softeer2nd.chess.flow.Command;
+import softeer2nd.chess.flow.Turn;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
 import softeer2nd.chess.view.ChessView;
-import softeer2nd.utils.StringUtils;
+import softeer2nd.chess.utils.StringUtils;
 
 import java.util.List;
 import java.util.Scanner;
 
 import static softeer2nd.chess.domain.Board.BOARD_LENGTH;
-import static softeer2nd.utils.StringUtils.NEWLINE;
+import static softeer2nd.chess.utils.StringUtils.NEWLINE;
 
 public class ChessConsoleView implements ChessView {
 

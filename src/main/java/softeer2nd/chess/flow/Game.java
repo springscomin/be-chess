@@ -1,9 +1,11 @@
-package softeer2nd.chess;
+package softeer2nd.chess.flow;
 
 import softeer2nd.chess.domain.Board;
 import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.logic.PieceMover;
+import softeer2nd.chess.logic.ScoreCalculator;
 
 import java.util.List;
 

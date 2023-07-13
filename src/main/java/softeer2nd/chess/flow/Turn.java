@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.flow;
 
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 

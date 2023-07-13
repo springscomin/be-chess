@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.logic;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import softeer2nd.chess.domain.pieces.Pawn;
 import softeer2nd.chess.domain.pieces.Queen;
 import softeer2nd.chess.domain.pieces.Rook;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.logic.ScoreCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

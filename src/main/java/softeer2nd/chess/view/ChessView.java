@@ -1,7 +1,7 @@
 package softeer2nd.chess.view;
 
-import softeer2nd.Command;
-import softeer2nd.chess.Turn;
+import softeer2nd.chess.flow.Command;
+import softeer2nd.chess.flow.Turn;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 

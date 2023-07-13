@@ -1,4 +1,4 @@
-package softeer2nd;
+package softeer2nd.chess.flow;
 
 public class Command {
     public enum CommandType {
