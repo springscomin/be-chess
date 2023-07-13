@@ -9,17 +9,18 @@ import softeer2nd.chess.domain.pieces.Pawn;
 import softeer2nd.chess.domain.pieces.Queen;
 import softeer2nd.chess.domain.pieces.Rook;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
-import softeer2nd.chess.logic.ScoreCalculator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("ScoreCalculator 테스트")
 class ScoreCalculatorTest {
+    ScoreCalculator scoreCalculator = new ScoreCalculator();
+
     @DisplayName("기물 점수 계산 기능 테스트")
     @Test
     void calculatePoint() {
         Board board = Board.createEmptyBoard();
-        ScoreCalculator scoreCalculator = new ScoreCalculator();
+
 
         board.addPiece(Position.fromChessNotation("b6"), Pawn.createBlack());
         board.addPiece(Position.fromChessNotation("e6"), Queen.createBlack());
@@ -33,5 +34,18 @@ class ScoreCalculatorTest {
 
         assertEquals(15.0, scoreCalculator.calculatePoint(board, PieceColor.BLACK), 0.01);
         assertEquals(7.0, scoreCalculator.calculatePoint(board, PieceColor.WHITE), 0.01);
+    }
+
+    @DisplayName("같은 색 폰이 동일한 열에 위치한다면 페널티 점수가 발생한다")
+    @Test
+    void penaltyPointTest() {
+        Board board = Board.createEmptyBoard();
+
+        board.addPiece(Position.fromChessNotation("a1"), Pawn.createWhite());
+        board.addPiece(Position.fromChessNotation("a2"), Pawn.createWhite());
+
+        double point = scoreCalculator.calculatePoint(board, PieceColor.WHITE);
+
+        assertEquals(1.0, point, 0.01);
     }
 }
