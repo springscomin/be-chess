@@ -24,8 +24,9 @@ public class Pawn extends Piece {
         for (PieceDirection direction : positionsOnDirection.keySet()) {
             List<Position> positions = positionsOnDirection.get(direction);
             if (positions.contains(dest)) {
-                return positions;
-            }
+                int destIndex = positions.indexOf(dest);
+                return positions.subList(0, destIndex + 1);
+            };
         }
         return Collections.emptyList();
     }
