@@ -34,11 +34,11 @@ public class KnightTest {
     void findPositionsOnRouteTest(String from, String to, List<String> stringRoutes) {
         Knight whiteKnight = Knight.createWhite();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = whiteKnight.getPositionsOnRoute(new Position(from), new Position(to));
+                = whiteKnight.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }

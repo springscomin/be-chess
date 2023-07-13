@@ -26,7 +26,7 @@ public class Game {
     public void movePiece(String sourcePosition, String destPosition) {
         try {
             PieceColor color = turn.next();
-            pieceMover.movePiece(board, new Position(sourcePosition), new Position(destPosition), color);
+            pieceMover.movePiece(board, Position.fromChessNotation(sourcePosition), Position.fromChessNotation(destPosition), color);
         } catch (RuntimeException exception) {
             turn.back();
             throw exception;

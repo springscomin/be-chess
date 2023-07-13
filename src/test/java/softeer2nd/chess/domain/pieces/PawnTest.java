@@ -34,11 +34,11 @@ class PawnTest {
     void findPositionsOnRoute_black_pawn_Test(String from, String to, List<String> stringRoutes) {
         Pawn blackPawn = Pawn.createBlack();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = blackPawn.getPositionsOnRoute(new Position(from), new Position(to));
+                = blackPawn.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }
@@ -49,11 +49,11 @@ class PawnTest {
     void findPositionsOnRoute_white_pawn_Test(String from, String to, List<String> stringRoutes) {
         Pawn whitePawn = Pawn.createWhite();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = whitePawn.getPositionsOnRoute(new Position(from), new Position(to));
+                = whitePawn.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }

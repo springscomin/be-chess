@@ -35,11 +35,11 @@ class QueenTest {
     void findPositionsOnRouteTest(String from, String to, List<String> stringRoutes) {
         Queen whiteQueen = Queen.createWhite();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = whiteQueen.getPositionsOnRoute(new Position(from), new Position(to));
+                = whiteQueen.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }

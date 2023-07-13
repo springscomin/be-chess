@@ -17,8 +17,8 @@ class PieceMoverTest {
         Board board = Board.createInitialBoard();
         PieceMover game = new PieceMover();
 
-        Position sourcePosition = new Position("b2");
-        Position targetPosition = new Position("b3");
+        Position sourcePosition = Position.fromChessNotation("b2");
+        Position targetPosition = Position.fromChessNotation("b3");
         Queen blackQueen = Queen.createBlack();
         board.addPiece(sourcePosition, blackQueen);
 

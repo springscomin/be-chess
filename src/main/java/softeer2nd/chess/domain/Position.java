@@ -13,16 +13,17 @@ public class Position {
         this.fileIndex = fileIndex;
     }
 
-    public Position(String sourcePosition) {
+    public static Position fromChessNotation(String sourcePosition) {
         validateChessNotation(sourcePosition);
         char rowNotation = sourcePosition.charAt(1);
         char colNotation = sourcePosition.charAt(0);
 
-        this.rankIndex = BOARD_LENGTH - (rowNotation - '0');
-        this.fileIndex = colNotation - 'a';
+        int rankIndex = BOARD_LENGTH - (rowNotation - '0');
+        int fileIndex = colNotation - 'a';
+        return new Position(rankIndex, fileIndex);
     }
 
-    private void validateChessNotation(String sourcePosition) {
+    private static void validateChessNotation(String sourcePosition) {
         char rowNotation = sourcePosition.charAt(1);
         char colNotation = sourcePosition.charAt(0);
         if (rowNotation < '1' || rowNotation > '8' || colNotation < 'a' || colNotation > 'h') {

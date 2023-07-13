@@ -34,11 +34,11 @@ class RookTest {
     void findPositionsOnRouteTest(String from, String to, List<String> stringRoutes) {
         Rook whiteRook = Rook.createWhite();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = whiteRook.getPositionsOnRoute(new Position(from), new Position(to));
+                = whiteRook.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }

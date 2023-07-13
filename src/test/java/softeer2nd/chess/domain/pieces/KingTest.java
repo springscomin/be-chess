@@ -34,11 +34,11 @@ class KingTest {
     void findPositionsOnRouteTest(String from, String to, List<String> stringRoutes) {
         King blackKing = King.createBlack();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = blackKing.getPositionsOnRoute(new Position(from), new Position(to));
+                = blackKing.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }

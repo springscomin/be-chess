@@ -19,15 +19,15 @@ class ScoreCalculatorTest {
         Board board = Board.createEmptyBoard();
         ScoreCalculator scoreCalculator = new ScoreCalculator();
 
-        board.addPiece(new Position("b6"), Pawn.createBlack());
-        board.addPiece(new Position("e6"), Queen.createBlack());
-        board.addPiece(new Position("b8"), King.createBlack());
-        board.addPiece(new Position("c8"), Rook.createBlack());
+        board.addPiece(Position.fromChessNotation("b6"), Pawn.createBlack());
+        board.addPiece(Position.fromChessNotation("e6"), Queen.createBlack());
+        board.addPiece(Position.fromChessNotation("b8"), King.createBlack());
+        board.addPiece(Position.fromChessNotation("c8"), Rook.createBlack());
 
-        board.addPiece(new Position("f2"), Pawn.createWhite());
-        board.addPiece(new Position("g2"), Pawn.createWhite());
-        board.addPiece(new Position("e1"), Rook.createWhite());
-        board.addPiece(new Position("f1"), King.createWhite());
+        board.addPiece(Position.fromChessNotation("f2"), Pawn.createWhite());
+        board.addPiece(Position.fromChessNotation("g2"), Pawn.createWhite());
+        board.addPiece(Position.fromChessNotation("e1"), Rook.createWhite());
+        board.addPiece(Position.fromChessNotation("f1"), King.createWhite());
 
         assertEquals(15.0, scoreCalculator.calculatePoint(board, PieceColor.BLACK), 0.01);
         assertEquals(7.0, scoreCalculator.calculatePoint(board, PieceColor.WHITE), 0.01);

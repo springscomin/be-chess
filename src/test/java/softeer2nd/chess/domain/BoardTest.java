@@ -42,7 +42,7 @@ public class BoardTest {
     @CsvSource(value = {"a8,BLACK,ROOK", "h8,BLACK,ROOK", "a1,WHITE,ROOK", "h1,WHITE,ROOK"})
     public void findPieceTest(String coordinate, PieceColor expectedColor, PieceType expectedType) {
         Board board = Board.createInitialBoard();
-        Position position = new Position(coordinate);
+        Position position = Position.fromChessNotation(coordinate);
 
         Piece piece = board.findPieceByPosition(position);
 
@@ -53,7 +53,7 @@ public class BoardTest {
     @Test
     public void addNewPieceTest() {
         Board board = Board.createEmptyBoard();
-        Position position = new Position("d5");
+        Position position = Position.fromChessNotation("d5");
         Piece blackKing = King.createBlack();
 
         board.addPiece(position, blackKing);
@@ -67,9 +67,9 @@ public class BoardTest {
     @Test
     public void getSortedPiecesTest() {
         Board board = Board.createEmptyBoard();
-        board.addPiece(new Position("b6"), Pawn.createBlack());
-        board.addPiece(new Position("e6"), Queen.createBlack());
-        board.addPiece(new Position("c8"), Rook.createBlack());
+        board.addPiece(Position.fromChessNotation("b6"), Pawn.createBlack());
+        board.addPiece(Position.fromChessNotation("e6"), Queen.createBlack());
+        board.addPiece(Position.fromChessNotation("c8"), Rook.createBlack());
 
         List<Piece> ascendingBlackPieces = board.getSortedAscendingPieces(PieceColor.BLACK);
         List<Piece> descendingBlackPieces = board.getSortedDescendingPieces(PieceColor.BLACK);

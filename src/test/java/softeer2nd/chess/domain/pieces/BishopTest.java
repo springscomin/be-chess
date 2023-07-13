@@ -34,11 +34,11 @@ class BishopTest {
     void findPositionsOnRouteTest(String from, String to, List<String> stringRoutes) {
         Bishop whiteBishop = Bishop.createWhite();
         List<Position> routes = stringRoutes.stream()
-                .map(Position::new)
+                .map(Position::fromChessNotation)
                 .collect(Collectors.toList());
 
         List<Position> positionsOnRoute
-                = whiteBishop.getPositionsOnRoute(new Position(from), new Position(to));
+                = whiteBishop.getPositionsOnRoute(Position.fromChessNotation(from), Position.fromChessNotation(to));
 
         assertThat(positionsOnRoute).containsExactlyElementsOf(routes);
     }
