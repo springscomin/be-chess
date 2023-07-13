@@ -55,12 +55,12 @@ public class Board {
     }
 
     private void addWhitePawns() {
-        Rank whitePawns = Rank.CreateWhitePawnRank();
+        Rank whitePawns = Rank.createWhitePawnRank();
         boards.set(WHITE_PAWN_INIT_LINE, whitePawns);
     }
 
     private void addBlackPawns() {
-        Rank blackPawns = Rank.CreateBlackPawnRank();
+        Rank blackPawns = Rank.createBlackPawnRank();
         boards.set(BLACK_PAWN_INIT_LINE, blackPawns);
     }
 

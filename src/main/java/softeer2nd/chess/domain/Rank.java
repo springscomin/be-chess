@@ -60,7 +60,7 @@ public class Rank {
         return new Rank(blankPieces);
     }
 
-    public static Rank CreateWhitePawnRank() {
+    public static Rank createWhitePawnRank() {
         List<Piece> whitePawns =
                 IntStream.range(0, Board.BOARD_LENGTH)
                         .mapToObj(fileIdx -> Pawn.createWhite())
@@ -68,7 +68,7 @@ public class Rank {
         return new Rank(whitePawns);
     }
 
-    public static Rank CreateBlackPawnRank() {
+    public static Rank createBlackPawnRank() {
         List<Piece> blackPawns =
                 IntStream.range(0, Board.BOARD_LENGTH)
                         .mapToObj(fileIdx -> Pawn.createBlack())

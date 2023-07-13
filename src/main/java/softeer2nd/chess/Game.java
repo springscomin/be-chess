@@ -9,12 +9,13 @@ import java.util.List;
 
 public class Game {
     private Board board;
-    private ChessGame chessGame;
+    private PieceMover pieceMover;
+    private ScoreCalculator scoreCalculator;
     private Turn turn;
 
     public void init() {
         board = Board.createInitialBoard();
-        chessGame = new ChessGame(board);
+        pieceMover = new PieceMover();
         turn = new Turn();
     }
 
@@ -25,7 +26,7 @@ public class Game {
     public void movePiece(String sourcePosition, String destPosition) {
         try {
             PieceColor color = turn.next();
-            chessGame.movePiece(new Position(sourcePosition), new Position(destPosition), color);
+            pieceMover.movePiece(board, new Position(sourcePosition), new Position(destPosition), color);
         } catch (RuntimeException exception) {
             turn.back();
             throw exception;

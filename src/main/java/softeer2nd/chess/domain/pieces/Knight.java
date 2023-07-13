@@ -23,7 +23,6 @@ public class Knight extends Piece {
                 int destIndex = positions.indexOf(dest);
                 return positions.subList(0, destIndex + 1);
             }
-            ;
         }
         return Collections.emptyList();
     }
