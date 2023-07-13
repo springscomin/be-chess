@@ -1,7 +1,9 @@
-package softeer2nd.chess.domain;
+package softeer2nd.chess;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.domain.Board;
+import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.*;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
@@ -34,11 +36,13 @@ class ChessGameTest {
     public void moveTest() {
         Board board = Board.createInitialBoard();
         ChessGame game = new ChessGame(board);
+
         Position sourcePosition = new Position("b2");
         Position targetPosition = new Position("b3");
-        board.addPiece(sourcePosition, Queen.createBlack());
+        Queen blackQueen = Queen.createBlack();
+        board.addPiece(sourcePosition, blackQueen);
 
-        game.movePiece(sourcePosition, targetPosition);
+        game.movePiece(sourcePosition, targetPosition, PieceColor.BLACK);
 
         assertEquals(Blank.create(), board.findPieceByPosition(sourcePosition));
         assertEquals(Queen.createBlack(), board.findPieceByPosition(targetPosition));

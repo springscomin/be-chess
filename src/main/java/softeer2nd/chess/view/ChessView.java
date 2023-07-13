@@ -6,9 +6,11 @@ import softeer2nd.chess.domain.pieces.Piece;
 import java.util.List;
 
 public interface ChessView {
-    public Command getCommand();
+    Command getCommand();
 
-    public void showBoard(List<List<Piece>> boards);
+    void showBoard(List<List<Piece>> boards);
 
-    public void showMessage(String message);
+    void showMessage(String message);
+
+    void showError(RuntimeException e);
 }

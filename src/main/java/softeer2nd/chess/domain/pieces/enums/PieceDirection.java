@@ -39,6 +39,26 @@ public enum PieceDirection {
         return yDegree;
     }
 
+    public boolean isLinear() {
+        return isLinear(yDegree, xDegree);
+    }
+    public static boolean isLinear(int diffRank, int diffFile) {
+        Optional<PieceDirection> direction = linearDirection().stream()
+                .filter(pieceDirection -> pieceDirection.xDegree == diffFile)
+                .filter(pieceDirection -> pieceDirection.yDegree == diffRank)
+                .findAny();
+        return direction.isPresent();
+    }
+
+
+    public static boolean isDiagonal(int diffRank, int diffFile) {
+        Optional<PieceDirection> direction = diagonalDirection().stream()
+                .filter(pieceDirection -> pieceDirection.xDegree == diffFile)
+                .filter(pieceDirection -> pieceDirection.yDegree == diffRank)
+                .findAny();
+        return direction.isPresent();
+    }
+
     public static List<PieceDirection> linearDirection() {
         return Arrays.asList(NORTH, EAST, SOUTH, WEST);
     }
@@ -61,11 +81,5 @@ public enum PieceDirection {
 
     public static List<PieceDirection> blackPawnDirection() {
         return Arrays.asList(SOUTH, SOUTHEAST, SOUTHWEST);
-    }
-
-    public static Optional<PieceDirection> getDirection(int y, int x) {
-        return Arrays.stream(PieceDirection.values())
-                .filter(direction -> direction.getXDegree() == x && direction.getYDegree() == y)
-                .findAny();
     }
 }

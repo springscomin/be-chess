@@ -14,6 +14,7 @@ public class Position {
     }
 
     public Position(String sourcePosition) {
+        validateChessNotation(sourcePosition);
         char rowNotation = sourcePosition.charAt(1);
         char colNotation = sourcePosition.charAt(0);
 
@@ -21,8 +22,24 @@ public class Position {
         this.fileIndex = colNotation - 'a';
     }
 
+    private void validateChessNotation(String sourcePosition) {
+        char rowNotation = sourcePosition.charAt(1);
+        char colNotation = sourcePosition.charAt(0);
+        if (rowNotation < '1' || rowNotation > '8' || colNotation < 'a' || colNotation > 'h') {
+            throw new RuntimeException("유효하지 않은 위치 정보입니다");
+        }
+    }
+
     public static boolean isValid(int rank, int file) {
         return rank >= 0 && rank < BOARD_LENGTH && file >= 0 && file < BOARD_LENGTH;
+    }
+
+    public int getRankIndex() {
+        return rankIndex;
+    }
+
+    public int getFileIndex() {
+        return fileIndex;
     }
 
     @Override
@@ -44,13 +61,5 @@ public class Position {
                 "rankIndex=" + rankIndex +
                 ", fileIndex=" + fileIndex +
                 '}';
-    }
-
-    public int getRankIndex() {
-        return rankIndex;
-    }
-
-    public int getFileIndex() {
-        return fileIndex;
     }
 }
