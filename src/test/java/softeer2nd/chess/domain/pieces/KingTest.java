@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@DisplayName("King 테스트")
 class KingTest {
     @DisplayName("White King 생성 테스트")
     @Test

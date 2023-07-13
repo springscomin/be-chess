@@ -18,7 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@DisplayName("Knight 테스트")
 public class KnightTest {
+
     @DisplayName("White Knight 생성 테스트")
     @Test
     void createTest() {

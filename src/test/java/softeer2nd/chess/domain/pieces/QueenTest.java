@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@DisplayName("Queen 테스트")
 class QueenTest {
 
     @DisplayName("Black Queen 생성 테스트")
