@@ -12,6 +12,7 @@ import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("ScoreCalculator 테스트")
 class ScoreCalculatorTest {
     @DisplayName("기물 점수 계산 기능 테스트")
     @Test

@@ -23,10 +23,12 @@ public class Game {
         return board.showBoard();
     }
 
-    public void movePiece(String sourcePosition, String destPosition) {
+    public void movePiece(String source, String destination) {
         try {
-            PieceColor color = turn.next();
-            pieceMover.movePiece(board, Position.fromChessNotation(sourcePosition), Position.fromChessNotation(destPosition), color);
+            PieceColor turn = this.turn.next();
+            Position sourcePosition = Position.fromChessNotation(source);
+            Position destPosition = Position.fromChessNotation(destination);
+            pieceMover.movePiece(board, sourcePosition, destPosition, turn);
         } catch (RuntimeException exception) {
             turn.back();
             throw exception;

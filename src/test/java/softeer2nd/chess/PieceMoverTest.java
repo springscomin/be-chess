@@ -9,6 +9,7 @@ import softeer2nd.chess.domain.pieces.enums.PieceColor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("PieceMover 테스트")
 class PieceMoverTest {
 
     @DisplayName("기물 이동 기능 테스트")
