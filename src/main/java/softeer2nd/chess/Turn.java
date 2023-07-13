@@ -21,4 +21,8 @@ public class Turn {
     public void back() {
         next();
     }
+
+    public boolean isWhiteTurn() {
+        return color == PieceColor.WHITE;
+    }
 }

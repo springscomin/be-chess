@@ -2,6 +2,7 @@ package softeer2nd;
 
 import softeer2nd.chess.Game;
 import softeer2nd.chess.domain.pieces.Piece;
+import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.view.ChessView;
 import softeer2nd.chess.view.console.ChessConsoleView;
 
@@ -12,7 +13,7 @@ public class ChessApp {
     private Game game;
 
     public void run() {
-        chessView.showMessage("체스 게임");
+        chessView.showInfo();
         chessView.showMessage("시작 : start, 종료 : end");
         while (true) {
             try {
@@ -33,6 +34,13 @@ public class ChessApp {
         }
         game = new Game();
         game.init();
+    }
+
+    private void showScore() {
+        double blackTeamScore = game.getScore(PieceColor.BLACK);
+        double whiteTeamScore = game.getScore(PieceColor.WHITE);
+        chessView.showScore(PieceColor.BLACK, blackTeamScore);
+        chessView.showScore(PieceColor.WHITE, whiteTeamScore);
     }
 
     private void showBoard() {

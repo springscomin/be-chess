@@ -16,6 +16,7 @@ public class Game {
     public void init() {
         board = Board.createInitialBoard();
         pieceMover = new PieceMover();
+        scoreCalculator = new ScoreCalculator();
         turn = new Turn();
     }
 
@@ -33,5 +34,9 @@ public class Game {
             turn.back();
             throw exception;
         }
+    }
+
+    public double getScore(PieceColor color) {
+        return scoreCalculator.calculatePoint(board, color);
     }
 }

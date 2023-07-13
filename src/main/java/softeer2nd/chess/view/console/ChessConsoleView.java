@@ -1,6 +1,7 @@
 package softeer2nd.chess.view.console;
 
 import softeer2nd.Command;
+import softeer2nd.chess.Turn;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.domain.pieces.enums.PieceType;
@@ -22,9 +23,23 @@ public class ChessConsoleView implements ChessView {
     public ConsoleCommandParser commandParser = new ConsoleCommandParser();
 
     @Override
-    public Command getCommand() {
+    public void showInfo() {
+        showMessage("체스 게임에 오신걸 환영합니다.");
+        showMessage("게임을 시작하려면 \"start\"를 입력하세요.");
+    }
+
+    @Override
+    public void showTurn(Turn turn) {
         showEmptyLine();
-        showMessage("명령어를 입력하세요.");
+        if (turn.isWhiteTurn()) {
+            showMessage("White 차례입니다.");
+            return;
+        }
+        showMessage("Black 차례입니다.");
+    }
+
+    @Override
+    public Command getCommand() {
         String stringCommand = getConsoleInput();
         showEmptyLine();
         return commandParser.parseCommand(stringCommand);
@@ -51,18 +66,23 @@ public class ChessConsoleView implements ChessView {
         showMessage("[error] : " + error.getMessage());
     }
 
+    @Override
+    public void showScore(PieceColor pieceColor, double whiteTeamScore) {
+        showMessage(pieceColor + " 의 점수는 " + whiteTeamScore + "입니다.");
+    }
+
     private void showEmptyLine() {
         showMessage("");
     }
 
     private String makeBoardRepresentation(final List<List<Piece>> board) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(NEWLINE);
         for (int rankIndex = 0; rankIndex < BOARD_LENGTH; rankIndex++) {
             List<Piece> rank = board.get(rankIndex);
             String rankRepresentation = makeRankRepresentation(rank);
-            stringBuilder.append(rankRepresentation).append(" ").append(BOARD_LENGTH - rankIndex).append(NEWLINE);
+            stringBuilder.append(rankRepresentation).append("|").append(BOARD_LENGTH - rankIndex).append(NEWLINE);
         }
-        stringBuilder.append("abcdefgh");
+        stringBuilder.append("--------").append(NEWLINE).append("abcdefgh");
         return stringBuilder.toString();
     }
 
