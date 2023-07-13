@@ -4,6 +4,7 @@ import softeer2nd.chess.domain.Board;
 import softeer2nd.chess.domain.Position;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
+import softeer2nd.chess.domain.pieces.enums.PieceDirection;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,22 +21,59 @@ public class ChessGame {
 
     public void movePiece(Position sourcePosition, Position targetPosition, PieceColor color) {
         Piece piece = board.findPieceByPosition(sourcePosition);
-        validateMatchColor(piece, color);
+        verifyMatchColor(piece, color);
 
         List<Position> positionsOnRoute = piece.getPositionsOnRoute(sourcePosition, targetPosition);
-        validateCanMoveTo(positionsOnRoute);
+        verifyRouteExist(positionsOnRoute);
+        verifyNoPieceOnRoute(positionsOnRoute, color);
+
+        if (piece.isPawn()) {
+            verifyPawnMove(sourcePosition, targetPosition);
+        }
 
         board.removePiece(sourcePosition);
         board.addPiece(targetPosition, piece);
     }
 
-    private void validateCanMoveTo(List<Position> positionsOnRoute) {
+    private void verifyPawnMove(Position sourcePosition, Position targetPosition) {
+        int diffRank = targetPosition.getRankIndex() - sourcePosition.getRankIndex();
+        int diffFile = targetPosition.getFileIndex() - sourcePosition.getFileIndex();
+
+        if (PieceDirection.isDiagonal(diffRank, diffFile)) {
+            Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
+            if (pieceOnDestination.isBlank()) {
+                throw new RuntimeException("폰은 대각 방향의 빈 공간으로 이동할 수 없습니다.");
+            }
+        }
+        if (PieceDirection.isLinear(diffRank, diffFile)) {
+            Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
+            if (!pieceOnDestination.isBlank()) {
+                throw new RuntimeException("폰은 상대방 기물이 앞에 있을 때 전진할 수 없습니다.");
+            }
+        }
+    }
+
+    private void verifyNoPieceOnRoute(List<Position> positionsOnRoute, PieceColor color) {
+        Position destination = positionsOnRoute.remove(positionsOnRoute.size() - 1);
+        for (Position position : positionsOnRoute) {
+            Piece pieceOnRoute = board.findPieceByPosition(position);
+            if (!pieceOnRoute.isBlank()) {
+                throw new RuntimeException("경로상에 기물이 존재합니다.");
+            }
+        }
+        Piece pieceOnDestination = board.findPieceByPosition(destination);
+        if (pieceOnDestination.matchesColor(color)) {
+            throw new RuntimeException("경로상에 기물이 존재합니다.");
+        }
+    }
+
+    private void verifyRouteExist(List<Position> positionsOnRoute) {
         if (positionsOnRoute.isEmpty()) {
             throw new RuntimeException("이동할 수 없음.");
         }
     }
 
-    private void validateMatchColor(Piece piece, PieceColor color) {
+    private void verifyMatchColor(Piece piece, PieceColor color) {
         if (piece.matchesColor(color)) {
             return;
         }

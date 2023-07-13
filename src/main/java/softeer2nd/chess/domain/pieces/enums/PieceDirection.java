@@ -2,6 +2,7 @@ package softeer2nd.chess.domain.pieces.enums;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public enum PieceDirection {
     NORTH(0, -1),
@@ -36,6 +37,22 @@ public enum PieceDirection {
 
     public int getYDegree() {
         return yDegree;
+    }
+
+    public static boolean isLinear(int diffRank, int diffFile) {
+        Optional<PieceDirection> direction = linearDirection().stream()
+                .filter(pieceDirection -> pieceDirection.xDegree == diffFile)
+                .filter(pieceDirection -> pieceDirection.yDegree == diffRank)
+                .findAny();
+        return direction.isPresent();
+    }
+
+    public static boolean isDiagonal(int diffRank, int diffFile) {
+        Optional<PieceDirection> direction = diagonalDirection().stream()
+                .filter(pieceDirection -> pieceDirection.xDegree == diffFile)
+                .filter(pieceDirection -> pieceDirection.yDegree == diffRank)
+                .findAny();
+        return direction.isPresent();
     }
 
     public static List<PieceDirection> linearDirection() {
