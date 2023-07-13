@@ -23,4 +23,6 @@ public interface ChessView {
     void showError(RuntimeException e);
 
     void showScore(PieceColor pieceColor, double whiteTeamScore);
+
+    void showWinner(PieceColor winner);
 }

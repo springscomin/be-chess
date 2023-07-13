@@ -6,6 +6,7 @@ import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.logic.PieceMover;
 import softeer2nd.chess.logic.ScoreCalculator;
+import softeer2nd.chess.logic.WinnerDeterminer;
 
 import java.util.List;
 
@@ -13,12 +14,14 @@ public class Game {
     private Board board;
     private PieceMover pieceMover;
     private ScoreCalculator scoreCalculator;
+    private WinnerDeterminer winnerDeterminer;
     private Turn turn;
 
     public void init() {
         board = Board.createInitialBoard();
         pieceMover = new PieceMover();
         scoreCalculator = new ScoreCalculator();
+        winnerDeterminer = new WinnerDeterminer();
         turn = new Turn();
     }
 
@@ -44,5 +47,13 @@ public class Game {
 
     public Turn getTurn() {
         return turn;
+    }
+
+    public boolean isEnd() {
+        return winnerDeterminer.hasWinner(board);
+    }
+
+    public PieceColor findWinner() {
+        return winnerDeterminer.getWinner(board);
     }
 }

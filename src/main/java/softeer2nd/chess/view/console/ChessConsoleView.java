@@ -80,6 +80,11 @@ public class ChessConsoleView implements ChessView {
         showMessage(pieceColor + " 의 점수는 " + whiteTeamScore + "입니다.");
     }
 
+    @Override
+    public void showWinner(PieceColor winner) {
+        showMessage(winner + "의 승리입니다. 축하합니다!");
+    }
+
     private void showEmptyLine() {
         showMessage("");
     }

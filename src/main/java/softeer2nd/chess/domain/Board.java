@@ -7,6 +7,7 @@ import softeer2nd.chess.domain.pieces.enums.PieceType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -125,5 +126,12 @@ public class Board {
         List<Piece> sortedPieces = findPiecesByColor(color);
         sortedPieces.sort((piece1, piece2) -> (int) (piece2.getDefaultPoint() - piece1.getDefaultPoint()));
         return sortedPieces;
+    }
+
+    public Optional<Piece> findKingByColor(PieceColor pieceColor) {
+        return boards.stream()
+                .flatMap(rank -> rank.findByColor(pieceColor).stream())
+                .filter(Piece::isKing)
+                .findFirst();
     }
 }

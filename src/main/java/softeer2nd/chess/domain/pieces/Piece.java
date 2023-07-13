@@ -7,8 +7,7 @@ import softeer2nd.chess.domain.pieces.enums.PieceType;
 import java.util.List;
 import java.util.Objects;
 
-import static softeer2nd.chess.domain.pieces.enums.PieceType.NO_PIECE;
-import static softeer2nd.chess.domain.pieces.enums.PieceType.PAWN;
+import static softeer2nd.chess.domain.pieces.enums.PieceType.*;
 
 
 public abstract class Piece {
@@ -74,5 +73,9 @@ public abstract class Piece {
                 "color=" + color +
                 ", type=" + type +
                 '}';
+    }
+
+    public boolean isKing() {
+        return KING.equals(type);
     }
 }

@@ -31,10 +31,23 @@ public class ChessApp {
             if (command.isMove()) {
                 move(command);
             }
+            if (game.isEnd()) {
+                end();
+            }
             showScore();
         } catch (RuntimeException e) {
             chessView.showError(e);
         }
+    }
+
+    private void end() {
+        PieceColor winner = game.findWinner();
+        showWinner(winner);
+        exitGame();
+    }
+
+    private void showWinner(PieceColor winner) {
+        chessView.showWinner(winner);
     }
 
     private void start() {
