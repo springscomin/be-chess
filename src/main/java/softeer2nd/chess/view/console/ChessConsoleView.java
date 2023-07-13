@@ -25,6 +25,10 @@ public class ChessConsoleView implements ChessView {
     @Override
     public void showInfo() {
         showMessage("체스 게임에 오신걸 환영합니다.");
+    }
+
+    @Override
+    public void showRequestStart() {
         showMessage("게임을 시작하려면 \"start\"를 입력하세요.");
     }
 
@@ -40,9 +44,14 @@ public class ChessConsoleView implements ChessView {
 
     @Override
     public Command getCommand() {
-        String stringCommand = getConsoleInput();
-        showEmptyLine();
-        return commandParser.parseCommand(stringCommand);
+        while (true) {
+            try {
+                String stringCommand = getConsoleInput();
+                return commandParser.parseCommand(stringCommand);
+            } catch (RuntimeException e) {
+                showError(e);
+            }
+        }
     }
 
     public String getConsoleInput() {

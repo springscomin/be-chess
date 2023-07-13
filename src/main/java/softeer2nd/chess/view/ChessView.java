@@ -10,6 +10,8 @@ import java.util.List;
 public interface ChessView {
     void showInfo();
 
+    void showRequestStart();
+
     void showTurn(Turn turn);
 
     Command getCommand();

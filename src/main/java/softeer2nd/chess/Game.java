@@ -39,4 +39,8 @@ public class Game {
     public double getScore(PieceColor color) {
         return scoreCalculator.calculatePoint(board, color);
     }
+
+    public Turn getTurn() {
+        return turn;
+    }
 }

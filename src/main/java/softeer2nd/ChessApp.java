@@ -1,6 +1,7 @@
 package softeer2nd;
 
 import softeer2nd.chess.Game;
+import softeer2nd.chess.Turn;
 import softeer2nd.chess.domain.pieces.Piece;
 import softeer2nd.chess.domain.pieces.enums.PieceColor;
 import softeer2nd.chess.view.ChessView;
@@ -13,25 +14,51 @@ public class ChessApp {
     private Game game;
 
     public void run() {
-        chessView.showInfo();
-        chessView.showMessage("시작 : start, 종료 : end");
+        start();
         while (true) {
-            try {
-                Command command = chessView.getCommand();
-                if (command.isStart()) initSetting();
-                if (command.isEnd()) exitGame();
-                if (command.isMove()) move(command);
-                showBoard();
-            } catch (RuntimeException e) {
-                chessView.showError(e);
+            process();
+        }
+    }
+
+    private void process() {
+        showCurrentState();
+        try {
+            Command command = chessView.getCommand();
+            if (command.isEnd()) {
+                exitGame();
+            }
+            if (command.isMove()) {
+                move(command);
+            }
+            showScore();
+        } catch (RuntimeException e) {
+            chessView.showError(e);
+        }
+    }
+
+    private void start() {
+        chessView.showInfo();
+        while (true) {
+            chessView.showRequestStart();
+            Command command = chessView.getCommand();
+            if (command.isStart()) {
+                initSetting();
+                break;
             }
         }
     }
 
+    private void showCurrentState() {
+        showBoard();
+        showTurn();
+    }
+
+    private void showTurn() {
+        Turn turn = game.getTurn();
+        chessView.showTurn(turn);
+    }
+
     private void initSetting() {
-        if (game != null) {
-            throw new RuntimeException("이미 시작됨.");
-        }
         game = new Game();
         game.init();
     }
@@ -49,19 +76,12 @@ public class ChessApp {
     }
 
     private void move(Command command) {
-        verifyGameStarted();
         String[] args = command.getArgs();
         game.movePiece(args[0], args[1]);
     }
 
-    private void verifyGameStarted() {
-        if (game == null) {
-            throw new RuntimeException("Game이 진행되지 않았습니다.");
-        }
-    }
-
     private void exitGame() {
-        verifyGameStarted();
+        showScore();
         System.exit(0);
     }
 }
