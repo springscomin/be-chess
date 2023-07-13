@@ -95,7 +95,6 @@ public class ChessApp {
     }
 
     private void exitGame() {
-        showScore();
         System.exit(0);
     }
 }
