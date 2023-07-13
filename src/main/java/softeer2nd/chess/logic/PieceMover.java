@@ -11,12 +11,11 @@ import java.util.List;
 public class PieceMover {
     public void movePiece(Board board, Position sourcePosition, Position targetPosition, PieceColor color) {
         Piece piece = board.findPieceByPosition(sourcePosition);
-        verifyMatchColor(piece, color);
-
         List<Position> positionsOnRoute = piece.getPositionsOnRoute(sourcePosition, targetPosition);
+
+        verifyMatchColor(piece, color);
         verifyRouteExist(positionsOnRoute);
         verifyNoPieceOnRoute(board, positionsOnRoute, color);
-
         if (piece.isPawn()) {
             verifyPawnMove(board, sourcePosition, targetPosition);
         }
@@ -30,16 +29,24 @@ public class PieceMover {
         int diffFile = targetPosition.getFileIndex() - sourcePosition.getFileIndex();
 
         if (PieceDirection.isDiagonal(diffRank, diffFile)) {
-            Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
-            if (pieceOnDestination.isBlank()) {
-                throw new RuntimeException("폰은 대각 방향의 빈 공간으로 이동할 수 없습니다.");
-            }
+            verifyDiagonalDirection(board, targetPosition);
         }
         if (PieceDirection.isLinear(diffRank, diffFile)) {
-            Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
-            if (!pieceOnDestination.isBlank()) {
-                throw new RuntimeException("폰은 상대방 기물이 앞에 있을 때 전진할 수 없습니다.");
-            }
+            verifyLinearDirection(board, targetPosition);
+        }
+    }
+
+    private static void verifyLinearDirection(Board board, Position targetPosition) {
+        Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
+        if (!pieceOnDestination.isBlank()) {
+            throw new RuntimeException("폰은 상대방 기물이 앞에 있을 때 전진할 수 없습니다.");
+        }
+    }
+
+    private static void verifyDiagonalDirection(Board board, Position targetPosition) {
+        Piece pieceOnDestination = board.findPieceByPosition(targetPosition);
+        if (pieceOnDestination.isBlank()) {
+            throw new RuntimeException("폰은 대각 방향의 빈 공간으로 이동할 수 없습니다.");
         }
     }
 
@@ -51,6 +58,10 @@ public class PieceMover {
                 throw new RuntimeException("경로상에 기물이 존재합니다.");
             }
         }
+        verifyNoSameColorOnTarget(board, color, destination);
+    }
+
+    private static void verifyNoSameColorOnTarget(Board board, PieceColor color, Position destination) {
         Piece pieceOnDestination = board.findPieceByPosition(destination);
         if (pieceOnDestination.matchesColor(color)) {
             throw new RuntimeException("경로상에 기물이 존재합니다.");
