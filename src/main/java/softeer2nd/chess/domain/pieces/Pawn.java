@@ -7,6 +7,9 @@ import softeer2nd.chess.domain.pieces.enums.PieceType;
 
 import java.util.*;
 
+import static softeer2nd.chess.domain.Board.BLACK_PAWN_INIT_LINE;
+import static softeer2nd.chess.domain.Board.WHITE_PAWN_INIT_LINE;
+
 public class Pawn extends Piece {
     public static List<PieceDirection> whitePawnDirection = PieceDirection.whitePawnDirection();
     public static List<PieceDirection> blackPawnDirection = PieceDirection.blackPawnDirection();
@@ -34,15 +37,37 @@ public class Pawn extends Piece {
         if (this.getColor().equals(PieceColor.WHITE)) {
             directions = whitePawnDirection;
         }
+
         for (PieceDirection direction : directions) {
             List<Position> positions = new ArrayList<>();
-            addPositionsOnDirection(direction, start, positions);
+            if (direction.isLinear() && onInitLine(start)) {
+                addTwoPositionsOnDirection(direction, start, positions);
+                directionRoutes.put(direction, positions);
+                continue;
+            }
+            addPositionOnDirection(direction, start, positions);
             directionRoutes.put(direction, positions);
         }
         return directionRoutes;
     }
 
-    private void addPositionsOnDirection(PieceDirection direction, Position current, List<Position> positions) {
+    private boolean onInitLine(Position position) {
+        int rankIndex = position.getRankIndex();
+        if (matchesColor(PieceColor.BLACK) && rankIndex == BLACK_PAWN_INIT_LINE) {
+            return true;
+        }
+        if (matchesColor(PieceColor.WHITE) && rankIndex == WHITE_PAWN_INIT_LINE) {
+            return true;
+        }
+        return false;
+    }
+
+    private void addTwoPositionsOnDirection(PieceDirection direction, Position start, List<Position> positions) {
+        addPositionOnDirection(direction, start, positions);
+        addPositionOnDirection(direction, positions.get(0), positions);
+    }
+
+    private void addPositionOnDirection(PieceDirection direction, Position current, List<Position> positions) {
         int nextRank = current.getRankIndex() + direction.getYDegree();
         int nextFile = current.getFileIndex() + direction.getXDegree();
         if (!Position.isValid(nextRank, nextFile)) return;

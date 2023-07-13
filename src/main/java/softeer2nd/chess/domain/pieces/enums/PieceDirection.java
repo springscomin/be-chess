@@ -39,6 +39,9 @@ public enum PieceDirection {
         return yDegree;
     }
 
+    public boolean isLinear() {
+        return isLinear(yDegree, xDegree);
+    }
     public static boolean isLinear(int diffRank, int diffFile) {
         Optional<PieceDirection> direction = linearDirection().stream()
                 .filter(pieceDirection -> pieceDirection.xDegree == diffFile)
@@ -46,6 +49,7 @@ public enum PieceDirection {
                 .findAny();
         return direction.isPresent();
     }
+
 
     public static boolean isDiagonal(int diffRank, int diffFile) {
         Optional<PieceDirection> direction = diagonalDirection().stream()
