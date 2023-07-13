@@ -6,7 +6,7 @@ public class Turn {
     private PieceColor color;
 
     public Turn() {
-        color = PieceColor.BLACK;
+        color = PieceColor.WHITE;
     }
 
     public PieceColor next() {
@@ -24,5 +24,9 @@ public class Turn {
 
     public boolean isWhiteTurn() {
         return color == PieceColor.WHITE;
+    }
+
+    public PieceColor getColor() {
+        return color;
     }
 }
